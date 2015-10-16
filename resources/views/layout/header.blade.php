@@ -25,10 +25,10 @@
 									<input placeholder="ค้นหา" type="search" class="gn-search">
 									<a class="gn-icon gn-icon-search"><span>Search</span></a>
 								</li>
-								<li onclick="place_mykaset(1);">
+								<li id="my_fame">
 									<a class="gn-icon gn-icon-download">ข้อมูลฟาร์มตนเอง</a>
 								</li>
-								<li onclick="create_dashboard_row();"><a class="gn-icon gn-icon-cog">ติดตามข้อมูลเกษตรกร</a></li>
+								<li id="fame_management"><a class="gn-icon gn-icon-cog">จัดการข้อมูลการเพาะปลูก</a></li>
 								<!-- <li><a class="gn-icon gn-icon-help">ช่วยเหลือ</a></li> -->
 							</ul>
 						</div><!-- /gn-scroller -->

@@ -2,10 +2,10 @@
 //Javascript Library for chowkaset  Web Application 
 //for help web application make element by javascript
 
-//var site_url = 'http://localhost/chowkaset/public/index.php';
-//var base_url = 'http://localhost/chowkaset/public/';
-var site_url = 'http://172.16.1.1/~buu/chowkaset/public/index.php';
-var base_url = 'http://172.16.1.1/~buu/chowkaset/public/';
+var site_url = 'http://localhost/chowkaset/public/index.php';
+var base_url = 'http://localhost/chowkaset/public/';
+//var site_url = 'http://172.16.1.1/~buu/chowkaset/public/index.php';
+//var base_url = 'http://172.16.1.1/~buu/chowkaset/public/';
 function place_kaset(map_id) {
 
     var obj = '';
@@ -396,6 +396,7 @@ function drop_tooltip(){
     }
 }
 
+//เพิ่ม พื้นที่ปลูก
 function crate_row_new_crops(latlng){
     var str = '';
     str = latlng.name;
@@ -502,6 +503,8 @@ function crate_row_new_crops(latlng){
             form_group.appendChild(label_form_fname);
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','tel');
+            place_form_fname.setAttribute('pattern','[0-9]{3}-[0-9]{7}');
+            place_form_fname.setAttribute('title','080-0000000');
             place_form_fname.setAttribute('placeholder','เบอร์โทรศัพท์');
             place_form_fname.setAttribute('class','form-control inp-2');
             place_form_fname.disabled = true;
@@ -551,38 +554,7 @@ function crate_row_new_crops(latlng){
             select_prefix.style.float = 'left';
             select_prefix.style.marginLeft = '20px';
             form_group.appendChild(select_prefix);
-            var option_prefix = document.createElement("option");
-            option_prefix.setAttribute('value','1');
-            option_prefix.innerHTML = 'กำแพงเพชร';
-            select_prefix.appendChild(option_prefix);
-
-            var select_prefix = document.createElement("select");
-            select_prefix.setAttribute('class','form-control inp-4');
-            select_prefix.setAttribute('name','aumphur');
-            select_prefix.style.float = 'left';
-            select_prefix.style.marginLeft = '20px';
-            form_group.appendChild(select_prefix);
-
-            var option_prefix = document.createElement("option");
-            option_prefix.setAttribute('value','1');
-            option_prefix.innerHTML = 'คลองขลุง';
-            select_prefix.appendChild(option_prefix);
-            var option_prefix = document.createElement("option");
-            option_prefix.setAttribute('value','2');
-            option_prefix.innerHTML = 'คลองคลาน';
-            select_prefix.appendChild(option_prefix);
-            var option_prefix = document.createElement("option");
-            option_prefix.setAttribute('value','3');
-            option_prefix.innerHTML = 'เมืองกำแพงเพชร';
-            select_prefix.appendChild(option_prefix);
-            var option_prefix = document.createElement("option");
-            option_prefix.setAttribute('value','3');
-            option_prefix.innerHTML = 'พรานกระต่าย';
-            select_prefix.appendChild(option_prefix);
-            var option_prefix = document.createElement("option");
-            option_prefix.setAttribute('value','3');
-            option_prefix.innerHTML = 'ปางศิลาทอง';
-            select_prefix.appendChild(option_prefix);
+            //ที่อยู่
 
             var hr = document.createElement("hr");
             form_group.appendChild(hr);
@@ -726,6 +698,8 @@ function crate_row_new_crops(latlng){
             form_group.appendChild(label_form_fname);
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','rai');
+            place_form_fname.setAttribute('pattern','[0-9]');
+            place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
             place_form_fname.setAttribute('placeholder','พื้นที่ปลูก (ไร่)');
             place_form_fname.setAttribute('class','form-control inp-3');
             place_form_fname.style.float = 'left';
@@ -734,6 +708,8 @@ function crate_row_new_crops(latlng){
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','ngarn');
             place_form_fname.setAttribute('placeholder','พื้นที่ปลูก (งาน)');
+            place_form_fname.setAttribute('pattern','[0-9]');
+            place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
             place_form_fname.setAttribute('class','form-control inp-3');
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '10px';
@@ -742,6 +718,8 @@ function crate_row_new_crops(latlng){
             place_form_fname.setAttribute('name','wah');
             place_form_fname.setAttribute('placeholder','พื้นที่ปลูก (ตารางวา)');
             place_form_fname.setAttribute('class','form-control inp-3');
+            place_form_fname.setAttribute('pattern','[0-9]');
+            place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '10px';
             form_group.appendChild(place_form_fname);
@@ -754,6 +732,8 @@ function crate_row_new_crops(latlng){
             var label_form_fname = document.createElement("label");
             label_form_fname.htmlFor = 'product';
             label_form_fname.innerHTML = "จำนวนผลผลิตที่คาดว่าจะได้รับ (ต่อไร่)";
+            place_form_fname.setAttribute('pattern','[0-9]');
+            place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
             form_group.appendChild(label_form_fname);
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','product');
@@ -807,387 +787,38 @@ function create_dashboard_row(){
     row.setAttribute('id','id_dashboard_row');
     row.setAttribute('class','col-md-12');
     document.getElementById("map_canvas").appendChild(row);
-
-    var col = document.createElement('div');
-    col.setAttribute('class','row');
-    col.style.backgroundColor = 'transparent';
-    
-    row.appendChild(col);
-    
-
-    var col_tow = document.createElement('div');
-    col_tow.setAttribute('class','card-dashboard col-md-8');
-    col_tow.style.height = '400px';
-    col_tow.style.marginTop = '20px';
-    col.appendChild(col_tow);
-    var block_head = document.createElement('div');
-    block_head.setAttribute('class','col-md-12 block_head');
-    block_head.style.height = '50px';
-    block_head.style.backgroundColor = '#54CFEC';
-    block_head.innerHTML = 'ความก้าวหน้าการเพาะปลูก';
-    col_tow.appendChild(block_head);
-    var col_tree = document.createElement('div');
-    col_tree.setAttribute('class','col-md-12 dashboard_in_block');
-    col_tree.style.height = '350px';
-    col_tow.appendChild(col_tree);
-
-    //dashboard ความก้าวหน้าการเพาะปลูก
-    var colum = document.createElement('div');
-    colum.style.height = '350px';
-    colum.style.width = '60%';
-    col_tree.appendChild(colum);
-
-    var progress_block = document.createElement('div');
-    progress_block.setAttribute('class','progress_block');
-    colum.appendChild(progress_block);
-
-    var lb = document.createElement('lb');
-    lb.setAttribute('class','name_progress');
-    lb.innerHTML = '1. ไร่สาธิต 1';
-    lb.style.width = '100%';
-    progress_block.appendChild(lb);
-
-    var progress = document.createElement('div');
-    progress.setAttribute('class','progress');
-    progress_block.appendChild(progress);
-
-    var progress_bar = document.createElement('div');
-    progress_bar.setAttribute('class','progress-bar progress-bar-success');
-    progress_bar.setAttribute('role','progressbar');
-    progress_bar.setAttribute('aria-valuenow','40');
-    progress_bar.setAttribute('aria-valuemin','0');
-    progress_bar.setAttribute('aria-valuemax','100');
-    progress_bar.style.width = '40%';
-    progress.appendChild(progress_bar);
-
-    var span = document.createElement('span');
-    span.setAttribute('class','sr-only');
-    span.innerHTML = 'สำเร็จ 40%';
-    progress_bar.appendChild(span);
-
-    var progress_block = document.createElement('div');
-    progress_block.setAttribute('class','progress_block');
-    colum.appendChild(progress_block);
-
-    var lb = document.createElement('lb');
-    lb.setAttribute('class','name_progress');
-    lb.innerHTML = '2. ไร่สาธิต 2';
-    lb.style.width = '100%';
-    progress_block.appendChild(lb);
-
-    var progress = document.createElement('div');
-    progress.setAttribute('class','progress');
-    progress_block.appendChild(progress);
-
-    var progress_bar = document.createElement('div');
-    progress_bar.setAttribute('class','progress-bar progress-bar-success');
-    progress_bar.setAttribute('role','progressbar');
-    progress_bar.setAttribute('aria-valuenow','50');
-    progress_bar.setAttribute('aria-valuemin','0');
-    progress_bar.setAttribute('aria-valuemax','100');
-    progress_bar.style.width = '50%';
-    progress.appendChild(progress_bar);
-
-    var span = document.createElement('span');
-    span.setAttribute('class','sr-only');
-    span.innerHTML = 'สำเร็จ 50%';
-    progress_bar.appendChild(span);
-
-    
-    var col_tow = document.createElement('div');
-    col_tow.setAttribute('class','card-dashboard col-md-4');
-    col_tow.style.height = '400px';
-    col_tow.style.marginTop = '20px';
-    col.appendChild(col_tow);
-    var block_head = document.createElement('div');
-    block_head.setAttribute('class','col-md-12 block_head');
-    block_head.style.height = '50px';
-    block_head.style.backgroundColor = '#FFB84B';
-    block_head.innerHTML = 'ตารางงานวันนี้';
-    col_tow.appendChild(block_head);
-    var col_tree = document.createElement('div');
-    col_tree.setAttribute('class','col-md-12 dashboard_in_block');
-    col_tree.style.height = '350px';
-    col_tow.appendChild(col_tree);
-
-    var div_part = document.createElement('div');
-    div_part.style.width = '100%';
-    div_part.style.height = '180px';
-    col_tree.appendChild(div_part);
-    var date = new Date();
-    var lb = document.createElement('label');
-    lb.innerHTML = 'วันที่';
-    lb.style.float = 'left';
-    lb.style.fontSize = '16px';
-    lb.style.paddingTop = '10px';
-    div_part.appendChild(lb);
-    var day = date.getDate();
-    var h1 = document.createElement('h1');
-    h1.innerHTML = day;
-    h1.style.float = 'left';
-    h1.style.fontSize = '100px';
-    if(day>=10){
-    h1.style.paddingLeft = '90px';
-    }else{
-    h1.style.paddingLeft = '115px';   
-    }
-    div_part.appendChild(h1);
-    var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
-    "เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
-    "ตุลาคม","พฤศจิกายน","ธันวาคม");
-    var h3 = document.createElement('h3');
-    h3.innerHTML = thmonth[(date.getMonth())]+" "+(0+date.getFullYear()+543);
-    h3.style.clear = 'both';
-    h3.style.textAlign = 'center';
-    h3.style.fontSize = '30px';
-    h3.style.width = '100%';
-
-    div_part.appendChild(h3);
-
-    var div_part = document.createElement('div');
-    div_part.style.width = '100%';
-    div_part.style.height = '140px';
-    col_tree.appendChild(div_part);
-
-    var table = document.createElement('table');
-    table.setAttribute('class','table table-bordered');
-    div_part.appendChild(table);
-
-    var tbody = document.createElement('tbody');
-    table.appendChild(tbody);
-
-    var tr = document.createElement('tr');
-    tbody.appendChild(tr);
-
-    var td = document.createElement('td');
-    td.innerHTML = 'วันนี้';
-    td.style.textAlign = 'center';
-    td.style.fontSize = '27px';
-    tr.appendChild(td);
-    var td = document.createElement('td');
-    td.innerHTML = 'ไม่มี';
-    td.style.textAlign = 'center';
-    td.style.fontSize = '27px';
-    tr.appendChild(td);
-
-    
-
-    var tr = document.createElement('tr');
-    tbody.appendChild(tr);
-
-    var td = document.createElement('td');
-    td.innerHTML = 'วันที่ 25';
-    td.style.textAlign = 'center';
-    td.style.fontSize = '27px';
-    tr.appendChild(td);
-    var td = document.createElement('td');
-    td.innerHTML = 'ไถนา';
-    td.style.textAlign = 'center';
-    td.style.fontSize = '27px';
-    tr.appendChild(td);
-
-    var tr = document.createElement('tr');
-    tbody.appendChild(tr);
-
-    var td = document.createElement('td');
-    td.innerHTML = 'วันที่ 27';
-    td.style.textAlign = 'center';
-    td.style.fontSize = '27px';
-    tr.appendChild(td);
-    var td = document.createElement('td');
-    td.innerHTML = 'หว่านเมล็ด';
-    td.style.textAlign = 'center';
-    td.style.fontSize = '27px';
-    tr.appendChild(td);
-
-
-    //row 2 
-    
-    var col_tow = document.createElement('div');
-    col_tow.setAttribute('class','card-dashboard col-md-4');
-    col_tow.style.height = '400px';
-    col_tow.style.marginTop = '20px';
-    col.appendChild(col_tow);
-    var block_head = document.createElement('div');
-    block_head.setAttribute('class','col-md-12 block_head');
-    block_head.style.height = '50px';
-    block_head.style.backgroundColor = '#9b59b6';
-    block_head.innerHTML = 'พูดคุยกับเจ้าหน้าที่';
-    col_tow.appendChild(block_head);
-    var col_tree = document.createElement('div');
-    col_tree.setAttribute('class','col-md-12 dashboard_in_block');
-    col_tree.style.height = '350px';
-    col_tow.appendChild(col_tree);
-
-
-    var col_tow = document.createElement('div');
-    col_tow.setAttribute('class','card-dashboard col-md-4');
-    col_tow.style.height = '400px';
-    col_tow.style.marginTop = '20px';
-    col.appendChild(col_tow);
-    var block_head = document.createElement('div');
-    block_head.setAttribute('class','col-md-12 block_head');
-    block_head.style.height = '50px';
-    block_head.style.backgroundColor = '#2ecc71';
-    block_head.innerHTML = 'สมุดเยี่ยมชม';
-    col_tow.appendChild(block_head);
-    var col_tree = document.createElement('div');
-    col_tree.setAttribute('class','col-md-12 dashboard_in_block');
-    col_tree.style.height = '350px';
-    col_tow.appendChild(col_tree);
-
-    var visiter = document.createElement('div');
-    visiter.setAttribute('class','visit_block');
-    col_tree.appendChild(visiter);
-
-    var visiter = document.createElement('div');
-    visiter.setAttribute('class','visit_block');
-    col_tree.appendChild(visiter);
-
-    var visiter = document.createElement('div');
-    visiter.setAttribute('class','visit_block');
-    col_tree.appendChild(visiter);
-
-    var visiter = document.createElement('div');
-    visiter.setAttribute('class','visit_block');
-    col_tree.appendChild(visiter);
-
-    var visiter = document.createElement('div');
-    visiter.setAttribute('class','visit_block');
-    col_tree.appendChild(visiter);
-
-    
-
-    var col_tow = document.createElement('div');
-    col_tow.setAttribute('class','card-dashboard col-md-4');
-    col_tow.style.height = '400px';
-    col_tow.style.marginBottom = '20px';
-    col_tow.style.marginTop = '20px';
-    col.appendChild(col_tow);
-    var block_head = document.createElement('div');
-    block_head.setAttribute('class','col-md-12 block_head');
-    block_head.style.height = '50px';
-    block_head.style.backgroundColor = '#34495e';
-    block_head.innerHTML = 'ความนิยม';
-    col_tow.appendChild(block_head);
-    var col_tree = document.createElement('div');
-    col_tree.setAttribute('class','col-md-12 dashboard_in_block');
-    col_tree.style.height = '350px';
-    col_tow.appendChild(col_tree);
-
-    var chart_container = document.createElement('div');
-    chart_container.setAttribute('id','charts_users_views');
-    chart_container.style.width = '100%';
-    chart_container.style.height = '300px';
-    chart_container
-    col_tree.appendChild(chart_container);
-    dashboard_graph();
-
     }
 }
-
-function show_dashboard(){
+/* จัดการการเพาะปลูก */
+function show_farm_management(){
     var id_dashboard_row = document.getElementById('id_dashboard_row');
     if(id_dashboard_row){
         id_dashboard_row.style.display = 'block';
     }
 }
 
-function dashboard_graph(){
-    $('#charts_users_views').highcharts({
-        chart: {
-            type: 'areaspline'
-        },
-        title: {
-            text: 'จำนวนคนเข้าชมอาทิตย์นี้'
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 150,
-            y: 100,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-        },
-        xAxis: {
-            categories: [
-                'วันจันทร์',
-                'วันอังคาร',
-                'วันพุธ',
-                'วันพฤหัส',
-                'วันศุกร์',
-                'วันเสาร์',
-                'วันอาทิตย์'
-            ],
-            plotBands: [{ // visualize the weekend
-                from: 4.5,
-                to: 6.5,
-                color: 'rgba(68, 170, 213, .2)'
-            }]
-        },
-        yAxis: {
-            title: {
-                text: 'จำนวนคนเข้าชม'
-            }
-        },
-        tooltip: {
-            shared: true,
-            valueSuffix: ' ครั้ง'
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            areaspline: {
-                fillOpacity: 0.5
-            }
-        },
-        series: [{
-            name: 'เข้าชมทั้งหมด',
-            data: [3, 4, 3, 5, 4, 10, 12]
-        }, {
-            name: 'เข้าชมและกดชื่นชอบ',
-            data: [1, 3, 4, 3, 3, 5, 4]
-        }]
-    });
-}
 function drag_move(){
-    // target elements with the "draggable" class
         interact('#id_col_place_kaset')
           .draggable({
-            // enable inertial throwing
             inertia: true,
-            // keep the element within the area of it's parent
             restrict: {
               restriction: "parent",
               endOnly: true,
               elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
             },
-
-            // call this function on every dragmove event
             onmove: dragMoveListener,
-            // call this function on every dragend event
             
           });
 
           function dragMoveListener (event) {
             var target = event.target,
-                // keep the dragged position in the data-x/data-y attributes
                 x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
                 y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-            // translate the element
             target.style.webkitTransform =
             target.style.transform =
               'translate(' + x + 'px, ' + y + 'px)';
-
-            // update the posiion attributes
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
           }
-
-          // this is used later in the resizing demo
           window.dragMoveListener = dragMoveListener;
 }

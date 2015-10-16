@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/bootstrap-theme.min.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/component-nav.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/chowkaset-style.min.css') !!}">
-	<script src="{{ URL::asset('assets/js/jquery-2.1.4.min.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 </head>
 <body>
