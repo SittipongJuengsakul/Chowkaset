@@ -69,16 +69,19 @@ function create_farm_management(){
 		    	div_menu_wrap.appendChild(card_menu);
 		    		var select_choose = document.createElement('select');
 	    			select_choose.setAttribute('class','farm_account_choose form-control');
+	    			select_choose.setAttribute('id','account_crops_list');
 	    			select_choose.setAttribute('onchange','account_table(this);');
 	    			card_menu.appendChild(select_choose);
-	    				var option_choose = document.createElement('option');
-	    				option_choose.setAttribute('value','1');
-	    				option_choose.innerHTML = 'ไร่ 1';
-	    				select_choose.appendChild(option_choose);
-	    				var option_choose = document.createElement('option');
-	    				option_choose.setAttribute('value','2');
-	    				option_choose.innerHTML = 'ไร่ 2';
-	    				select_choose.appendChild(option_choose);
+		    			$.ajax({
+							url: 'http://localhost/chowkaset/public/index.php'+"/api/v1/getCrops/2"
+						}).then(function(data) {
+							for(var i=0;i<=data.length;i++){
+								var option_choose = document.createElement('option');
+			    				option_choose.setAttribute('value',data[i].crop_id);
+			    				option_choose.innerHTML = data[i].crop_name;
+			    				document.getElementById('account_crops_list').appendChild(option_choose);
+			    			}
+						});
 	    				account_table();
 
 	    //ปัญหาการเพาะปลูก
@@ -95,14 +98,14 @@ function create_farm_management(){
 		    		var select_choose = document.createElement('select');
 	    			select_choose.setAttribute('class','farm_problem_choose form-control');
 	    			card_menu.appendChild(select_choose);
-	    			$.ajax({
-				        url: 'http://172.16.1.1/~buu/chowkaset/public/index.php'+"/api/v1/Auth"
-				    }).then(function(data) {
-				    	var option_choose = document.createElement('option');
+	    				var option_choose = document.createElement('option');
 	    				option_choose.setAttribute('value','1');
 	    				option_choose.innerHTML = 'ไร่ 1';
 	    				select_choose.appendChild(option_choose);
-				    }
+	    				var option_choose = document.createElement('option');
+	    				option_choose.setAttribute('value','2');
+	    				option_choose.innerHTML = 'ไร่ 2';
+	    				select_choose.appendChild(option_choose);
 	    	var div_menu_wrap = document.createElement('div');
 	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
 	    	farm_menu_farm_problem.appendChild(div_menu_wrap);

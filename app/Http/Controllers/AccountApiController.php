@@ -14,7 +14,7 @@ class AccountApiController extends Controller
 {
     public function getAccountData($crops_id)
     {
-    	$dataAccount = DB::table('crop_accounts')->where('acc_crop_id',$crops_id)->get();
+    	$dataAccount = DB::table('crop_accounts')->where('acc_crop_id','=',$crops_id)->get();
         return $dataAccount;
     }
 }
