@@ -25,10 +25,10 @@
 									<input placeholder="ค้นหา" type="search" class="gn-search">
 									<a class="gn-icon gn-icon-search"><span>Search</span></a>
 								</li>
-								<li id="my_fame">
+								<li id="my_farm">
 									<a class="gn-icon gn-icon-download">ข้อมูลฟาร์มตนเอง</a>
 								</li>
-								<li id="fame_management"><a class="gn-icon gn-icon-cog">จัดการข้อมูลการเพาะปลูก</a></li>
+								<li id="farm_management"><a class="gn-icon gn-icon-cog">จัดการข้อมูลการเพาะปลูก</a></li>
 								<!-- <li><a class="gn-icon gn-icon-help">ช่วยเหลือ</a></li> -->
 							</ul>
 						</div><!-- /gn-scroller -->

@@ -323,46 +323,6 @@ body {
 #new_crop_place_kaset .new_crop_place_kaset_content .area {
   width: 8% !important; }
 
-#id_dashboard_row {
-  background-color: transparent;
-  display: block;
-  overflow: scroll;
-  height: 100%;
-  padding: 0px; }
-#id_dashboard_row .row {
-  margin: 0% 2%; }
-#id_dashboard_row .row .card-dashboard {
-  padding-right: 15px;
-  padding-left: 15px;
-  background-color: transparent; }
-#id_dashboard_row .row .card-dashboard .dashboard_in_block {
-  background-color: white;
-  overflow: scroll;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px; }
-#id_dashboard_row .row .card-dashboard .dashboard_in_block .visit_block {
-  border-radius: 3px;
-  border: 1px solid #ddd;
-  width: 100%;
-  height: 120px;
-  margin-top: 10px;
-  margin-bottom: 10px; }
-#id_dashboard_row .row .card-dashboard .dashboard_in_block .progress_block {
-  background-color: #F5F5F5;
-  width: 100%;
-  height: 70px;
-  padding: 10px;
-  border-radius: 4px;
-  margin-top: 10px;
-  margin-bottom: 10px; }
-#id_dashboard_row .row .card-dashboard .block_head {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  text-align: left;
-  line-height: 50px;
-  font-size: 18px;
-  color: white; }
-
 .col_new_form_place_kaset {
   box-sizing: border-box;
   margin-top: auto;
@@ -488,5 +448,131 @@ body {
   font-size: 14px;
   padding-left: 8px;
   padding-top: 2px; }
+
+#farm_management_console {
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  padding: 1%;
+  position: absolute; }
+#farm_management_console .farm_management_menu {
+  background-color: white;
+  height: 100%;
+  padding: 0px;
+  text-align: center; }
+#farm_management_console .farm_management_menu ul {
+  height: 100%; }
+#farm_management_console .farm_management_menu ul li {
+  margin: 0px;
+  min-height: 60px;
+  height: 25%;
+  width: 100%;
+  cursor: pointer;
+  overflow: scroll;
+  text-align: center; }
+#farm_management_console .farm_management_menu ul li a {
+  color: #080808;
+  border-radius: 0px;
+  width: 100%;
+  height: 100%;
+  padding-top: 35%; }
+#farm_management_console .farm_management_menu ul li a i {
+  clear: both;
+  font-size: 2em; }
+#farm_management_console .farm_management_menu ul li.active a {
+  background-color: #85D285;
+  color: white; }
+#farm_management_console .farm_management_board {
+  padding: 0px;
+  background-color: #e8e8e8;
+  height: 100%;
+  overflow: scroll;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px; }
+#farm_management_console .farm_management_board .tab-content {
+  width: 100%;
+  height: 100%; }
+#farm_management_console .farm_management_board .tab-content .card_menu {
+  background-color: white;
+  height: 300px;
+  border-radius: 3px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card {
+  margin-bottom: 15px; }
+#farm_management_console .farm_management_board .tab-content #farm_detail {
+  padding-top: 20px; }
+#farm_management_console .farm_management_board .tab-content #farm_account {
+  padding-top: 20px; }
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_choose {
+  width: 300px;
+  margin: 0 auto;
+  padding: 15px; }
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_choose .choose_farm {
+  width: 300px;
+  margin: 5px auto;
+  padding: 20px; }
+#farm_management_console .farm_management_board .tab-content #farm_account .card_menu_choose {
+  padding: 20px;
+  background-color: white; }
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: white;
+  margin-bottom: 15px; }
+#farm_management_console .farm_management_board .tab-content #farm_problem {
+  padding-top: 20px; }
+#farm_management_console .farm_management_board .tab-content #farm_problem .farm_problem_choose {
+  width: 300px;
+  margin: 0 auto;
+  padding: 15px; }
+#farm_management_console .farm_management_board .tab-content #farm_problem .farm_problem_choose .choose_farm {
+  width: 300px;
+  margin: 5px auto;
+  padding: 20px; }
+#farm_management_console .farm_management_board .tab-content #farm_problem .card_menu_choose {
+  padding: 20px;
+  background-color: white; }
+#farm_management_console .farm_management_board .tab-content #farm_problem .farm_problem_content {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: white; }
+#farm_management_console #id_close_farm_management_console {
+  margin-left: 98.9%; }
+#farm_management_console #id_close_farm_management_console a {
+  position: fixed;
+  font-weight: 700;
+  font-size: 24px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer; }
+#farm_management_console #id_close_farm_management_console a:hover {
+  color: #D9534F; }
+@media (max-width: 992px) {
+  #farm_management_console .farm_management_menu {
+    background-color: white;
+    height: 70px;
+    padding: 0px; }
+  #farm_management_console .farm_management_menu ul {
+    height: 100%; }
+  #farm_management_console .farm_management_menu ul li {
+    display: inline;
+    width: 25%;
+    height: 70px; }
+  #farm_management_console .farm_management_menu ul li a {
+    padding-top: 10%;
+    height: 70px; }
+  #farm_management_console .farm_management_menu ul li a i {
+    text-align: center;
+    font-size: 2em; }
+  #farm_management_console .farm_management_menu ul li a p {
+    display: none; }
+  #farm_management_console .farm_management_board {
+    padding: 0px;
+    height: 100%;
+    overflow: scroll; }
+  #farm_management_console #id_close_farm_management_console {
+    margin-left: 98%; }
+  #farm_management_console #id_close_farm_management_console a {
+    display: none; } }
 
 /*# sourceMappingURL=chowkaset-style.min.css.map */

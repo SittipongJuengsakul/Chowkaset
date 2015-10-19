@@ -8,7 +8,5 @@
 	
 	{!! $map['html'] !!}
 	
-	<script src="{{ URL::asset('assets/js/chowkaset-js.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/interact-1.2.5.min.js') }}"></script>
-	
 @stop

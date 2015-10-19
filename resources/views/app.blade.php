@@ -7,11 +7,14 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/reset.css'); !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/bootstrap.min.css'); !!}">
+	<link rel="stylesheet" href="{!! URL::asset('assets/css/font-awesome.min.css'); !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/bootstrap-theme.min.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/component-nav.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/chowkaset-style.min.css') !!}">
 	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/chowkaset_farmmanagement.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/chowkaset-js.js') }}"></script>
 </head>
 <body>
     <div class="container-fluid">
