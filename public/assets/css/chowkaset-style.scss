@@ -791,3 +791,39 @@ body{
 	}
 }
 }
+.reference-menu{
+	background-color: #DDDDDD;
+	height: 100%;
+	padding: 15px 15px;
+	.menu-wrap{
+		background-color: white;
+		height: 100%;
+		hr {
+			margin: 10px;
+		}
+		h3{
+			color: #777777;
+		}
+		h6{
+			color: #777777;
+		}
+	}
+}
+.reference-content{
+	height: 100%;
+	background-color: #DDDDDD;
+	padding: 15px 15px;
+	.content-wrap{
+		background-color: white;
+		height: 100%;
+		h3{
+			color: #777777;
+		}
+		h6{
+			color: #777777;
+		}
+		hr {
+			margin: 10px;
+		}
+	}
+}

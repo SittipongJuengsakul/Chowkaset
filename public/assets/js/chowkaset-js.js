@@ -797,7 +797,9 @@ function show_farm_management(){
 }
 
 function drag_move(){
-        interact('#id_col_place_kaset')
+        var id_col_place_kaset = document.getElementById('id_col_place_kaset');
+        if(id_col_place_kaset){
+          interact('#id_col_place_kaset')
           .draggable({
             inertia: true,
             restrict: {
@@ -819,5 +821,7 @@ function drag_move(){
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
           }
-          window.dragMoveListener = dragMoveListener;
+          window.dragMoveListener = dragMoveListener;  
+      }
+        
 }

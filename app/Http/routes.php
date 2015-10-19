@@ -25,18 +25,18 @@ Route::post('new_crop','ajaxrespond@new_crop');
 Route::group(array('prefix' => 'api/v1.0'), function()
     {
     	//น้าหลัก API Refference
-    	Route::get('/','ApiController@refference_one_zero');
+    	Route::get('/','apiv1_0\ApiController@refference_one_zero');
     	//ข้อมูล Authen
-        Route::resource('Auth', 'AuthApiController');
+        Route::resource('Auth', 'apiv1_0\AuthApiController');
         //เรียก Token จากระบบ
-        Route::get('getToken','AuthApiController@getToken');
+        Route::get('getToken','apiv1_0\AuthApiController@getToken');
         //Management Data
-        Route::get('getAccountData/{crops_id}','AccountApiController@getAccountData');
+        Route::get('getAccountData/{crops_id}','apiv1_0\AccountApiController@getAccountData');
         //Crop
         //พื้นที่ปลูกของ User
-        Route::get('Crop/getCropsOfUser/{users_id}','CropsApiController@crops_list');
+        Route::get('Crop/getCropsOfUser/{users_id}','apiv1_0\CropsApiController@crops_list');
         //ชนิดพืช วางไว้คือ ทั้งหมด หากไส่ จะเป็น id
-        Route::get('Crop/getSeed/{seed_id}','CropsApiController@seeds_list');
+        Route::get('Crop/getSeed/{seed_id}','apiv1_0\CropsApiController@seeds_list');
         //พันธ์พืชจากชนิด Seeds
-        Route::get('Crop/getBreedOfSeed/{seed_id}','CropsApiController@breed_list');
+        Route::get('Crop/getBreedOfSeed/{seed_id}','apiv1_0\CropsApiController@breed_list');
     });

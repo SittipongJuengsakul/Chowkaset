@@ -588,4 +588,32 @@ body {
   #farm_management_console #id_close_farm_management_console a {
     display: none; } }
 
+.reference-menu {
+  background-color: #DDDDDD;
+  height: 100%;
+  padding: 15px 15px; }
+.reference-menu .menu-wrap {
+  background-color: white;
+  height: 100%; }
+.reference-menu .menu-wrap hr {
+  margin: 10px; }
+.reference-menu .menu-wrap h3 {
+  color: #777777; }
+.reference-menu .menu-wrap h6 {
+  color: #777777; }
+
+.reference-content {
+  height: 100%;
+  background-color: #DDDDDD;
+  padding: 15px 15px; }
+.reference-content .content-wrap {
+  background-color: white;
+  height: 100%; }
+.reference-content .content-wrap h3 {
+  color: #777777; }
+.reference-content .content-wrap h6 {
+  color: #777777; }
+.reference-content .content-wrap hr {
+  margin: 10px; }
+
 /*# sourceMappingURL=chowkaset-style.min.css.map */
