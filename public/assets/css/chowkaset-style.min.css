@@ -517,8 +517,16 @@ body {
 #farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content {
   margin-top: 15px;
   padding: 15px;
-  background-color: white;
-  margin-bottom: 15px; }
+  background-color: white; }
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content tbody tr td {
+  text-align: center; }
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content tbody tr td i {
+  color: red;
+  text-align: center; }
+#farm_management_console .farm_management_board .tab-content #farm_account .btn_add_account {
+  float: right;
+  margin-right: 5px;
+  margin-bottom: 10px; }
 #farm_management_console .farm_management_board .tab-content #farm_problem {
   padding-top: 20px; }
 #farm_management_console .farm_management_board .tab-content #farm_problem .farm_problem_choose {
@@ -536,6 +544,10 @@ body {
   margin-top: 15px;
   padding: 15px;
   background-color: white; }
+#farm_management_console .farm_management_board .tab-content #farm_problem .btn_add_problem {
+  float: right;
+  margin-right: 5px;
+  margin-bottom: 10px; }
 #farm_management_console #id_close_farm_management_console {
   margin-left: 98.9%; }
 #farm_management_console #id_close_farm_management_console a {
@@ -567,6 +579,7 @@ body {
   #farm_management_console .farm_management_menu ul li a p {
     display: none; }
   #farm_management_console .farm_management_board {
+    margin-bottom: 15px;
     padding: 0px;
     height: 100%;
     overflow: scroll; }

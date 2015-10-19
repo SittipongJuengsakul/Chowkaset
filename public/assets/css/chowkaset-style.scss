@@ -688,7 +688,22 @@ body{
 					margin-top: 15px;
 					padding: 15px;
 					background-color: white;
-					margin-bottom: 15px;
+					tbody{
+						tr{
+							td{
+								text-align: center;
+								i{
+									color: red;
+									text-align: center;
+								}
+							}
+						}
+					}
+				}
+				.btn_add_account{
+				    float: right;
+				    margin-right: 5px;
+    				margin-bottom: 10px;
 				}
 			}
 			#farm_problem{
@@ -711,6 +726,11 @@ body{
 					margin-top: 15px;
 					padding: 15px;
 					background-color: white;
+				}
+				.btn_add_problem{
+				    float: right;
+				    margin-right: 5px;
+    				margin-bottom: 10px;
 				}
 			}
 		}
@@ -756,6 +776,7 @@ body{
 		}
 	}
 	.farm_management_board{
+		margin-bottom: 15px;
 		padding: 0px;
 		height: 100%;
 		overflow: scroll;

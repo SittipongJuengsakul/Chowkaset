@@ -26,4 +26,5 @@ Route::group(array('prefix' => 'api/v1'), function()
     {
         Route::resource('Auth', 'AuthApiController');
         Route::get('getToken','AuthApiController@getToken');
+        Route::get('getAccountData/{crops_id}','AccountApiController@getAccountData');
     });
