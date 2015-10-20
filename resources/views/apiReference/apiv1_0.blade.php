@@ -99,7 +99,7 @@
 						</tr>
 						<tr>
 							<td>Get</td>
-							<td>{{ $url }}Crop/getSeed</td>
+							<td>{{ $url }}Crop/getSeedAll</td>
 							<td>ข้อมูลชนิดพืชทั้งหมด</td>
 							<td>-</td>
 							<td>success (int),data (json obj.)</td>
