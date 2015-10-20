@@ -19,7 +19,7 @@ class CropsApiController extends Controller
 	}
 	//รายชื่อ ชนิดพืช
     public function seeds_list($seed_id){
-    	$dataSeeds = DB::table('seeds')->get();
+    	$dataSeeds = DB::table('seeds')->where('seed_id','=',$seed_id)->get();
     	return $dataSeeds;
 	}
 
