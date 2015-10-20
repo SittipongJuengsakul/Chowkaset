@@ -608,7 +608,8 @@ body {
   padding: 15px 15px; }
 .reference-content .content-wrap {
   background-color: white;
-  height: 100%; }
+  height: 100%;
+  overflow: scroll; }
 .reference-content .content-wrap h3 {
   color: #777777; }
 .reference-content .content-wrap h6 {

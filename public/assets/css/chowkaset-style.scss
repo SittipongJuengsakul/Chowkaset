@@ -813,9 +813,11 @@ body{
 	height: 100%;
 	background-color: #DDDDDD;
 	padding: 15px 15px;
+
 	.content-wrap{
 		background-color: white;
 		height: 100%;
+		overflow: scroll;
 		h3{
 			color: #777777;
 		}

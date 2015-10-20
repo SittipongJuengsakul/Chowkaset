@@ -30,13 +30,13 @@ Route::group(array('prefix' => 'api/v1.0'), function()
         Route::resource('Auth', 'apiv1_0\AuthApiController');
         //เรียก Token จากระบบ
         Route::get('getToken','apiv1_0\AuthApiController@getToken');
-        //Management Data
-        Route::get('getAccountData/{crops_id}','apiv1_0\AccountApiController@getAccountData');
         //Crop
         //พื้นที่ปลูกของ User
-        Route::get('Crop/getCropsOfUser/{users_id}','apiv1_0\CropsApiController@crops_list');
+        Route::get('Crop/getCropsOfUser/{user_id}','apiv1_0\CropsApiController@crops_list');
         //ชนิดพืช วางไว้คือ ทั้งหมด หากไส่ จะเป็น id
         Route::get('Crop/getSeed/{seed_id}','apiv1_0\CropsApiController@seeds_list');
         //พันธ์พืชจากชนิด Seeds
         Route::get('Crop/getBreedOfSeed/{seed_id}','apiv1_0\CropsApiController@breed_list');
+        //ข้อมูลรายรับ,รายจ่าย
+        Route::get('Crop/getAccountCrop/{crop_id}','apiv1_0\AccountApiController@getAccountData');
     });
