@@ -20,7 +20,8 @@ body {
 .chowkaset-nav .login-col {
   color: #16a085; }
 .chowkaset-nav .login-col-size {
-  font-size: 14px; }
+  font-size: 14px;
+  float: left; }
 
 .chowkaset-content {
   display: block;
