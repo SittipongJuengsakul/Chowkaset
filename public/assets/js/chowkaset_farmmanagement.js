@@ -245,11 +245,20 @@ function account_table(id_acc){
 			    			var money_total = 0;
 			    			var money_income = 0;
 			    			var money_outcome = 0;
+			    			var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+							"เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+							"ตุลาคม","พฤศจิกายน","ธันวาคม");
 			    			for(i=0;i<data.data.length;i++){
 			    				var tr = document.createElement('tr');
 			    				tbody.appendChild(tr);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = data.data[count].acc_date;
+			    					var accdate = data.data[count].acc_date;
+			    					var text = accdate.split("-");
+			    					var year = parseInt(text[0]);
+			    					var month = parseInt(text[1]);
+			    					var day = parseInt(text[2]);
+			    					year = year;
+			    					td.innerHTML = day+' '+thmonth[month-1]+' '+year;
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = data.data[count].acc_detail;

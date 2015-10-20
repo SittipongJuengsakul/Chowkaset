@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Response;
 use Hash;
 use DB;
+use Carbon\Carbon;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -111,9 +112,10 @@ class CropsApiController extends Controller
         }
 	}
     //บัญชี
+    //ข้อมูลบัญชีของแปลง
     public function getAccountData($crops_id)
     {
-        $dataAccount = DB::table('crop_accounts')->where('acc_crop_id','=',$crops_id)->get();
+        $dataAccount = DB::table('crop_accounts')->where('acc_crop_id','=',$crops_id)->orderBy('acc_date', 'asc')->get();
         try{
             $statusCode = 200;
             if($dataAccount){
@@ -133,11 +135,15 @@ class CropsApiController extends Controller
             return Response::json($response, $statusCode);
         }
     }
+    //เพิ่มบัญชีรายรับ รายจ่าย
     public function AddAccountData(Request $request)
     {
-        $dataAccount = DB::table('crop_accounts')->insertGetId(
-            ['acc_detail'=> $request->input('acc_detail'),'acc_date'=> $request->input('acc_date'),'acc_price'=> $request->input('acc_price'),'acc_cost_type'=> $request->input('acc_cost_type'),'acc_crop_id'=> $request->input('acc_crop_id')]
+        $date = $request->input('acc_date');
+        $dateformat = explode('-', $date);
+        $date_acc = $dateformat[2].'-'.$dateformat[1].'-'.$dateformat[0];
+            $dataAccount = DB::table('crop_accounts')->insertGetId(
+            ['acc_detail'=> $request->input('acc_detail'),'acc_date'=> $date_acc,'acc_price'=> $request->input('acc_price'),'acc_cost_type'=> $request->input('acc_cost_type'),'acc_crop_id'=> $request->input('acc_crop_id')]
         );
-        return $dataAccount;
+        return $date_acc;
     }
 }
