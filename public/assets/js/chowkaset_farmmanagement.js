@@ -218,7 +218,7 @@ function account_table(id_acc){
 			    					td.innerHTML = money_total;
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = '<a href="#edit" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
+			    					td.innerHTML = '<a href="#edit'+data.data[count].acc_id+'" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
 			    					tr.appendChild(td);
 			    					count++;
 			    			}

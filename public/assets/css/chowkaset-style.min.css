@@ -493,7 +493,8 @@ body {
   padding-bottom: 10px; }
 #farm_management_console .farm_management_board .tab-content {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  overflow: scroll; }
 #farm_management_console .farm_management_board .tab-content .card_menu {
   background-color: white;
   height: 300px;
