@@ -12,6 +12,15 @@ use App\Http\Controllers\Controller;
 
 class CropsApiController extends Controller
 {
+    public function test(Request $request){
+        $acc_date = $request->input('acc_date');
+        $acc_detail = $request->input('acc_detail');
+        $acc_cost_type = $request->input('acc_cost_type');
+        $acc_price = $request->input('acc_price');
+        $acc_crop_id = $request->input('acc_crop_id');
+
+        return $acc_detail;
+    }
 	//การเพาะปลูกของ user
     public function crops_list($user_id){
 		$dataCrops = DB::table('group_crop_user')->join('crops', 'group_crop_user.crop_id', '=', 'crops.crop_id')
@@ -126,31 +135,9 @@ class CropsApiController extends Controller
     }
     public function AddAccountData(Request $request)
     {
-        $acc_date = $request->input('acc_date');
-        $acc_detail = $request->input('acc_detail');
-        $acc_cost_type = $request->input('acc_cost_type');
-        $acc_price = $request->input('acc_price');
-        $acc_crop_id = $request->input('acc_crop_id');
-        $dataAccount = DB::table('crop_accounts')->insert(
-                            ['acc_date' => $acc_date, 'acc_detail' => $acc_detail,'acc_cost_type' => $acc_cost_type, 'acc_price' => $acc_price,'acc_crop_id' => $acc_crop_id]
-                        );;
-        try{
-            $statusCode = 200;
-            if($dataAccount){
-                $response = [
-                  'status'  => '1',
-                  'message' => 'Insert Success!'
-                ];
-            }else{
-                $response = [
-                  'status'  => '0',
-                  'message' => 'No Data!'
-                ];
-            }
-        }catch (Exception $e){
-            $statusCode = 400;
-        }finally{
-            return Response::json($response, $statusCode);
-        }
+        $dataAccount = DB::table('crop_accounts')->insertGetId(
+            ['acc_detail'=> $request->input('acc_detail'),'acc_date'=> $request->input('acc_date'),'acc_price'=> $request->input('acc_price'),'acc_cost_type'=> $request->input('acc_cost_type'),'acc_crop_id'=> $request->input('acc_crop_id')]
+        );
+        return $dataAccount;
     }
 }

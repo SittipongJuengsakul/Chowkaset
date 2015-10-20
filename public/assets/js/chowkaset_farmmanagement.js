@@ -150,7 +150,8 @@ function account_table(id_acc){
 		    		farm_account_content.appendChild(form_account);
 		    			var inp_crop = document.createElement('input');
 					    inp_crop.setAttribute('type','hidden');
-					    inp_crop.setAttribute('value',inp_crop)
+					    inp_crop.setAttribute('name','acc_crop_id');
+					    inp_crop.setAttribute('value',id_acc)
 					    form_account.appendChild(inp_crop);
 		    				var div_in = document.createElement('div');
 				    		div_in.setAttribute('class','col-md-2');
@@ -333,28 +334,9 @@ function dialog_add_income(){
 	        acc_price: val_acc_price,
 	        acc_cost_type: val_acc_cost_type,
 	    },
-	    dataType: 'json',
 	    success: function (data) {
-	        account_table(id_acc);
+	        account_table(val_acc_crop_id);
 	    }
-	});
-	$.ajaxSetup({
-		url: 'http://localhost/chowkaset/public/index.php/api/v1.0/Crop/AddAccountData',
-	    type: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }, 
-	    data: {
-	    	acc_crop_id: val_acc_crop_id,
-	        acc_date: val_acc_date,
-	        acc_detail: val_acc_detail,
-	        acc_price: val_acc_price,
-	        acc_cost_type: val_acc_cost_type,
-	    },
-        success: function (data) {
-	        account_table(id_acc);
-	    },
-
 	});
 }
 
