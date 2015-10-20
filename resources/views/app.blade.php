@@ -40,6 +40,8 @@
 		var user_facebook = '';
 		var user_address = '';
 		var user_id = '';
+		var site_url = '{{ URL::to("/")}}';
+		var base_url = '{{ URL::asset("/")}}';
 	</script>
 	@if (Auth::guest())
 		<script>

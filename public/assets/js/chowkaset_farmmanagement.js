@@ -70,19 +70,24 @@ function create_farm_management(){
 		    		var select_choose = document.createElement('select');
 	    			select_choose.setAttribute('class','farm_account_choose form-control');
 	    			select_choose.setAttribute('id','account_crops_list');
-	    			select_choose.setAttribute('onchange','account_table(this);');
+	    			select_choose.setAttribute('onchange','account_table(this.value);');
 	    			card_menu.appendChild(select_choose);
 		    			$.ajax({
-							url: site_url+"/api/v1.0/Crop/getSeed/2"
+							url: site_url+"/api/v1.0/Crop/getCropsOfUser/"+user_id
 						}).then(function(data) {
-							for(var i=0;i<=data.length;i++){
+							var i = 0;
+							var count = 0;
+							var id_default = data.data[0].crop_id;
+							for(i=0;i<data.data.length;i++){
 								var option_choose = document.createElement('option');
-			    				option_choose.setAttribute('value',data[i].crop_id);
-			    				option_choose.innerHTML = data[i].crop_name;
+			    				option_choose.setAttribute('value',data.data[count].crop_id);
+			    				option_choose.innerHTML = data.data[count].crop_name;
 			    				document.getElementById('account_crops_list').appendChild(option_choose);
-			    			}
+			    				count++;
+							}
+							account_table(id_default);
 						});
-	    				account_table();
+	    			
 
 	    //ปัญหาการเพาะปลูก
 	    var farm_menu_farm_problem = document.createElement('div');
@@ -97,66 +102,23 @@ function create_farm_management(){
 		    	div_menu_wrap.appendChild(card_menu);
 		    		var select_choose = document.createElement('select');
 	    			select_choose.setAttribute('class','farm_problem_choose form-control');
+	    			select_choose.setAttribute('id','farm_problem_select');
+	    			select_choose.setAttribute('onchange','problem_table(this.value);');
 	    			card_menu.appendChild(select_choose);
-	    				var option_choose = document.createElement('option');
-	    				option_choose.setAttribute('value','1');
-	    				option_choose.innerHTML = 'ไร่ 1';
-	    				select_choose.appendChild(option_choose);
-	    				var option_choose = document.createElement('option');
-	    				option_choose.setAttribute('value','2');
-	    				option_choose.innerHTML = 'ไร่ 2';
-	    				select_choose.appendChild(option_choose);
-	    	var div_menu_wrap = document.createElement('div');
-	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
-	    	farm_menu_farm_problem.appendChild(div_menu_wrap);
-		    	var farm_problem_content = document.createElement('div');
-		    	farm_problem_content.setAttribute('class','farm_problem_content');
-		    	div_menu_wrap.appendChild(farm_problem_content);
-		    	//ปุ่มรายรับรายจ๋าย
-		    		var button_add_account = document.createElement('button');
-		    		button_add_account.setAttribute('type','button');
-		    		button_add_account.setAttribute('class','btn btn-info btn_add_problem');
-		    		button_add_account.innerHTML = 'เพิ่มปัญหา';
-		    		farm_problem_content.appendChild(button_add_account);
-		    		//ปัญหา
-		    		var table_content = document.createElement('table');
-		    		table_content.setAttribute('class','table table-bordered');
-		    		farm_problem_content.appendChild(table_content);
-		    			var thead = document.createElement('thead');
-		    			table_content.appendChild(thead);
-		    				var tr = document.createElement('tr');
-		    				thead.appendChild(tr);
-		    					var th = document.createElement('th');
-		    					th.innerHTML = 'วัน/เดือน/ปี';
-		    					tr.appendChild(th);
-		    					var th = document.createElement('th');
-		    					th.innerHTML = 'ปัญหา';
-		    					tr.appendChild(th);
-		    					var th = document.createElement('th');
-		    					th.innerHTML = 'สถานะ';
-		    					tr.appendChild(th);
-		    					var th = document.createElement('th');
-		    					th.innerHTML = 'ตัวเลือก';
-		    					tr.appendChild(th);
-
-		    			var tbody = document.createElement('tbody');
-		    			table_content.appendChild(tbody);
-		    				var tr = document.createElement('tr');
-		    				tbody.appendChild(tr);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '2 มกราคม 2558';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'ดินแข็ง ไถนาไม่ได้ครับ';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'สำเร็จ';
-		    					td.style.color = 'green';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'คำแนะนำ';
-		    					tr.appendChild(td);
-
+	    			$.ajax({
+							url: site_url+"/api/v1.0/Crop/getCropsOfUser/"+user_id
+						}).then(function(data) {
+							var i = 0;
+							var count = 0;
+							for(i=0;i<data.data.length;i++){
+								var option_choose = document.createElement('option');
+			    				option_choose.setAttribute('value',data.data[count].crop_id);
+			    				option_choose.innerHTML = data.data[count].crop_name;
+			    				document.getElementById('farm_problem_select').appendChild(option_choose);
+			    				count++;
+							}
+						});
+	    			problem_table();
 }
 function close_farm_management_console(){
 	$('#farm_management_console').remove();
@@ -165,7 +127,7 @@ function close_farm_management_console(){
 function account_table(id_acc){
 	$(document).ready(function() {
 	    $.ajax({
-	        url: 'http://localhost/chowkaset/public/index.php'+"/api/v1.0"
+	        url: site_url+"/api/v1.0/Crop/getAccountCrop/"+id_acc
 	    }).then(function(data) {
 	var farm_menu_farm_account = document.getElementById('farm_account');
 	var id_farm_account_content = document.getElementById('id_farm_account_content');
@@ -218,6 +180,128 @@ function account_table(id_acc){
 		    					tr.appendChild(th);
 
 		    			var tbody = document.createElement('tbody');
+			    		table_content.appendChild(tbody);
+		    			if(data.status=='1'){
+			    			var i = 0;
+			    			var count = 0;
+			    			var money_total = 0;
+			    			var money_income = 0;
+			    			var money_outcome = 0;
+			    			for(i=0;i<data.data.length;i++){
+			    				var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = data.data[count].acc_date;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = data.data[count].acc_detail;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].acc_cost_type=='1'){ 
+			    						money_income = money_income+data.data[count].acc_price;
+			    						money_total = money_total+data.data[count].acc_price;
+			    						td.innerHTML = data.data[count].acc_price; 
+			    					}else{
+			    						td.innerHTML = '-';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].acc_cost_type=='2'){ 
+			    						money_outcome = money_outcome+data.data[count].acc_price;
+			    						money_total = money_total-data.data[count].acc_price;
+			    						td.innerHTML = data.data[count].acc_price; 
+			    					}else{
+			    						td.innerHTML = '-';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = money_total;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<a href="#edit" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
+			    					tr.appendChild(td);
+			    					count++;
+			    			}
+			    				//รวมเงิน
+			    				var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = 'รวม';
+			    					td.style.textAlign = 'center';
+			    					td.setAttribute('colspan','2');
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = money_income;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = money_outcome;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = money_total;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '';
+			    					tr.appendChild(td);
+		    			}else{
+		    					var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = 'ไม่มีข้อมูลบัญชีรายรับ - รายจ่าย';
+			    					td.style.textAlign = 'center';
+			    					td.setAttribute('colspan','6');
+			    					tr.appendChild(td);
+		    			}
+		    			
+			
+	    });
+	});
+}
+function problem_table(id_prb){
+	$(document).ready(function() {
+	    $.ajax({
+	        url: site_url+"/api/v1.0"
+	    }).then(function(data) {
+	var farm_menu_farm_problem = document.getElementById('farm_problem');
+	var id_farm_problem_content = document.getElementById('id_farm_problem_content');
+	if(id_farm_problem_content){
+		id_farm_problem_content.remove();
+	}
+	var div_menu_wrap = document.createElement('div');
+	    	var div_menu_wrap = document.createElement('div');
+	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
+	    	farm_menu_farm_problem.appendChild(div_menu_wrap);
+		    	var farm_problem_content = document.createElement('div');
+		    	farm_problem_content.setAttribute('class','id_farm_problem_content');
+		    	farm_problem_content.setAttribute('class','farm_problem_content');
+		    	div_menu_wrap.appendChild(farm_problem_content);
+		    	//ปุ่มรายรับรายจ๋าย
+		    		var button_add_problem = document.createElement('button');
+		    		button_add_problem.setAttribute('type','button');
+		    		button_add_problem.setAttribute('class','btn btn-info btn_add_problem');
+		    		button_add_problem.innerHTML = 'เพิ่มปัญหา';
+		    		farm_problem_content.appendChild(button_add_problem);
+		    		//ปัญหา
+		    		var table_content = document.createElement('table');
+		    		table_content.setAttribute('class','table table-bordered');
+		    		farm_problem_content.appendChild(table_content);
+		    			var thead = document.createElement('thead');
+		    			table_content.appendChild(thead);
+		    				var tr = document.createElement('tr');
+		    				thead.appendChild(tr);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'วัน/เดือน/ปี';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'ปัญหา';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'สถานะ';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'ตัวเลือก';
+		    					tr.appendChild(th);
+
+		    			var tbody = document.createElement('tbody');
 		    			table_content.appendChild(tbody);
 		    				var tr = document.createElement('tr');
 		    				tbody.appendChild(tr);
@@ -225,120 +309,14 @@ function account_table(id_acc){
 		    					td.innerHTML = '2 มกราคม 2558';
 		    					tr.appendChild(td);
 		    					var td = document.createElement('td');
-		    					td.innerHTML = 'กู้เงินไถนา';
+		    					td.innerHTML = 'ดินแข็ง ไถนาไม่ได้ครับ';
 		    					tr.appendChild(td);
 		    					var td = document.createElement('td');
-		    					td.innerHTML = '2000';
+		    					td.innerHTML = 'สำเร็จ';
+		    					td.style.color = 'green';
 		    					tr.appendChild(td);
 		    					var td = document.createElement('td');
-		    					td.innerHTML = '-';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '2000';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '<a href="#edit" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
-		    					tr.appendChild(td);
-		    				var tr = document.createElement('tr');
-		    				tbody.appendChild(tr);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'จ่ายค่าเครื่องไถ';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '-';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '1000';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '1000';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '<a href="#edit" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
-		    					tr.appendChild(td);
-		    				var tr = document.createElement('tr');
-		    				tbody.appendChild(tr);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '23 มกราคม 2558';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'ค่าปุ๋ยเคมี';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '-';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '1215';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '-215';
-		    					td.style.color = 'red';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '<a href="#edit" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
-		    					tr.appendChild(td);
-		    				var tr = document.createElement('tr');
-		    				tbody.appendChild(tr);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'กู้เงินตามี';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '3000';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '-';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '2785';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '<a href="#edit" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
-		    					tr.appendChild(td);
-		    				var tr = document.createElement('tr');
-		    				tbody.appendChild(tr);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'จ่ายค่าคนงานไส่ปุ๋ย';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '-';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '500';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '2285';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '<a href="#edit" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
-		    					tr.appendChild(td);
-		    				//รวมเงิน
-		    				var tr = document.createElement('tr');
-		    				tbody.appendChild(tr);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'รวม';
-		    					td.style.textAlign = 'center';
-		    					td.setAttribute('colspan','2');
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '5000';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '2715';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '2285';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '';
+		    					td.innerHTML = 'คำแนะนำ';
 		    					tr.appendChild(td);
 			
 	    });

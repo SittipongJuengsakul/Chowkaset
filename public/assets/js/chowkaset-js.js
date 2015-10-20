@@ -2,10 +2,6 @@
 //Javascript Library for chowkaset  Web Application 
 //for help web application make element by javascript
 
-//var site_url = 'http://localhost/chowkaset/public/index.php';
-//var base_url = 'http://localhost/chowkaset/public/';
-var site_url = 'http://172.16.1.1/~buu/chowkaset/public/index.php';
-var base_url = 'http://172.16.1.1/~buu/chowkaset/public/';
 function place_kaset(map_id) {
 
     var obj = '';
