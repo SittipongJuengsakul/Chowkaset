@@ -40,4 +40,6 @@ Route::group(array('prefix' => 'api/v1.0'), function()
         Route::get('Crop/getBreedOfSeed/{seed_id}','apiv1_0\CropsApiController@breed_list');
         //ข้อมูลรายรับ,รายจ่าย
         Route::get('Crop/getAccountCrop/{crop_id}','apiv1_0\CropsApiController@getAccountData');
+        //เพิ่มรายรับ,รายจ่าย
+        Route::post('Crop/AddAccountData','apiv1_0\CropsApiController@AddAccountData');
     });

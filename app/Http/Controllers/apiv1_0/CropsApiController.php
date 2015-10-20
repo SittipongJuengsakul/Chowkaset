@@ -14,7 +14,8 @@ class CropsApiController extends Controller
 {
 	//การเพาะปลูกของ user
     public function crops_list($user_id){
-		$dataCrops = DB::table('crops')->where('crop_user_id','=',$user_id)->get();
+		$dataCrops = DB::table('group_crop_user')->join('crops', 'group_crop_user.crop_id', '=', 'crops.crop_id')
+        ->where('user_id','=',$user_id)->get();
         try{
             $statusCode = 200;
             if($dataCrops){
@@ -110,6 +111,35 @@ class CropsApiController extends Controller
                 $response = [
                   'status'  => '1',
                   'data' => $dataAccount,
+                ];
+            }else{
+                $response = [
+                  'status'  => '0',
+                  'message' => 'No Data!'
+                ];
+            }
+        }catch (Exception $e){
+            $statusCode = 400;
+        }finally{
+            return Response::json($response, $statusCode);
+        }
+    }
+    public function AddAccountData(Request $request)
+    {
+        $acc_date = $request->input('acc_date');
+        $acc_detail = $request->input('acc_detail');
+        $acc_cost_type = $request->input('acc_cost_type');
+        $acc_price = $request->input('acc_price');
+        $acc_crop_id = $request->input('acc_crop_id');
+        $dataAccount = DB::table('crop_accounts')->insert(
+                            ['acc_date' => $acc_date, 'acc_detail' => $acc_detail,'acc_cost_type' => $acc_cost_type, 'acc_price' => $acc_price,'acc_crop_id' => $acc_crop_id]
+                        );;
+        try{
+            $statusCode = 200;
+            if($dataAccount){
+                $response = [
+                  'status'  => '1',
+                  'message' => 'Insert Success!'
                 ];
             }else{
                 $response = [

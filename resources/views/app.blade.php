@@ -11,7 +11,9 @@
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/bootstrap-theme.min.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/component-nav.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/chowkaset-style.min.css') !!}">
+	<link rel="stylesheet" href="{!! URL::asset('assets/css/datepicker.css') !!}">
 	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/bootstrap-datepicker.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/chowkaset_farmmanagement.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/chowkaset-js.js') }}"></script>
@@ -63,6 +65,7 @@
 		user_facebook = '{{ Auth::user()->facebook }}';
 		user_address = '{{ Auth::user()->address }}';
 		//create_dashboard_row();
+		
 	</script>
 	@endif
 </body>

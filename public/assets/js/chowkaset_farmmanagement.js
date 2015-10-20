@@ -142,16 +142,73 @@ function account_table(id_acc){
 		    	farm_account_content.setAttribute('class','farm_account_content');
 		    	div_menu_wrap.appendChild(farm_account_content);
 		    		//ปุ่มรายรับรายจ๋าย
-		    		var button_add_account = document.createElement('button');
-		    		button_add_account.setAttribute('type','button');
-		    		button_add_account.setAttribute('class','btn btn-warning btn_add_account');
-		    		button_add_account.innerHTML = 'เพิ่มรายจ่าย';
-		    		farm_account_content.appendChild(button_add_account);
-		    		var button_add_account = document.createElement('button');
-		    		button_add_account.setAttribute('type','button');
-		    		button_add_account.setAttribute('class','btn btn-info btn_add_account');
-		    		button_add_account.innerHTML = 'เพิ่มรายรับ';
-		    		farm_account_content.appendChild(button_add_account);
+		    		var form_account = document.createElement('form');
+		    		form_account.setAttribute('method','post');
+		    		form_account.setAttribute('id','add_form_account');
+		    		form_account.setAttribute('class','form-inline');
+		    		form_account.setAttribute('role','form');
+		    		farm_account_content.appendChild(form_account);
+		    			var inp_crop = document.createElement('input');
+					    inp_crop.setAttribute('type','hidden');
+					    inp_crop.setAttribute('value',inp_crop)
+					    form_account.appendChild(inp_crop);
+		    				var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-2');
+				    		div_in.style.paddingLeft = '0px';
+				    		form_account.appendChild(div_in);
+				    			var date = document.createElement('input');
+					    		date.setAttribute('type','input');
+					    		date.setAttribute('id','dpd1');
+					    		date.style.width = '100%';
+					    		date.setAttribute('class','form-control');
+					    		date.setAttribute('data-date-format','dd-mm-yyyy');
+					    		date.setAttribute('name','acc_date');
+					    		div_in.appendChild(date);
+					    		$('#dpd1').datepicker('setValue', '20-10-2015');
+
+    						var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-5');
+				    		form_account.appendChild(div_in);
+					    		var inp_descript = document.createElement('input');
+					    		inp_descript.setAttribute('type','input');
+					    		inp_descript.style.width = '100%';
+					    		inp_descript.setAttribute('class','form-control');
+					    		inp_descript.setAttribute('name','acc_detail');
+					    		inp_descript.setAttribute('placeholder','รายละเอียด');
+					    		div_in.appendChild(inp_descript);
+					    	var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-2');
+				    		form_account.appendChild(div_in);
+					    		var inp_select = document.createElement('select');
+					    		inp_select.style.width = '100%';
+					    		inp_select.setAttribute('class','form-control');
+					    		inp_select.setAttribute('name','acc_cost_type');
+					    		div_in.appendChild(inp_select);
+					    			var opt_select = document.createElement('option');
+					    			opt_select.setAttribute('value','1');
+					    			opt_select.innerHTML = 'รายรับ';
+					    			inp_select.appendChild(opt_select);
+					    			var opt_select = document.createElement('option');
+					    			opt_select.setAttribute('value','2');
+					    			opt_select.innerHTML = 'รายจ่าย';
+					    			inp_select.appendChild(opt_select);
+					    	var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-2');
+				    		form_account.appendChild(div_in);
+					    		var inp_descript = document.createElement('input');
+					    		inp_descript.setAttribute('type','input');
+					    		inp_descript.style.width = '100%';
+					    		inp_descript.setAttribute('class','form-control');
+					    		inp_descript.setAttribute('name','acc_price');
+					    		inp_descript.setAttribute('placeholder','จำนวนเงิน (บาท)');
+					    		div_in.appendChild(inp_descript);
+
+				    		var button_add_account = document.createElement('button');
+				    		button_add_account.setAttribute('type','button');
+				    		button_add_account.setAttribute('class','btn btn-warning btn_add_account');
+				    		button_add_account.setAttribute('onclick','dialog_add_income();');
+				    		button_add_account.innerHTML = 'เพิ่มข้อมูล';
+				    		form_account.appendChild(button_add_account);
 		    		//ตารางรายรับรายจ๋าย
  		    		var table_content = document.createElement('table');
 		    		table_content.setAttribute('class','table table-bordered');
@@ -164,7 +221,7 @@ function account_table(id_acc){
 		    					th.innerHTML = 'วัน/เดือน/ปี';
 		    					tr.appendChild(th);
 		    					var th = document.createElement('th');
-		    					th.innerHTML = 'รายการ';
+		    					th.innerHTML = 'รายละเอียด';
 		    					tr.appendChild(th);
 		    					var th = document.createElement('th');
 		    					th.innerHTML = 'รายรับ (บาท)';
@@ -256,6 +313,51 @@ function account_table(id_acc){
 	    });
 	});
 }
+function dialog_add_income(){
+	var $form = $('#add_form_account'),
+	val_acc_crop_id = $form.find( "input[name='acc_crop_id']" ).val(),
+	val_acc_date = $form.find( "input[name='acc_date']" ).val(),
+	val_acc_detail = $form.find( "input[name='acc_detail']" ).val(),
+	val_acc_price = $form.find( "input[name='acc_price']" ).val(),
+	val_acc_cost_type = $form.find( "select[name='acc_cost_type']" ).val();
+	$.ajax({
+	    url: 'http://localhost/chowkaset/public/index.php/api/v1.0/Crop/AddAccountData',
+	    type: 'post',
+	    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+	    data: {
+	    	acc_crop_id: val_acc_crop_id,
+	        acc_date: val_acc_date,
+	        acc_detail: val_acc_detail,
+	        acc_price: val_acc_price,
+	        acc_cost_type: val_acc_cost_type,
+	    },
+	    dataType: 'json',
+	    success: function (data) {
+	        account_table(id_acc);
+	    }
+	});
+	$.ajaxSetup({
+		url: 'http://localhost/chowkaset/public/index.php/api/v1.0/Crop/AddAccountData',
+	    type: 'post',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }, 
+	    data: {
+	    	acc_crop_id: val_acc_crop_id,
+	        acc_date: val_acc_date,
+	        acc_detail: val_acc_detail,
+	        acc_price: val_acc_price,
+	        acc_cost_type: val_acc_cost_type,
+	    },
+        success: function (data) {
+	        account_table(id_acc);
+	    },
+
+	});
+}
+
 function problem_table(id_prb){
 	$(document).ready(function() {
 	    $.ajax({
