@@ -19,18 +19,24 @@ class CropsApiController extends Controller
 	}
 	//รายชื่อ ชนิดพืช
     public function seeds_list($seed_id){
-    	if($seed_id==null || $seed_id==0 || $seed_id==''){
-    		$dataSeeds = DB::table('seeds')->get();
-    		return $dataSeeds;
-    	}else{
-    		$dataSeeds = DB::table('seeds')->get();
-    		return $dataSeeds;
-    	}
-        
+    	$dataSeeds = DB::table('seeds')->get();
+    	return $dataSeeds;
 	}
+
+    public function seeds_all_list(){
+        $dataSeeds = DB::table('seeds')->get();
+        return $dataSeeds;
+    }
 	//รายชื่อพันธ์พืช $seed_id
     public function breed_list($seed_id){
 		$dataSeeds = DB::table('breeds')->get();
         return $dataSeeds;
 	}
+
+    //บัญชี
+    public function getAccountData($crops_id)
+    {
+        $dataAccount = DB::table('crop_accounts')->where('acc_crop_id','=',$crops_id)->get();
+        return $dataAccount;
+    }
 }
