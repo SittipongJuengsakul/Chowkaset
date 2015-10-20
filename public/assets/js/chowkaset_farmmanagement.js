@@ -73,7 +73,7 @@ function create_farm_management(){
 	    			select_choose.setAttribute('onchange','account_table(this);');
 	    			card_menu.appendChild(select_choose);
 		    			$.ajax({
-							url: 'http://localhost/chowkaset/public/index.php'+"/api/v1/getCrops/2"
+							url: site_url+"/api/v1.0/Crop/getSeed/2"
 						}).then(function(data) {
 							for(var i=0;i<=data.length;i++){
 								var option_choose = document.createElement('option');
@@ -165,7 +165,7 @@ function close_farm_management_console(){
 function account_table(id_acc){
 	$(document).ready(function() {
 	    $.ajax({
-	        url: 'http://localhost/chowkaset/public/index.php'+"/api/v1/Auth"
+	        url: 'http://localhost/chowkaset/public/index.php'+"/api/v1.0"
 	    }).then(function(data) {
 	var farm_menu_farm_account = document.getElementById('farm_account');
 	var id_farm_account_content = document.getElementById('id_farm_account_content');
