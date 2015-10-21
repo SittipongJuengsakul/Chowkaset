@@ -267,8 +267,7 @@ function account_table(id_acc){
 			    					if(data.data[count].acc_cost_type=='1'){ 
 			    						money_income = money_income+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
-			    						var float_price = data.data[count].acc_price;
-			    						td.innerHTML = parseFloat(float_price).toFixed(2); 
+			    						td.innerHTML = data.data[count].acc_price; 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
@@ -283,7 +282,7 @@ function account_table(id_acc){
 			    					}
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total;
+			    					td.innerHTML = parseFloat(money_total).toFixed(2);
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '<a href="#edit'+data.data[count].acc_id+'" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
