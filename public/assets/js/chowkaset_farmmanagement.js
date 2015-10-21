@@ -331,7 +331,7 @@ function dialog_add_income(){
 	val_acc_price = $form.find( "input[name='acc_price']" ).val(),
 	val_acc_cost_type = $form.find( "select[name='acc_cost_type']" ).val();
 	$.ajax({
-	    url: 'http://localhost/chowkaset/public/index.php/api/v1.0/Crop/AddAccountData',
+	    url: site_url+'/api/v1.0/Crop/AddAccountData',
 	    type: 'post',
 	    headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
