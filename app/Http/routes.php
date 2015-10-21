@@ -42,5 +42,8 @@ Route::group(array('prefix' => 'api/v1.0'), function()
         Route::get('Crop/getAccountCrop/{crop_id}','apiv1_0\CropsApiController@getAccountData');
         //เพิ่มรายรับ,รายจ่าย
         Route::post('Crop/AddAccountData','apiv1_0\CropsApiController@AddAccountData');
-        Route::post('Crop/test','apiv1_0\CropsApiController@test');
+        //ลบรายรับ,รายจ่าย
+        Route::delete('Crop/EditAccountData','apiv1_0\CropsApiController@EditAccountData');
+        //แก้ใขรายรับ,รายจ่าย
+        Route::put('Crop/DeleteAccountData','apiv1_0\CropsApiController@DeleteAccountData');
     });

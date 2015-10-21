@@ -522,9 +522,17 @@ body {
   background-color: white; }
 #farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content tbody tr td {
   text-align: center; }
-#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content tbody tr td i {
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content tbody tr td a {
+  font-size: 20px; }
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content tbody tr td a i.edit_acc {
+  color: #FF9500;
+  text-align: center;
+  cursor: pointer; }
+#farm_management_console .farm_management_board .tab-content #farm_account .farm_account_content tbody tr td a i.delete_acc {
+  margin-left: 3px;
   color: red;
-  text-align: center; }
+  text-align: center;
+  cursor: pointer; }
 #farm_management_console .farm_management_board .tab-content #farm_account .btn_add_account {
   float: right;
   margin-right: 5px;

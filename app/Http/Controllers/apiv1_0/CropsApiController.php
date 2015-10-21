@@ -146,4 +146,21 @@ class CropsApiController extends Controller
         );
         return $date_acc;
     }
+    //เพิ่มบัญชีรายรับ รายจ่าย
+    public function EditAccountData(Request $request)
+    {
+        $date = $request->input('edt_acc_date');
+        $dateformat = explode('-', $date);
+        $date_acc = $dateformat[2].'-'.$dateformat[1].'-'.$dateformat[0];
+            $dataAccount = DB::table('crop_accounts')->where('acc_id', $request->input('edt_acc_id'))
+            ->update(['edacc_detail'=> $request->input('edt_acc_detail'),'acc_date'=> $date_acc,'acc_price'=> $request->input('edt_acc_price'),'acc_cost_type'=> $request->input('edt_acc_cost_type'),'acc_crop_id'=> $request->input('edt_acc_crop_id')]
+            );
+        return $date_acc;
+    }
+    //เพิ่มบัญชีรายรับ รายจ่าย
+    public function DeleteAccountData(Request $request)
+    {
+        $dataAccount = DB::table('crop_accounts')->where('edt_acc_id', '<', 100)->delete();
+        return $date_acc;
+    }
 }

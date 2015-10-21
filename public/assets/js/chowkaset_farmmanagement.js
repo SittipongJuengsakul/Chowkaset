@@ -206,7 +206,7 @@ function account_table(id_acc){
 
 				    		var button_add_account = document.createElement('button');
 				    		button_add_account.setAttribute('type','button');
-				    		button_add_account.setAttribute('class','btn btn-warning btn_add_account');
+				    		button_add_account.setAttribute('class','btn btn-success btn_add_account');
 				    		button_add_account.setAttribute('onclick','dialog_add_income();');
 				    		button_add_account.innerHTML = 'เพิ่มข้อมูล';
 				    		form_account.appendChild(button_add_account);
@@ -285,9 +285,253 @@ function account_table(id_acc){
 			    					td.innerHTML = parseFloat(money_total).toFixed(2);
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = '<a href="#edit'+data.data[count].acc_id+'" title="แก้ไข"><i class="fa fa-pencil-square"></i></a>';
+			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
 			    					tr.appendChild(td);
 			    					count++;
+			    			}
+			    				//รวมเงิน
+			    				var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = 'รวม';
+			    					td.style.textAlign = 'center';
+			    					td.setAttribute('colspan','2');
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = parseFloat(money_income).toFixed(2);
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = parseFloat(money_outcome).toFixed(2);
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = parseFloat(money_total).toFixed(2);
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '';
+			    					tr.appendChild(td);
+		    			}else{
+		    					var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = 'ไม่มีข้อมูลบัญชีรายรับ - รายจ่าย';
+			    					td.style.textAlign = 'center';
+			    					td.setAttribute('colspan','6');
+			    					tr.appendChild(td);
+		    			}
+		    			
+			
+	    });
+	});
+}
+function edit_account_table(id_acc,edt_id){
+	$(document).ready(function() {
+	    $.ajax({
+	        url: site_url+"/api/v1.0/Crop/getAccountCrop/"+id_acc
+	    }).then(function(data) {
+	var farm_menu_farm_account = document.getElementById('farm_account');
+	var id_farm_account_content = document.getElementById('id_farm_account_content');
+	if(id_farm_account_content){
+		id_farm_account_content.remove();
+	}
+	var div_menu_wrap = document.createElement('div');
+	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
+	    	div_menu_wrap.setAttribute('id','id_farm_account_content');
+	    	farm_menu_farm_account.appendChild(div_menu_wrap);
+		    	var farm_account_content = document.createElement('div');
+		    	farm_account_content.setAttribute('class','farm_account_content');
+		    	div_menu_wrap.appendChild(farm_account_content);
+		    		//ปุ่มรายรับรายจ๋าย
+		    		var form_account = document.createElement('form');
+		    		form_account.setAttribute('method','post');
+		    		form_account.setAttribute('id','add_form_account');
+		    		form_account.setAttribute('class','form-inline');
+		    		form_account.setAttribute('role','form');
+		    		farm_account_content.appendChild(form_account);
+		    			var inp_crop = document.createElement('input');
+					    inp_crop.setAttribute('type','hidden');
+					    inp_crop.setAttribute('name','acc_crop_id');
+					    inp_crop.setAttribute('value',id_acc)
+					    form_account.appendChild(inp_crop);
+		    				var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-2');
+				    		div_in.style.paddingLeft = '0px';
+				    		form_account.appendChild(div_in);
+				    			var date = document.createElement('input');
+					    		date.setAttribute('type','input');
+					    		date.setAttribute('id','dpd1');
+					    		date.style.width = '100%';
+					    		date.setAttribute('class','form-control dpd');
+					    		date.setAttribute('data-date-format','dd-mm-yyyy');
+					    		date.setAttribute('name','acc_date');
+					    		div_in.appendChild(date);
+					    		$('.dpd').datepicker('setValue', '20-10-2015');
+
+    						var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-5');
+				    		form_account.appendChild(div_in);
+					    		var inp_descript = document.createElement('input');
+					    		inp_descript.setAttribute('type','input');
+					    		inp_descript.style.width = '100%';
+					    		inp_descript.setAttribute('class','form-control');
+					    		inp_descript.setAttribute('name','acc_detail');
+					    		inp_descript.setAttribute('placeholder','รายละเอียด');
+					    		div_in.appendChild(inp_descript);
+					    	var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-2');
+				    		form_account.appendChild(div_in);
+					    		var inp_select = document.createElement('select');
+					    		inp_select.style.width = '100%';
+					    		inp_select.setAttribute('class','form-control');
+					    		inp_select.setAttribute('name','acc_cost_type');
+					    		div_in.appendChild(inp_select);
+					    			var opt_select = document.createElement('option');
+					    			opt_select.setAttribute('value','1');
+					    			opt_select.innerHTML = 'รายรับ';
+					    			inp_select.appendChild(opt_select);
+					    			var opt_select = document.createElement('option');
+					    			opt_select.setAttribute('value','2');
+					    			opt_select.innerHTML = 'รายจ่าย';
+					    			inp_select.appendChild(opt_select);
+					    	var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-2');
+				    		form_account.appendChild(div_in);
+					    		var inp_descript = document.createElement('input');
+					    		inp_descript.setAttribute('type','input');
+					    		inp_descript.style.width = '100%';
+					    		inp_descript.setAttribute('class','form-control');
+					    		inp_descript.setAttribute('name','acc_price');
+					    		inp_descript.setAttribute('placeholder','จำนวนเงิน (บาท)');
+					    		div_in.appendChild(inp_descript);
+
+				    		var button_add_account = document.createElement('button');
+				    		button_add_account.setAttribute('type','button');
+				    		button_add_account.setAttribute('class','btn btn-success btn_add_account');
+				    		button_add_account.setAttribute('onclick','dialog_add_income();');
+				    		button_add_account.innerHTML = 'เพิ่มข้อมูล';
+				    		form_account.appendChild(button_add_account);
+		    		//ตารางรายรับรายจ๋าย
+ 		    		var table_content = document.createElement('table');
+		    		table_content.setAttribute('class','table table-bordered');
+		    		farm_account_content.appendChild(table_content);
+		    			var thead = document.createElement('thead');
+		    			table_content.appendChild(thead);
+		    				var tr = document.createElement('tr');
+		    				thead.appendChild(tr);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'วัน/เดือน/ปี';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'รายละเอียด';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'รายรับ (บาท)';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'รายจ่าย (บาท)';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'เงินคงเหลือ (บาท)';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'ตัวเลือก';
+		    					tr.appendChild(th);
+
+		    			var tbody = document.createElement('tbody');
+			    		table_content.appendChild(tbody);
+		    			if(data.status=='1'){
+			    			var i = 0;
+			    			var count = 0;
+			    			var money_total = 0;
+			    			var money_income = 0;
+			    			var money_outcome = 0;
+			    			var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+							"เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+							"ตุลาคม","พฤศจิกายน","ธันวาคม");
+			    			for(i=0;i<data.data.length;i++){
+			    				if(edt_id!=data.data[count].acc_id){
+			    				//ถ้าไม่เป็น id ทีต้องการ่จะ edit
+			    				var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					var accdate = data.data[count].acc_date;
+			    					var text = accdate.split("-");
+			    					var year = parseInt(text[0]);
+			    					var month = parseInt(text[1]);
+			    					var day = parseInt(text[2]);
+			    					year = year;
+			    					td.innerHTML = day+' '+thmonth[month-1]+' '+year;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = data.data[count].acc_detail;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].acc_cost_type=='1'){ 
+			    						money_income = money_income+data.data[count].acc_price;
+			    						money_total = money_total+data.data[count].acc_price;
+			    						td.innerHTML = data.data[count].acc_price; 
+			    					}else{
+			    						td.innerHTML = '-';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].acc_cost_type=='2'){ 
+			    						money_outcome = money_outcome+data.data[count].acc_price;
+			    						money_total = money_total-data.data[count].acc_price;
+			    						td.innerHTML = data.data[count].acc_price; 
+			    					}else{
+			    						td.innerHTML = '-';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = parseFloat(money_total).toFixed(2);
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
+			    					tr.appendChild(td);
+			    					count++;
+			    				}else{
+			    					//ถ้า่เป็น id ทีต้องการ่จะ edit
+			    					var tr = document.createElement('tr');
+			    					tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					var accdate = data.data[count].acc_date;
+			    					var text = accdate.split("-");
+			    					var year = parseInt(text[0]);
+			    					var month = parseInt(text[1]);
+			    					var day = parseInt(text[2]);
+			    					year = year;
+			    					td.innerHTML = '<input type="input" id="dpd1" class="form-control dpd" data-date-format="dd-mm-yyyy" name="edt_acc_date" style="width: 100%;" value="'+day+'-'+month+'-'+year+'">';
+			    					$('.dpd').datepicker();
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<input type="input" class="form-control" name="acc_detail" placeholder="รายละเอียด" value="'+data.data[count].acc_detail+'" style="width: 100%;">';
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].acc_cost_type=='1'){ 
+			    						money_income = money_income+data.data[count].acc_price;
+			    						money_total = money_total+data.data[count].acc_price;
+			    						td.innerHTML = '<input type="input" class="form-control" name="acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" value="'+data.data[count].acc_price+'">'; 
+			    					}else{
+			    						td.innerHTML = '-';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].acc_cost_type=='2'){ 
+			    						money_outcome = money_outcome+data.data[count].acc_price;
+			    						money_total = money_total-data.data[count].acc_price;
+			    						td.innerHTML = '<input type="input" class="form-control" name="acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" value="'+data.data[count].acc_price+'">'; 
+			    					}else{
+			    						td.innerHTML = '-';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '-';
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<button type="button" style="margin: 0px 5px; float: none;" class="btn btn-warning btn_add_account" onclick="edit_account_submit();">แก้ใข</button><button type="button" class="btn btn-danger style="margin: 0px 5px; float: none;" btn_add_account" onclick="account_table('+id_acc+')">ยกเลิก</button>';
+			    					tr.appendChild(td);
+			    					count++;
+			    				}
 			    			}
 			    				//รวมเงิน
 			    				var tr = document.createElement('tr');
