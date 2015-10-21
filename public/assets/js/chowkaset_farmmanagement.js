@@ -267,7 +267,8 @@ function account_table(id_acc){
 			    					if(data.data[count].acc_cost_type=='1'){ 
 			    						money_income = money_income+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
-			    						td.innerHTML = data.data[count].acc_price; 
+			    						var float_price = data.data[count].acc_price;
+			    						td.innerHTML = parseFloat(float_price).toFixed(2); 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
