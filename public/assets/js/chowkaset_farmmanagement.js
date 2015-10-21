@@ -298,13 +298,13 @@ function account_table(id_acc){
 			    					td.setAttribute('colspan','2');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_income;
+			    					td.innerHTML = parseFloat(money_income).toFixed(2);
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_outcome;
+			    					td.innerHTML = parseFloat(money_outcome).toFixed(2);
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total;
+			    					td.innerHTML = parseFloat(money_total).toFixed(2);
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '';
