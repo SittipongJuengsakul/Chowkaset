@@ -38,6 +38,10 @@ function create_farm_management(){
 	    	farm_menu_farm_detail.appendChild(div_menu_wrap);
 		    	var card_menu = document.createElement('div');
 		    	card_menu.setAttribute('class','card_menu');
+		    	card_menu.setAttribute('id','progress_management');
+		    		var progress_management_html = '';
+		    		progress_management_html += '<div class="header_card" style="background-color: #5cb85c;">ติดตามการเพาะปลูก</div>';
+		    	card_menu.innerHTML = progress_management_html;
 		    	div_menu_wrap.appendChild(card_menu);
 
 	    	var div_menu_wrap = document.createElement('div');
@@ -45,13 +49,29 @@ function create_farm_management(){
 	    	farm_menu_farm_detail.appendChild(div_menu_wrap);
 		    	var card_menu = document.createElement('div');
 		    	card_menu.setAttribute('class','card_menu');
+		    	card_menu.setAttribute('id','calendar_management');
+		    	var calendar_management_html = '';
+		    		calendar_management_html += '<div class="header_card" style="background-color: #5BC0DE;">ปฎิทินการเพาะปลูก</div>';
+		    		calendar_management_html += '<div class="body_card">';
+		    		calendar_management_html += '<table class="table table-bordered">';
+		    		calendar_management_html += '<thead><tr><th>วันที่</th><th>กิจกรรม</th></tr>';
+		    		calendar_management_html += '<tbody><tr><td>วันนี้</td><td>ไถนา</td></tr>';
+		    		calendar_management_html += '<tbody><tr><td>28 ตุลาคม 2558</td><td>เตรียมดิน</td></tr>';
+		    		calendar_management_html += '<tbody><tr><td>30 ตุลาคม 2558</td><td>ปล่อยน้ำลงนา</td></tr>';
+		    		calendar_management_html += '</table>';
+		    		calendar_management_html += '</div>';
+		    	card_menu.innerHTML = calendar_management_html;
 		    	div_menu_wrap.appendChild(card_menu);
 
 	    	var div_menu_wrap = document.createElement('div');
 	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
 	    	farm_menu_farm_detail.appendChild(div_menu_wrap);
 		    	var card_menu = document.createElement('div');
+		    	card_menu.setAttribute('id','market_management');
 		    	card_menu.setAttribute('class','card_menu');
+		    	var market_management_html = '';
+		    		market_management_html += '<div class="header_card" style="background-color: #f0ad4e;">ราคาสินค้าตลาด</div>';
+		    	card_menu.innerHTML = market_management_html;
 		    	div_menu_wrap.appendChild(card_menu);
 
 
