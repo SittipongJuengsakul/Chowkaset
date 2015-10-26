@@ -8,11 +8,42 @@ use Hash;
 use DB;
 use Carbon\Carbon;
 use Redirect;
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class CropsApiController extends Controller
 {
+    //แสดงข่้อมูบ map ตามที่คลิกจาก marker บน map
+    //Function Code 100201
+     public function map_detail($map_id){
+        $map_detail = DB::table('maps')->join('crops', 'maps.map_crop_id', '=', 'crops.crop_id')
+        ->join('group_crop_user', 'group_crop_user.crop_id', '=', 'crops.crop_id')
+        ->join('users','group_crop_user.user_id','=','users.id')
+        ->join('seeds', 'seeds.seed_id', '=', 'crops.seed_id')
+        ->where('map_id', '=', $map_id)->get();
+        return $map_detail;
+    }
+    //เพิ่มข่้อมูล  marker บน map
+    //Function Code 100202
+    public function new_crop(Request $request){
+        $user_id = Auth::user()->id;
+        $crops_id = DB::table('crops')->insertGetId(
+            ['product'=> $request->input('product'),'rai'=> $request->input('rai'),
+            'ngarn'=> $request->input('ngarn'),'wah'=> $request->input('wah'),
+            'seed_id' => $request->input('seeds'),'crop_name' => $request->input('namerai')]
+        );
+        $user_owner = DB::table('group_crop_user')->insertGetId(
+            ['user_id'=>$user_id,'crop_id'=>$crops_id]
+        );
+        $maps_id = DB::table('maps')->insertGetId(
+            ['latitude'=> $request->input('latitude'),'longitude'=>$request->input('longtitude'),'map_crop_id' => $crops_id,
+            'created_at' => 'CURRENT_TIMESTAMP','updated_at' => 'CURRENT_TIMESTAMP']
+        );
+
+        return Redirect::to('/');;
+    }
+
     public function test(Request $request){
         $acc_date = $request->input('acc_date');
         $acc_detail = $request->input('acc_detail');
@@ -149,18 +180,122 @@ class CropsApiController extends Controller
     //เพิ่มบัญชีรายรับ รายจ่าย
     public function EditAccountData(Request $request)
     {
+        $statusCode = 200;
         $date = $request->input('edt_acc_date');
         $dateformat = explode('-', $date);
         $date_acc = $dateformat[2].'-'.$dateformat[1].'-'.$dateformat[0];
             $dataAccount = DB::table('crop_accounts')->where('acc_id', $request->input('edt_acc_id'))
-            ->update(['edacc_detail'=> $request->input('edt_acc_detail'),'acc_date'=> $date_acc,'acc_price'=> $request->input('edt_acc_price'),'acc_cost_type'=> $request->input('edt_acc_cost_type'),'acc_crop_id'=> $request->input('edt_acc_crop_id')]
+            ->update(['acc_detail'=> $request->input('edt_acc_detail'),'acc_date'=> $date_acc,'acc_price'=> $request->input('edt_acc_price'),'acc_cost_type'=> $request->input('edt_acc_cost_type'),'acc_crop_id'=> $request->input('edt_acc_crop_id')]
             );
-        return $date_acc;
+        if($dataAccount){
+            $response = [
+                  'status'  => '1','massage' =>'Edit Complete!'
+                  ];
+        }else{
+            $response = [
+                  'status'  => '0','massage' =>'Edit Not Complete!'
+                  ];
+        }
+        return Response::json($response, $statusCode);
     }
     //เพิ่มบัญชีรายรับ รายจ่าย
     public function DeleteAccountData(Request $request)
     {
-        $dataAccount = DB::table('crop_accounts')->where('edt_acc_id', '<', 100)->delete();
-        return $date_acc;
+        $statusCode = 200;
+        $dlt_acc_id = $request->input('dlt_acc_id');
+        $dataAccount = DB::table('crop_accounts')->where('acc_id', '=', $dlt_acc_id)->delete();
+        if($dataAccount){
+            $response = [
+                  'status'  => '1','massage' =>'Delete Complete!'
+                  ];
+        }else{
+            $response = [
+                  'status'  => '0','massage' =>'Delete Not Complete!'
+                  ];
+        }
+        return Response::json($response, $statusCode);
+    }
+    //ปัญหา
+    //ข้อมูลปัญหาของแปลง
+    public function getProblemData($crops_id)
+    {
+        $dataAccount = DB::table('crop_problems')->where('pbm_crop_id','=',$crops_id)->orderBy('pbm_date', 'asc')->get();
+        try{
+            $statusCode = 200;
+            if($dataAccount){
+                $response = [
+                  'status'  => '1',
+                  'data' => $dataAccount,
+                ];
+            }else{
+                $response = [
+                  'status'  => '0',
+                  'message' => 'No Data!'
+                ];
+            }
+        }catch (Exception $e){
+            $statusCode = 400;
+        }finally{
+            return Response::json($response, $statusCode);
+        }
+    }
+    //เพิ่มปัญหาการเพาะปลูก
+    public function AddProblemData(Request $request)
+    {
+        $dataProblem = DB::table('crop_problems')->insertGetId(
+            ['pbm_detail'=> $request->input('pbm_detail'),'pbm_crop_id'=> $request->input('pbm_crop_id'),]
+        );
+        try{
+            $statusCode = 200;
+            if($dataProblem){
+                $response = [
+                  'status'  => '1',
+                ];
+            }else{
+                $response = [
+                  'status'  => '0',
+                  'message' => 'No Data!'
+                ];
+            }
+        }catch (Exception $e){
+            $statusCode = 400;
+        }finally{
+            return Response::json($response, $statusCode);
+        }
+    }
+    //แก้ใขปัญหาการเพาะปลูก
+    public function EditProblemData(Request $request)
+    {    
+        $statusCode = 200;
+            $dataAccount = DB::table('crop_problems')->where('pbm_id', $request->input('edt_pbm_id'))
+            ->update(['pbm_detail'=> $request->input('edt_pbm_detail'),'pbm_status'=>'0']
+            );
+        if($dataAccount){
+            $response = [
+                  'status'  => '1','massage' =>'Edit Complete!'
+                  ];
+        }else{
+            $response = [
+                  'status'  => '0','massage' =>'Edit Not Complete!'
+                  ];
+        }
+        return Response::json($response, $statusCode);
+    }
+    //ลบปัญหาการเพาะปลูก
+    public function DeleteProblemData(Request $request)
+    {
+        $statusCode = 200;
+        $dlt_pbm_id = $request->input('dlt_pbm_id');
+        $dataAccount = DB::table('crop_problems')->where('pbm_id', '=', $dlt_pbm_id)->delete();
+        if($dataAccount){
+            $response = [
+                  'status'  => '1','massage' =>'Delete Complete!'
+                  ];
+        }else{
+            $response = [
+                  'status'  => '0','massage' =>'Delete Not Complete!'
+                  ];
+        }
+        return Response::json($response, $statusCode);
     }
 }

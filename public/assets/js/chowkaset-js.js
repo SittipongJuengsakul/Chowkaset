@@ -23,6 +23,7 @@ function place_kaset(map_id) {
             var id_place_kaset = document.getElementById('place_kaset');
             if(!id_place_kaset){
                 create_row(obj);
+
             }else{
                 drop_row();
                 create_row(obj);
@@ -30,7 +31,7 @@ function place_kaset(map_id) {
         }
 
       }
-    xmlhttp.open("GET",site_url+"/test/"+map_id,true);
+    xmlhttp.open("GET",site_url+"/api/v1.0/Crop/mapdetail/"+map_id,true);
     xmlhttp.send();
 }
 
@@ -60,7 +61,7 @@ function place_mykaset(map_id) {
         }
 
       }
-    xmlhttp.open("GET","test/"+map_id,true);
+    xmlhttp.open("GET","/api/v1.0/Crop/mapdetail/"+map_id,true);
     xmlhttp.send();
     
 }
@@ -85,6 +86,7 @@ function create_place_detail(obj){
         var header_place_kaset = document.createElement("div");
         header_place_kaset.setAttribute("class","place_kaset_header");
         if(obj[0].crop_name||obj[0].crop_name!=''){
+
             header_place_kaset.innerHTML = obj[0].crop_name; 
         }else{
             header_place_kaset.innerHTML = 'ไร่ '+obj[0].fname+ ' ' +obj[0].lname;
@@ -416,7 +418,7 @@ function crate_row_new_crops(latlng){
         form_content_place_detail.setAttribute("class","form_content_place_detail");
         form_content_place_detail.setAttribute("role","form");
         form_content_place_detail.setAttribute("method","POST");
-        form_content_place_detail.setAttribute("action",site_url+"/new_crop");
+        form_content_place_detail.setAttribute("action",site_url+"/api/v1.0/Crop/new_crop");
         document.getElementById("place_kaset").appendChild(form_content_place_detail);
 
         var inp_token = document.createElement('input');

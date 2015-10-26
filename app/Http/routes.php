@@ -13,24 +13,28 @@
 
 Route::get('/','HomeController@index');
 Route::get('home','HomeController@index');
-Route::get('test/{id}','ajaxrespond@map_detail');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController'
 ]);
 Route::get('changeprofile','profileController@index');
 Route::post('changeprofile/commit','profileController@profilechange');
-Route::post('new_crop','ajaxrespond@new_crop');
 
 Route::group(array('prefix' => 'api/v1.0'), function()
     {
     	//น้าหลัก API Refference
     	Route::get('/','apiv1_0\ApiController@refference_one_zero');
+
     	//ข้อมูล Authen
         Route::resource('Auth', 'apiv1_0\AuthApiController');
         //เรียก Token จากระบบ
         Route::get('getToken','apiv1_0\AuthApiController@getToken');
         //Crop
+        
+        //ดูข้อมูลการเพาะปลูก
+        Route::get('Crop/mapdetail/{id}','apiv1_0\CropsApiController@map_detail');
+        //
+        Route::post('Crop/new_crop','apiv1_0\CropsApiController@new_crop');
         //พื้นที่ปลูกของ User
         Route::get('Crop/getCropsOfUser/{user_id}','apiv1_0\CropsApiController@crops_list');
         //ชนิดพืช วางไว้คือ ทั้งหมด หากไส่ จะเป็น id
@@ -43,7 +47,16 @@ Route::group(array('prefix' => 'api/v1.0'), function()
         //เพิ่มรายรับ,รายจ่าย
         Route::post('Crop/AddAccountData','apiv1_0\CropsApiController@AddAccountData');
         //ลบรายรับ,รายจ่าย
-        Route::delete('Crop/EditAccountData','apiv1_0\CropsApiController@EditAccountData');
+        Route::delete('Crop/DeleteAccountData','apiv1_0\CropsApiController@DeleteAccountData');
         //แก้ใขรายรับ,รายจ่าย
-        Route::put('Crop/DeleteAccountData','apiv1_0\CropsApiController@DeleteAccountData');
+        Route::put('Crop/EditAccountData','apiv1_0\CropsApiController@EditAccountData');
+        //ข้อมูลปัญหาการเพาะปลูก
+        Route::get('Crop/getProblemCrop/{crop_id}','apiv1_0\CropsApiController@getProblemData');
+        //เพิ่มปัญหาการเพาะปลูก
+        Route::post('Crop/AddProblemData','apiv1_0\CropsApiController@AddProblemData');
+        //ลบรายรับ,รายจ่าย
+        Route::delete('Crop/DeleteProblemData','apiv1_0\CropsApiController@DeleteProblemData');
+        //แก้ใขรายรับ,รายจ่าย
+        Route::put('Crop/EditProblemData','apiv1_0\CropsApiController@EditProblemData');
+
     });

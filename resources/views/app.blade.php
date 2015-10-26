@@ -54,6 +54,28 @@
 			user_facebook = '';
 			user_address = '';
 			user_id = ''
+			<?php $client  = @$_SERVER['HTTP_CLIENT_IP'];
+	    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+	    $remote  = $_SERVER['REMOTE_ADDR'];
+
+	    if(filter_var($client, FILTER_VALIDATE_IP))
+	    {
+	        $ip = $client;
+	    }
+	    elseif(filter_var($forward, FILTER_VALIDATE_IP))
+	    {
+	        $ip = $forward;
+	    }
+	    else
+	    {
+	        $ip = $remote;
+	    }
+
+	    if($ip=='::1'){
+	    	$ip = '127.0.0.1';
+	    }
+	    ?>
+	    user_ip = '{{ $ip }}';
 		</script>
 	@else
 	<script>
@@ -65,7 +87,27 @@
 		user_facebook = '{{ Auth::user()->facebook }}';
 		user_address = '{{ Auth::user()->address }}';
 		//create_dashboard_row();
-		
+		<?php $client  = @$_SERVER['HTTP_CLIENT_IP'];
+	    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+	    $remote  = $_SERVER['REMOTE_ADDR'];
+
+	    if(filter_var($client, FILTER_VALIDATE_IP))
+	    {
+	        $ip = $client;
+	    }
+	    elseif(filter_var($forward, FILTER_VALIDATE_IP))
+	    {
+	        $ip = $forward;
+	    }
+	    else
+	    {
+	        $ip = $remote;
+	    }
+	    if($ip=='::1'){
+	    	$ip = '127.0.0.1';
+	    }
+	    ?>
+	    user_ip = '{{ $ip }}';
 	</script>
 	@endif
 </body>

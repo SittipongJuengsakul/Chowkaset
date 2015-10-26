@@ -558,6 +558,19 @@ body {
   float: right;
   margin-right: 5px;
   margin-bottom: 10px; }
+#farm_management_console .farm_management_board .tab-content #farm_problem tbody tr td {
+  text-align: center; }
+#farm_management_console .farm_management_board .tab-content #farm_problem tbody tr td a {
+  font-size: 20px; }
+#farm_management_console .farm_management_board .tab-content #farm_problem tbody tr td a i.edit_acc {
+  color: #FF9500;
+  text-align: center;
+  cursor: pointer; }
+#farm_management_console .farm_management_board .tab-content #farm_problem tbody tr td a i.delete_acc {
+  margin-left: 3px;
+  color: red;
+  text-align: center;
+  cursor: pointer; }
 #farm_management_console #id_close_farm_management_console {
   margin-left: 98.9%; }
 #farm_management_console #id_close_farm_management_console a {

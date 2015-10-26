@@ -744,6 +744,27 @@ body{
 				    margin-right: 5px;
     				margin-bottom: 10px;
 				}
+				tbody{
+						tr{
+							td{
+								text-align: center;
+								a{
+									font-size: 20px;
+									i.edit_acc{
+										color: #FF9500;
+										text-align: center;
+										cursor: pointer;
+									}
+									i.delete_acc{
+										margin-left: 3px;
+										color: red;
+										text-align: center;
+										cursor: pointer;
+									}
+								}
+							}
+						}
+					}
 			}
 		}
 	}

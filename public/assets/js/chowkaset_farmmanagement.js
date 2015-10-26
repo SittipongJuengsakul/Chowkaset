@@ -110,6 +110,7 @@ function create_farm_management(){
 						}).then(function(data) {
 							var i = 0;
 							var count = 0;
+							var id_default = data.data[0].crop_id;
 							for(i=0;i<data.data.length;i++){
 								var option_choose = document.createElement('option');
 			    				option_choose.setAttribute('value',data.data[count].crop_id);
@@ -117,8 +118,9 @@ function create_farm_management(){
 			    				document.getElementById('farm_problem_select').appendChild(option_choose);
 			    				count++;
 							}
+						problem_table(id_default);
 						});
-	    			problem_table();
+	    			
 }
 function close_farm_management_console(){
 	$('#farm_management_console').remove();
@@ -165,7 +167,7 @@ function account_table(id_acc){
 					    		date.setAttribute('data-date-format','dd-mm-yyyy');
 					    		date.setAttribute('name','acc_date');
 					    		div_in.appendChild(date);
-					    		$('#dpd1').datepicker('setValue', '20-10-2015');
+					    		$('#dpd1').datepicker('setValue', new Date());
 
     						var div_in = document.createElement('div');
 				    		div_in.setAttribute('class','col-md-5');
@@ -285,7 +287,7 @@ function account_table(id_acc){
 			    					td.innerHTML = parseFloat(money_total).toFixed(2);
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
+			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_income('+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
 			    					tr.appendChild(td);
 			    					count++;
 			    			}
@@ -486,12 +488,14 @@ function edit_account_table(id_acc,edt_id){
 			    					td.innerHTML = parseFloat(money_total).toFixed(2);
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
+			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_income('+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
 			    					tr.appendChild(td);
 			    					count++;
 			    				}else{
 			    					//ถ้า่เป็น id ทีต้องการ่จะ edit
 			    					var tr = document.createElement('tr');
+			    					tr.setAttribute('id','tr_field_edit');
+			    					tr.innerHTML = '<input type="hidden" name="edt_acc_id" value="'+data.data[count].acc_id+'">';
 			    					tbody.appendChild(tr);
 			    					var td = document.createElement('td');
 			    					var accdate = data.data[count].acc_date;
@@ -504,13 +508,13 @@ function edit_account_table(id_acc,edt_id){
 			    					$('.dpd').datepicker();
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = '<input type="input" class="form-control" name="acc_detail" placeholder="รายละเอียด" value="'+data.data[count].acc_detail+'" style="width: 100%;">';
+			    					td.innerHTML = '<input type="input" class="form-control" name="edt_acc_detail" placeholder="รายละเอียด" value="'+data.data[count].acc_detail+'" style="width: 100%;">';
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					if(data.data[count].acc_cost_type=='1'){ 
 			    						money_income = money_income+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
-			    						td.innerHTML = '<input type="input" class="form-control" name="acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" value="'+data.data[count].acc_price+'">'; 
+			    						td.innerHTML = '<input type="input" class="form-control" name="edt_acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" value="'+data.data[count].acc_price+'"><input type="hidden" name="edt_cost_type" value="'+data.data[count].acc_cost_type+'">'; 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
@@ -519,7 +523,7 @@ function edit_account_table(id_acc,edt_id){
 			    					if(data.data[count].acc_cost_type=='2'){ 
 			    						money_outcome = money_outcome+data.data[count].acc_price;
 			    						money_total = money_total-data.data[count].acc_price;
-			    						td.innerHTML = '<input type="input" class="form-control" name="acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" value="'+data.data[count].acc_price+'">'; 
+			    						td.innerHTML = '<input type="input" class="form-control" name="edt_acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" value="'+data.data[count].acc_price+'"><input type="hidden" name="edt_cost_type" value="'+data.data[count].acc_cost_type+'">'; 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
@@ -528,7 +532,7 @@ function edit_account_table(id_acc,edt_id){
 			    					td.innerHTML = '-';
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = '<button type="button" style="margin: 0px 5px; float: none;" class="btn btn-warning btn_add_account" onclick="edit_account_submit();">แก้ใข</button><button type="button" class="btn btn-danger style="margin: 0px 5px; float: none;" btn_add_account" onclick="account_table('+id_acc+')">ยกเลิก</button>';
+			    					td.innerHTML = '<button type="button" style="margin: 0px 5px; float: none;" class="btn btn-warning btn_add_account" onclick="dialog_edit_income();">แก้ใข</button><button type="button" class="btn btn-danger style="margin: 0px 5px; float: none;" btn_add_account" onclick="account_table('+id_acc+')">ยกเลิก</button>';
 			    					tr.appendChild(td);
 			    					count++;
 			    				}
@@ -592,11 +596,59 @@ function dialog_add_income(){
 	    }
 	});
 }
-
+function dialog_delete_income(dlt_id){
+	var $form = $('#add_form_account'),
+	val_acc_crop_id = $form.find( "input[name='acc_crop_id']" ).val();
+	$.ajax({
+	    url: site_url+'/api/v1.0/Crop/DeleteAccountData',
+	    type: 'DELETE',
+	    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+	    data: {
+	    	_method:"DELETE",
+	    	dlt_user_ip: user_ip,
+	    	dlt_acc_id: dlt_id,
+	    	dlt_user_id: user_id,
+	    },
+	    success: function (data) {
+	        account_table(val_acc_crop_id);
+	    }
+	});
+}
+function dialog_edit_income(){
+	var $form = $('#add_form_account'),
+	val_acc_crop_id = $form.find( "input[name='acc_crop_id']" ).val();
+	var $tr_field = $('#tr_field_edit'),
+	acc_id = $tr_field.find( "input[name='edt_acc_id']" ).val(),
+	acc_date = $tr_field.find( "input[name='edt_acc_date']" ).val(),
+	acc_price = $tr_field.find( "input[name='edt_acc_price']" ).val(),
+	acc_cost_type = $tr_field.find( "input[name='edt_cost_type']" ).val(),
+	acc_detail = $tr_field.find( "input[name='edt_acc_detail']" ).val();
+	$.ajax({
+	    url: site_url+'/api/v1.0/Crop/EditAccountData',
+	    type: 'PUT',
+	    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+	    data: {
+	    	_method:"PUT",
+	    	edt_acc_id: acc_id,
+	    	edt_acc_date: acc_date,
+	    	edt_acc_price: acc_price,
+	    	edt_acc_cost_type: acc_cost_type,
+	    	edt_acc_detail: acc_detail,
+	    	edt_acc_crop_id: val_acc_crop_id,
+	    },
+	    success: function (data) {
+	        account_table(val_acc_crop_id);
+	    }
+	});
+}
 function problem_table(id_prb){
 	$(document).ready(function() {
 	    $.ajax({
-	        url: site_url+"/api/v1.0"
+	        url: site_url+"/api/v1.0/Crop/getProblemCrop/"+id_prb
 	    }).then(function(data) {
 	var farm_menu_farm_problem = document.getElementById('farm_problem');
 	var id_farm_problem_content = document.getElementById('id_farm_problem_content');
@@ -606,21 +658,45 @@ function problem_table(id_prb){
 	var div_menu_wrap = document.createElement('div');
 	    	var div_menu_wrap = document.createElement('div');
 	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
+		    div_menu_wrap.setAttribute('id','id_farm_problem_content');
 	    	farm_menu_farm_problem.appendChild(div_menu_wrap);
 		    	var farm_problem_content = document.createElement('div');
-		    	farm_problem_content.setAttribute('class','id_farm_problem_content');
 		    	farm_problem_content.setAttribute('class','farm_problem_content');
 		    	div_menu_wrap.appendChild(farm_problem_content);
-		    	//ปุ่มรายรับรายจ๋าย
-		    		var button_add_problem = document.createElement('button');
-		    		button_add_problem.setAttribute('type','button');
-		    		button_add_problem.setAttribute('class','btn btn-info btn_add_problem');
-		    		button_add_problem.innerHTML = 'เพิ่มปัญหา';
-		    		farm_problem_content.appendChild(button_add_problem);
+		    	//ปุ่มเพิ่มปัญหา
+		    		var form_problem = document.createElement('form');
+		    		form_problem.setAttribute('method','post');
+		    		form_problem.setAttribute('id','add_form_problem');
+		    		form_problem.setAttribute('class','form-inline');
+		    		form_problem.setAttribute('role','form');
+		    		farm_problem_content.appendChild(form_problem);
+		    			var inp_crop = document.createElement('input');
+					    inp_crop.setAttribute('type','hidden');
+					    inp_crop.setAttribute('name','pbm_crop_id');
+					    inp_crop.setAttribute('value',id_prb)
+					    form_problem.appendChild(inp_crop);
+					    	var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-12');
+				    		div_in.style.marginBottom = '15px';
+				    		form_problem.appendChild(div_in);
+					    		var inp_descript = document.createElement('textarea');
+					    		inp_descript.style.width = '100%';
+					    		inp_descript.setAttribute('class','form-control');
+					    		inp_descript.setAttribute('name','pbm_detail');
+					    		inp_descript.setAttribute('placeholder','ปัญหาที่พบ');
+					    		div_in.appendChild(inp_descript);
+				    		var button_add_problem = document.createElement('button');
+				    		button_add_problem.setAttribute('type','button');
+				    		button_add_problem.setAttribute('onclick','dialog_add_problem();');
+				    		button_add_problem.setAttribute('class','btn btn-success btn_add_problem');
+				    		button_add_problem.innerHTML = 'เพิ่มปัญหา';
+				    		form_problem.appendChild(button_add_problem);
+
 		    		//ปัญหา
 		    		var table_content = document.createElement('table');
 		    		table_content.setAttribute('class','table table-bordered');
 		    		farm_problem_content.appendChild(table_content);
+
 		    			var thead = document.createElement('thead');
 		    			table_content.appendChild(thead);
 		    				var tr = document.createElement('tr');
@@ -640,22 +716,258 @@ function problem_table(id_prb){
 
 		    			var tbody = document.createElement('tbody');
 		    			table_content.appendChild(tbody);
-		    				var tr = document.createElement('tr');
-		    				tbody.appendChild(tr);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = '2 มกราคม 2558';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'ดินแข็ง ไถนาไม่ได้ครับ';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'สำเร็จ';
-		    					td.style.color = 'green';
-		    					tr.appendChild(td);
-		    					var td = document.createElement('td');
-		    					td.innerHTML = 'คำแนะนำ';
-		    					tr.appendChild(td);
-			
+		    			if(data.status=='1'){
+		    				var count = 0;
+		    				var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+							"เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+							"ตุลาคม","พฤศจิกายน","ธันวาคม");
+			    			for(i=0;i<data.data.length;i++){
+			    				var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					var accdate = data.data[count].pbm_date;
+			    					var text = accdate.split("-");
+			    					var year = parseInt(text[0]);
+			    					var month = parseInt(text[1]);
+			    					var day = parseInt(text[2]);
+			    					year = year;
+			    					td.innerHTML = day+' '+thmonth[month-1]+' '+year;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = data.data[count].pbm_detail;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].pbm_status=='0'){
+			    						td.innerHTML = 'รอคำตอบ';
+			    						td.style.textAlign = 'center';
+			    						td.style.color = 'orange';
+			    					}else if(data.data[count].pbm_status=='1'){
+			    						td.innerHTML = 'สำเร็จ';
+			    						td.style.color = 'green';
+			    						td.style.textAlign = 'center';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<a onclick="edit_problem_table('+id_prb+','+data.data[count].pbm_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_problem('+data.data[count].pbm_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
+			    					tr.appendChild(td);
+			    					count++;
+							}
+						}else{
+		    					var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = 'ไม่มีข้อมูลปัญหาการเพาะปลูก';
+			    					td.style.textAlign = 'center';
+			    					td.setAttribute('colspan','4');
+			    					tr.appendChild(td);
+		    			}
 	    });
+	});
+}
+function dialog_add_problem(){
+	var $form = $('#add_form_problem'),
+	add_pbm_detail = $form.find( "textarea[name='pbm_detail']" ).val(),
+	add_pbm_crop_id = $form.find( "input[name='pbm_crop_id']" ).val();
+	$.ajax({
+	    url: site_url+'/api/v1.0/Crop/AddProblemData',
+	    type: 'post',
+	    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+	    data: {
+	    	pbm_detail: add_pbm_detail,
+	        pbm_crop_id: add_pbm_crop_id,
+	    },
+	    success: function (data) {
+	        problem_table(add_pbm_crop_id);
+	    }
+	});
+}
+function dialog_delete_problem(dlt_id){
+	var $form = $('#add_form_problem'),
+	val_acc_crop_id = $form.find( "input[name='pbm_crop_id']" ).val();
+	$.ajax({
+	    url: site_url+'/api/v1.0/Crop/DeleteProblemData',
+	    type: 'DELETE',
+	    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+	    data: {
+	    	_method:"DELETE",
+	    	dlt_pbm_id: dlt_id,
+	    },
+	    success: function (data) {
+	        problem_table(val_acc_crop_id);
+	    }
+	});
+}
+function edit_problem_table(id_prb,edt_id){
+	$(document).ready(function() {
+	    $.ajax({
+	        url: site_url+"/api/v1.0/Crop/getProblemCrop/"+id_prb
+	    }).then(function(data) {
+	var farm_menu_farm_problem = document.getElementById('farm_problem');
+	var id_farm_problem_content = document.getElementById('id_farm_problem_content');
+	if(id_farm_problem_content){
+		id_farm_problem_content.remove();
+	}
+	var div_menu_wrap = document.createElement('div');
+	    	var div_menu_wrap = document.createElement('div');
+	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
+		    div_menu_wrap.setAttribute('id','id_farm_problem_content');
+	    	farm_menu_farm_problem.appendChild(div_menu_wrap);
+		    	var farm_problem_content = document.createElement('div');
+		    	farm_problem_content.setAttribute('class','farm_problem_content');
+		    	div_menu_wrap.appendChild(farm_problem_content);
+		    	//ปุ่มเพิ่มปัญหา
+		    		var form_problem = document.createElement('form');
+		    		form_problem.setAttribute('method','post');
+		    		form_problem.setAttribute('id','add_form_problem');
+		    		form_problem.setAttribute('class','form-inline');
+		    		form_problem.setAttribute('role','form');
+		    		farm_problem_content.appendChild(form_problem);
+		    			var inp_crop = document.createElement('input');
+					    inp_crop.setAttribute('type','hidden');
+					    inp_crop.setAttribute('name','pbm_crop_id');
+					    inp_crop.setAttribute('value',id_prb)
+					    form_problem.appendChild(inp_crop);
+					    	var div_in = document.createElement('div');
+				    		div_in.setAttribute('class','col-md-12');
+				    		div_in.style.marginBottom = '15px';
+				    		form_problem.appendChild(div_in);
+					    		var inp_descript = document.createElement('textarea');
+					    		inp_descript.style.width = '100%';
+					    		inp_descript.setAttribute('class','form-control');
+					    		inp_descript.setAttribute('name','pbm_detail');
+					    		inp_descript.setAttribute('placeholder','ปัญหาที่พบ');
+					    		div_in.appendChild(inp_descript);
+				    		var button_add_problem = document.createElement('button');
+				    		button_add_problem.setAttribute('type','button');
+				    		button_add_problem.setAttribute('onclick','dialog_add_problem();');
+				    		button_add_problem.setAttribute('class','btn btn-success btn_add_problem');
+				    		button_add_problem.innerHTML = 'เพิ่มปัญหา';
+				    		form_problem.appendChild(button_add_problem);
+
+		    		//ปัญหา
+		    		var table_content = document.createElement('table');
+		    		table_content.setAttribute('class','table table-bordered');
+		    		farm_problem_content.appendChild(table_content);
+
+		    			var thead = document.createElement('thead');
+		    			table_content.appendChild(thead);
+		    				var tr = document.createElement('tr');
+		    				thead.appendChild(tr);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'วัน/เดือน/ปี';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'ปัญหา';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'สถานะ';
+		    					tr.appendChild(th);
+		    					var th = document.createElement('th');
+		    					th.innerHTML = 'ตัวเลือก';
+		    					tr.appendChild(th);
+
+		    			var tbody = document.createElement('tbody');
+		    			table_content.appendChild(tbody);
+		    			if(data.status=='1'){
+		    				var count = 0;
+		    				var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม",
+							"เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน",
+							"ตุลาคม","พฤศจิกายน","ธันวาคม");
+			    			for(i=0;i<data.data.length;i++){
+			    				if(edt_id==data.data[count].pbm_id){
+			    					var tr = document.createElement('tr');
+			    					tr.setAttribute('id','tr_field_edit_problem');
+			    					tr.innerHTML = '<input type="hidden" name="edt_pbm_id" value="'+data.data[count].pbm_id+'">';
+			    					tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					var accdate = data.data[count].pbm_date;
+			    					var text = accdate.split("-");
+			    					var year = parseInt(text[0]);
+			    					var month = parseInt(text[1]);
+			    					var day = parseInt(text[2]);
+			    					year = year;
+			    					td.innerHTML = day+' '+thmonth[month-1]+' '+year;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<textarea name="edt_pbm_detail" class="form-control" width="100%">'+data.data[count].pbm_detail+'</textarea>';
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    						td.innerHTML = 'แก้ใข';
+			    						td.style.textAlign = 'center';
+			    						td.style.color = 'red';
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<button type="button" style="margin: 0px 5px; float: none;" class="btn btn-warning btn_add_account" onclick="dialog_edit_problem();">แก้ใข</button><button type="button" class="btn btn-danger style="margin: 0px 5px; float: none;" btn_add_account" onclick="problem_table('+id_prb+')">ยกเลิก</button>';
+			    					tr.appendChild(td);
+			    					count++;
+			    				}else{
+			    					var tr = document.createElement('tr');
+			    					tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					var accdate = data.data[count].pbm_date;
+			    					var text = accdate.split("-");
+			    					var year = parseInt(text[0]);
+			    					var month = parseInt(text[1]);
+			    					var day = parseInt(text[2]);
+			    					year = year;
+			    					td.innerHTML = day+' '+thmonth[month-1]+' '+year;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = data.data[count].pbm_detail;
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					if(data.data[count].pbm_status=='0'){
+			    						td.innerHTML = 'รอคำตอบ';
+			    						td.style.textAlign = 'center';
+			    						td.style.color = 'orange';
+			    					}else if(data.data[count].pbm_status=='1'){
+			    						td.innerHTML = 'สำเร็จ';
+			    						td.style.color = 'green';
+			    						td.style.textAlign = 'center';
+			    					}
+			    					tr.appendChild(td);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = '<a onclick="edit_problem_table('+id_prb+','+data.data[count].pbm_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_problem('+data.data[count].pbm_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
+			    					tr.appendChild(td);
+			    					count++;
+			    				}
+			    				
+							}
+						}else{
+		    					var tr = document.createElement('tr');
+			    				tbody.appendChild(tr);
+			    					var td = document.createElement('td');
+			    					td.innerHTML = 'ไม่มีข้อมูลปัญหาการเพาะปลูก';
+			    					td.style.textAlign = 'center';
+			    					td.setAttribute('colspan','4');
+			    					tr.appendChild(td);
+		    			}
+	    });
+	});
+}
+function dialog_edit_problem(){
+	var $form = $('#add_form_problem'),
+	val_pbm_crop_id = $form.find( "input[name='pbm_crop_id']" ).val();
+	var $tr_field = $('#tr_field_edit_problem'),
+	edt_pbm_detail = $tr_field.find( "textarea[name='edt_pbm_detail']" ).val(),
+	edt_pbm_id = $tr_field.find( "input[name='edt_pbm_id']" ).val();
+	$.ajax({
+	    url: site_url+'/api/v1.0/Crop/EditProblemData',
+	    type: 'PUT',
+	    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+	    data: {
+	    	_method:"PUT",
+	    	edt_pbm_id: edt_pbm_id,
+	    	edt_pbm_detail: edt_pbm_detail,
+	    },
+	    success: function (data) {
+	        problem_table(val_pbm_crop_id);
+	    }
 	});
 }
