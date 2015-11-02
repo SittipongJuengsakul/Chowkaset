@@ -208,7 +208,7 @@ function create_form_contact_in_content(obj){
             label_form_fname.innerHTML = "ที่อยู่";
             div_in_formgrop.appendChild(label_form_fname);
             var place_form_fname = document.createElement("p");
-            place_form_fname.innerHTML = obj[0].address;
+            place_form_fname.innerHTML = obj[0].crops_address;
             div_in_formgrop.appendChild(place_form_fname);
             var hr = document.createElement("hr");
             hr.setAttribute("class","end-form");
@@ -270,7 +270,7 @@ function create_form_in_content(obj){
             label_form_fname.innerHTML = "พืชที่ปลูก";
             div_in_formgrop.appendChild(label_form_fname);
             var place_form_fname = document.createElement("p");
-            place_form_fname.innerHTML = obj[0].seed_name;
+            place_form_fname.innerHTML = obj[0].seed_name+' ('+obj[0].breed_name+')';
             div_in_formgrop.appendChild(place_form_fname);
             var hr = document.createElement("hr");
             div_in_formgrop.appendChild(hr);
@@ -409,8 +409,33 @@ function crate_row_new_crops(latlng){
     if(id_place_kaset){
         id_place_kaset.remove();
     }
-
-    var make_row = document.createElement("div");
+    $(document).ready(function() {
+                //หาพื้นที่อยุ่คลิกที่ประเทศอะไร
+                $.ajax({
+                        url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+latNlng[0]+','+latNlng[1]+'&sensor=true'
+                }).then(function(dataposition) {
+                    if(dataposition.status == 'ZERO_RESULTS'){
+                        alert('กรุณาเลือกพื้นที่ประเทศไทย!!');
+                        return;
+                    }
+                    var georuni=0,georunj=0;
+                    var addresscrops_out=new Array();
+                    for(georuni=0;georuni<=5;georuni++){
+                        if(dataposition.results[0].address_components[georunj].long_name=='Unnamed Road'){
+                            addresscrops_out[georunj] = '';
+                        }else{
+                            addresscrops_out[georunj] = dataposition.results[0].address_components[georunj].long_name;
+                        }
+                        if(dataposition.results[0].address_components[georunj].types[0]=='country'){
+                            var shortname = dataposition.results[0].address_components[georunj].short_name;
+                            georuni = 5;
+                            geoposition = shortname;
+                        }else{
+                            georunj++;
+                        }
+                    }
+            if(shortname=='TH'){
+                var make_row = document.createElement("div");
     make_row.setAttribute("id", "place_kaset");
     make_row.setAttribute("class", "row");
     document.getElementById("map_canvas").appendChild(make_row);
@@ -530,44 +555,16 @@ function crate_row_new_crops(latlng){
             form_group.appendChild(place_form_fname);
             var hr = document.createElement("hr");
             form_group.appendChild(hr);
-            //Address
+            
             var form_group = document.createElement("div");
             form_group.setAttribute("class","form-group");
             form_content_place_detail.appendChild(form_group);
-            var label_form_fname = document.createElement("label");
-            label_form_fname.htmlFor = 'address';
-            label_form_fname.innerHTML = "ที่อยู่ของไร่";
-            form_group.appendChild(label_form_fname);
-            var place_form_fname = document.createElement("input");
-            place_form_fname.setAttribute('name','address');
-            place_form_fname.setAttribute('placeholder','ที่อยู่');
-            place_form_fname.setAttribute('class','form-control inp-4');
-            place_form_fname.style.float = 'left';
-            place_form_fname.style.marginLeft = '20px';
-            form_group.appendChild(place_form_fname);
-            var select_prefix = document.createElement("select");
-            select_prefix.setAttribute('class','form-control inp-4');
-            select_prefix.setAttribute('name','jungvad');
-            select_prefix.style.float = 'left';
-            select_prefix.style.marginLeft = '20px';
-            form_group.appendChild(select_prefix);
-            //ที่อยู่
-
-            var hr = document.createElement("hr");
-            form_group.appendChild(hr);
-
-            var form_group = document.createElement("div");
-            form_group.setAttribute("class","form-group");
-            form_content_place_detail.appendChild(form_group);
-            var label_form_fname = document.createElement("label");
-            label_form_fname.htmlFor = 'latNlng';
-            label_form_fname.innerHTML = "พิกัด ละติจูด,ลองจิจูด";
-            form_group.appendChild(label_form_fname);
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','latitude');
             place_form_fname.setAttribute('placeholder','ตำแหน่งละติจูด');
             place_form_fname.setAttribute('class','form-control inp-2');
             place_form_fname.setAttribute('value',latNlng[0]);
+            place_form_fname.setAttribute('type','hidden');
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '20px';
             form_group.appendChild(place_form_fname);
@@ -575,9 +572,30 @@ function crate_row_new_crops(latlng){
             place_form_fname.setAttribute('name','longtitude');
             place_form_fname.setAttribute('placeholder','ตำแหน่งลองจิจูด');
             place_form_fname.setAttribute('class','form-control inp-2');
+            place_form_fname.setAttribute('type','hidden');
             place_form_fname.setAttribute('value',latNlng[1]);
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '10px';
+            form_group.appendChild(place_form_fname);
+            // address crops
+            var form_group = document.createElement("div");
+            form_group.setAttribute("class","form-group");
+            addresscrops_out[5] = dataposition.results[0].address_components[5].long_name;
+            form_group.innerHTML = '<input type="hidden" name="crops_zipcode" value="'+addresscrops_out[5]+'"><input type="hidden" name="crops_address" value="'+addresscrops_out[0]+' '+addresscrops_out[1]+' '+addresscrops_out[2]+' จังหวัด '+addresscrops_out[3]+' '+addresscrops_out[5]+'">';
+            form_content_place_detail.appendChild(form_group);
+            var label_form_fname = document.createElement("label");
+            label_form_fname.htmlFor = 'addresscrops';
+            label_form_fname.innerHTML = "สถานที่ปลูก";
+            form_group.appendChild(label_form_fname);
+            var place_form_fname = document.createElement("input");
+            place_form_fname.setAttribute('name','a');
+            place_form_fname.setAttribute('title','สถานที่ปลูก');
+            place_form_fname.setAttribute('placeholder','สถานที่ปลูก (พิกัดแปลงปลูก)');
+            place_form_fname.disabled = true;
+            place_form_fname.setAttribute('value',addresscrops_out[0]+' '+addresscrops_out[1]+' '+addresscrops_out[2]+' จังหวัด '+addresscrops_out[3]+' '+addresscrops_out[5]);
+            place_form_fname.setAttribute('class','form-control inp-1');
+            place_form_fname.style.float = 'left';
+            place_form_fname.style.marginLeft = '20px';
             form_group.appendChild(place_form_fname);
             var hr = document.createElement("hr");
             hr.setAttribute("class","end-form");
@@ -768,6 +786,12 @@ function crate_row_new_crops(latlng){
             btn_cancle.setAttribute('class','btn btn-danger');
             btn_cancle.innerHTML = 'ยกเลิก';
             div_button_area.appendChild(btn_cancle);
+            }else{
+                alert('กรุณาคลิกที่พื้นที่ประเทศไทย');
+            }
+                    
+        });
+    });
 }
 function drop_row_new_crop(){
     var id_crop = document.getElementById('new_crop_place_kaset');

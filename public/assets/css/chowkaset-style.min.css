@@ -499,7 +499,7 @@ body {
   margin-bottom: 15px; }
 #farm_management_console .farm_management_board .tab-content .wrap_card .card_menu {
   background-color: white;
-  height: 300px;
+  height: 400px;
   border-radius: 3px; }
 #farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .header_card {
   height: 45px;
@@ -509,10 +509,66 @@ body {
   font-size: 20px;
   color: white;
   line-height: 45px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card {
+  overflow: scroll;
+  height: 355px; }
 #farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card table {
   width: 90%;
   margin-left: 5%;
   margin-top: 10px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_detail {
+  height: 55px;
+  background-color: white; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_detail ul {
+  padding-top: 5px;
+  border-radius: 0px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_detail ul li {
+  border-radius: 0px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_detail ul li a {
+  color: black; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_detail ul li a:hover {
+  color: green; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_detail ul li.active a {
+  color: #5CB85C; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum {
+  height: 300px;
+  background-color: white;
+  padding-left: 0px;
+  padding-right: 0px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .progress_show_in_detail_tab {
+  height: 200px;
+  background-color: white;
+  border-bottom: 1px solid #ddd; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .progress_show_in_detail_tab h1 {
+  margin: 0px;
+  text-align: center;
+  line-height: 60px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .progress_show_in_detail_tab h2 {
+  margin: 0px;
+  text-align: center;
+  line-height: 25px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .progress_show_in_detail_tab h3 {
+  margin: 0px;
+  text-align: center;
+  line-height: 50px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .progress_show_in_detail_tab h5 {
+  margin: 0px;
+  text-align: center;
+  line-height: 50px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .sum_show_in_detail_tab {
+  height: 100px;
+  background-color: white; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .sum_show_in_detail_tab .sum_list {
+  height: 100px;
+  border-right: 1px solid #ddd; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .sum_show_in_detail_tab .sum_list h2 {
+  margin: 0px;
+  text-align: center;
+  line-height: 57px; }
+#farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .body_card #progress_management_sum .sum_show_in_detail_tab .sum_list h4 {
+  margin: 0px;
+  text-align: center;
+  line-height: 25px; }
 #farm_management_console .farm_management_board .tab-content #farm_detail {
   padding-top: 20px; }
 #farm_management_console .farm_management_board .tab-content #farm_account {

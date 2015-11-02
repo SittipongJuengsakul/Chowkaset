@@ -37,6 +37,8 @@ Route::group(array('prefix' => 'api/v1.0'), function()
         Route::post('Crop/new_crop','apiv1_0\CropsApiController@new_crop');
         //พื้นที่ปลูกของ User
         Route::get('Crop/getCropsOfUser/{user_id}','apiv1_0\CropsApiController@crops_list');
+        //สถืตืการเพาะปลุกทั้งหมด
+        Route::get('Crop/getCropsOfUserDetailList/{user_id}','apiv1_0\CropsApiController@crops_detail_list');
         //ชนิดพืช วางไว้คือ ทั้งหมด หากไส่ จะเป็น id
         Route::get('Crop/getSeedAll','apiv1_0\CropsApiController@seeds_all_list');
         Route::get('Crop/getSeed/{seed_id}','apiv1_0\CropsApiController@seeds_list');
