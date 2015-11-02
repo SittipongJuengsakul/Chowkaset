@@ -13,7 +13,7 @@ class UserTest extends TestCase
      */
     public function testExample()
     {
-        $this->visit('api/v1.0')
-             ->see('คำอธิบาย');
+        //$this->post('/auth/login', ['email' => 'sittipong_108@hotmail.com','password'=>'sittipong'])->seePageIs('/home');;
+        $this->visit('/');
     }
 }
