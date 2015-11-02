@@ -13,6 +13,7 @@ class UserTest extends TestCase
      */
     public function testExample()
     {
-        $this->assertTrue(true);
+        $this->visit('api/v1.0')
+             ->see('คำอธิบาย');
     }
 }
