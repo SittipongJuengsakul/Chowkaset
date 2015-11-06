@@ -99,7 +99,7 @@
 								<button type="submit" class="btn-cks-full btn-color-green">เข้าสู่ระบบ</button>
 							</div>
 							<div class="col-md-6" style="padding-right: 0px;">
-								<a class="btn-cks-full btn btn-color-blue" href="{{ url('/auth/register') }}">สมัครสมาชิก</a>
+								<a class="btn-cks-full btn btn-color-blue" href="{{ url('/auth/facebook') }}">เฟซบุ้ก</a>
 							</div>
 							<div class="col-md-6" style="padding-left: 0px;">
 								<a class="btn-cks-full btn btn-color-orange" href="{{ url('/password/email') }}">ลืมรหัสผ่าน</a>

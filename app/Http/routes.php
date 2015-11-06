@@ -11,18 +11,18 @@
 |
 */
 
-Route::get('/', function(){
-    return view('welcome');
-});
-Route::get('home','HomeController@index');
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController'
-]);
-Route::get('changeprofile','profileController@index');
-Route::post('changeprofile/commit','profileController@profilechange');
+Route::get('/','HomeController@index');
+Route::get('/home','HomeController@index');
 
-Route::group(array('prefix' => 'api/v1.0'), function()
+Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('auth/changeprofile','Auth\ChangeProfile@getChangeprofile');
+Route::post('auth/changeprofile/commit','Auth\ChangeProfile@postChangeprofile');
+Route::post('auth/chowkaset/postLogin','Auth\AuthController@postLogin');
+Route::post('auth/chowkaset/postRegister','Auth\AuthController@postRegister');
+
+Route::group(array('prefix' => '/api/v1.0'), function()
     {
     	//น้าหลัก API Refference
     	Route::get('/','apiv1_0\ApiController@refference_one_zero');

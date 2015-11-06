@@ -28,11 +28,10 @@ return [
         'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
     ],
-
-    'stripe' => [
-        'model'  => App\User::class,
-        'key'    => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
+    'facebook' => [
+        'client_id' => '484407495076641',
+        'client_secret' => '5a257edd88f3cb847686970571a5a868',
+        'redirect' => 'http://localhost/chowkaset/public/auth/facebook/callback',
     ],
 
 ];

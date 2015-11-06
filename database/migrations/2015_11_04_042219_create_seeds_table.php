@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMapsTable extends Migration
+class CreateSeedsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateMapsTable extends Migration
      */
     public function up()
     {
-        Schema::create('maps', function (Blueprint $table) {
-            $table->increments('map_id');
-            $table->double('latitude');
-            $table->double('longitude');
-            $table->integer('map_crop_id');
+        Schema::create('seeds', function (Blueprint $table) {
+            //รหัสตารางชื่อพืช
+            $table->increments('seed_id');
+            //ชื่อพืช
+            $table->string('seed_name');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMapsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('maps');
+        Schema::drop('seeds');
     }
 }

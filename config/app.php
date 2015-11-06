@@ -145,7 +145,8 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -196,6 +197,8 @@ return [
         'Gmaps'     => GeneaLabs\Phpgmaps\Facades\Phpgmaps::class,
         'Form'      => Illuminate\Html\FormFacade::class,
         'Html'      => Illuminate\Html\HtmlFormFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

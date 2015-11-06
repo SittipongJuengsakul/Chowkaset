@@ -12,11 +12,16 @@
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/component-nav.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/chowkaset-style.min.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/datepicker.css') !!}">
+	<link rel="stylesheet" href="{!! URL::asset('assets/css/validator.css') !!}">
 	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/bootstrap-datepicker.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/chowkaset_farmmanagement.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/chowkaset-js.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/chowkasetAuth.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/validateform/jquery.form.validator.min.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/validateform/security.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/validateform/file.js') }}"></script>
 </head>
 <body>
     <div class="container-fluid">
