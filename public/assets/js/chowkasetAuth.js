@@ -526,15 +526,6 @@ function checkuser(formusername){
 	});
 }
 function resizeImg(input){
-	/*img = new Image();
-	img.src = e.target.result;
-	var picarea = document.getElementById('picarea');
-	img.onload = function(){
-	  var canvas = document.createElement('canvas');
-	    var ctx = canvas.getContext('2d');
-	    ctx.drawImage(img, 0, 0, 200, 200);
-	    picarea.appendChild(canvas);
-	};*/
 	if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {

@@ -97,7 +97,7 @@ function create_farm_management(){
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
-										p = data.sum_pbm[count];
+										var p = data.sum_pbm[count];
 										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4> '+p.toLocaleString()+' </h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
@@ -123,7 +123,7 @@ function create_farm_management(){
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
-										p = data.sum_pbm[count];
+										var p = data.sum_pbm[count];
 										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4> '+p.toLocaleString()+' </h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');

@@ -21,6 +21,7 @@
 	    //var dashboard_menu = document.createElement('div');
 	    //dashboard_menu.setAttribute('id','chowkaset_dashboard_menu');
 	    //map_canvas.appendChild(dashboard_menu);
+	    //alert
 	});
 	 </script>
 @stop
