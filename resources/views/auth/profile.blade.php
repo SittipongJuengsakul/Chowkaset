@@ -7,18 +7,8 @@
 			<div class="panel box-default">
 				<div class="panel-heading"><h2 class="head-col">แก้ใขข้อมูลส่วนตัว</h2><hr></div>
 				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>ขัดข้อง!</strong> มีปัญหาจากการป้อมข้อมูล<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/changeprofile/commit') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/changeprofile/commit') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">

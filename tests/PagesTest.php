@@ -13,6 +13,6 @@ class PagesTest extends TestCase
      */
     public function testExample()
     {  
-        echo('............................... PagesTest .................................'); 
+        $this->visit('/');   
     }
 }

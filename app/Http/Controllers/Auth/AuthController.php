@@ -140,26 +140,52 @@ class AuthController extends Controller
      */
     public function postRegister(Request $request){
         try {
-            $file = $request->file('Picture');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time().'.'.$extension;
-            $path = public_path('assets/img/profileImage/' . $fileName);
-            Image::make($file->getRealPath())->resize(200, 200)->save($path);
-            $password = Hash::make($request->input('pass_confirmation'));
-            $RegisterData = User::create([
-                'member_id' => $request->input('username'),
-                'password' => $password,
-                'typemember_id' => '1',
-                'typeuser_id' => $request->input('typeuser_id'),
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'picture' => 'http://localhost/chowkaset/public/assets/img/profileImage/'.$fileName
-            ]);
+            if ($request->hasFile('Picture')) {
+                $file = $request->file('Picture');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = time().'.'.$extension;
+                $path = public_path('assets/img/profileImage/' . $fileName);
+                Image::make($file->getRealPath())->resize(200, 200)->save($path);
+                $password = Hash::make($request->input('pass_confirmation'));
+                $RegisterData = User::create([
+                    'member_id' => $request->input('username'),
+                    'password' => $password,
+                    'typemember_id' => '1',
+                    'typeuser_id' => $request->input('typeuser_id'),
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'picture' => 'http://localhost/chowkaset/public/assets/img/profileImage/'.$fileName
+                ]);
+            }else{
+                $password = Hash::make($request->input('pass_confirmation'));
+                $RegisterData = User::create([
+                    'member_id' => $request->input('username'),
+                    'password' => $password,
+                    'typemember_id' => '1',
+                    'typeuser_id' => $request->input('typeuser_id'),
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'picture' => 'http://localhost/chowkaset/public/assets/img/user.jpg',
+                ]);
+            }
             //return dd($request->file('Picture'));
             Auth::login($RegisterData, true);
         } catch (Exception $e) {
         }
         return Redirect::to('/home');
+    }
+    public function checkUsername(Request $request){
+        try {
+            $username = $request->input('username');
+            //$check = 
+            if(User::where('member_id', '=', $username)->first()){
+               return 'no'; 
+            }else{
+               return 'available'; 
+            }
+        } catch (Exception $e) {
+            
+        }
     }
     public function postLogin(Request $request){
         try {
@@ -190,4 +216,6 @@ class AuthController extends Controller
         $UserDataLogin = User::find($UserId);
         Auth::login($UserDataLogin, true);
     }
+
+
 }

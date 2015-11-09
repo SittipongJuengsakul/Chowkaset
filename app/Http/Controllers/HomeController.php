@@ -26,9 +26,9 @@ class HomeController extends Controller
         $maps_crops = Crops::all();
         foreach ($maps_crops as $map) {
             // Loop Create Map 
-            $marker['map_id'] = $map->map_id;
+            $marker['map_id'] = $map->crop_id;
             $marker['position'] = $map->crop_latitude.','.$map->crop_longitude;
-            $marker['title'] = 'mapid_'.$map->map_id;
+            $marker['title'] = 'mapid_'.$map->crop_id;
             $marker['icon'] = 'assets/img/crops/rice/rice_running.png'; 
             $gmaps->add_marker($marker);
         }

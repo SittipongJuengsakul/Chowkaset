@@ -372,15 +372,17 @@ function registerChowkaset(){
 					login_form.appendChild(form_group);
 					var wrap = document.createElement('div');
 					wrap.setAttribute('class','col-md-12');
+					wrap.setAttribute('id','regis_username');
 					form_group.appendChild(wrap);
 						var us = document.createElement('input');
 						us.setAttribute('type','text');
 						us.setAttribute('class','form-control input-cks-form');
 						us.setAttribute('name','username');
+						us.setAttribute('id','regisinp_username');
+						us.setAttribute('onchange','checkuser(this.value)');
+						us.setAttribute('onkeyup','checkuser(this.value)');
 						us.setAttribute('placeholder','กรอก Username');
 						us.setAttribute('pattern','^([a-zA-Z0-9)$');
-						us.setAttribute('data-validation-length','min4');
-						us.setAttribute('data-validation','length alphanumeric');
 						wrap.appendChild(us);
 					//password
 					var form_group = document.createElement('div');
@@ -491,6 +493,37 @@ function registerChowkaset(){
 								$('input[name="pass_confirmation"]').displayPasswordStrength();
 							}
 					});
+}
+function checkuser(formusername){
+	$.ajax({
+	    url: site_url+'/auth/chowkaset/checkUsername',
+	    type: 'post',
+	    headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+	    data: {
+	    	username: formusername,
+	    },
+	    success: function (data) {
+	        if(data=='no'){
+	        	$('#regis_username').removeClass('has-success').addClass("has-error");
+	        	$('#regisinp_username').removeClass('valid').addClass("error");
+	        	var spid = document.getElementById('detail_username');
+	        	if(spid){
+	        		spid.remove();
+	        	}
+	        	$('#regis_username').append('<span id="detail_username" class="help-block form-error">Username ซ้ำ</span>');
+
+	        }else{
+	        	$('#regis_username').addClass("has-success");
+	        	var spid = document.getElementById('detail_username');
+	        	if(spid){
+	        		spid.remove();
+	        	}
+	        	$('#regisinp_username').addClass("valid");
+	        }
+	    }
+	});
 }
 function resizeImg(input){
 	/*img = new Image();

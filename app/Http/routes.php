@@ -13,12 +13,16 @@
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index');
+Route::get('/chatkaset','forumsController@index');
 
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('auth/profile','Auth\ChangeProfile@getCreateProfile');
+Route::post('auth/profile/commit','Auth\ChangeProfile@postCreateProfile');
 Route::get('auth/changeprofile','Auth\ChangeProfile@getChangeprofile');
 Route::post('auth/changeprofile/commit','Auth\ChangeProfile@postChangeprofile');
+Route::post('auth/chowkaset/checkUsername','Auth\AuthController@checkUsername');
 Route::post('auth/chowkaset/postLogin','Auth\AuthController@postLogin');
 Route::post('auth/chowkaset/postRegister','Auth\AuthController@postRegister');
 

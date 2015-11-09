@@ -1,9 +1,7 @@
 //@Author : Sittipong Jungsakul
 //Javascript Library for chowkaset  Web Application 
 //for help web application make element by javascript
-
 function place_kaset(map_id) {
-
     var obj = '';
     var maps_detail = '';
     var xmlhttp;
@@ -134,7 +132,7 @@ function create_progress_content(obj){
         div_logo_area.appendChild(logo_content);
         var img_logo_conent = document.createElement('img');
         img_logo_conent.setAttribute('class','img-responsive');
-        img_logo_conent.setAttribute('src',base_url+'assets/img/user/'+obj[0].picture);
+        img_logo_conent.setAttribute('src',obj[0].picture);
         logo_content.appendChild(img_logo_conent);
         //progress
         var progress_content = document.createElement('div');
@@ -260,7 +258,8 @@ function create_form_in_content(obj){
             label_form_fname.innerHTML = "ชื่อ-นามสกุล เจ้าของไร่";
             div_in_formgrop.appendChild(label_form_fname);
             var place_form_fname = document.createElement("p");
-            place_form_fname.innerHTML = obj[0].fname+ ' ' +obj[0].lname;
+            //place_form_fname.innerHTML = obj[0].crop_name+ ' ' +obj[0].lname;
+            place_form_fname.innerHTML = obj[0].name;
             div_in_formgrop.appendChild(place_form_fname);
             var hr = document.createElement("hr");
             div_in_formgrop.appendChild(hr);
@@ -280,7 +279,7 @@ function create_form_in_content(obj){
             label_form_fname.innerHTML = "จำนวนพื้นที่ปลูก";
             div_in_formgrop.appendChild(label_form_fname);
             var place_form_fname = document.createElement("p");
-            place_form_fname.innerHTML = obj[0].rai+' ไร่ '+obj[0].ngarn+' งาน '+obj[0].wah+' ตารางวา';
+            place_form_fname.innerHTML = obj[0].crop_rai+' ไร่ '+obj[0].crop_ngarn+' งาน '+obj[0].crop_wah+' ตารางวา';
             div_in_formgrop.appendChild(place_form_fname);
             var hr = document.createElement("hr");
             div_in_formgrop.appendChild(hr);
@@ -290,7 +289,7 @@ function create_form_in_content(obj){
             label_form_fname.innerHTML = "จำนวนผลผลิตที่คาดว่าจะได้รับ (ต่อไร่)";
             div_in_formgrop.appendChild(label_form_fname);
             var place_form_fname = document.createElement("p");
-            place_form_fname.innerHTML = obj[0].product+' กิโลกรัม';
+            place_form_fname.innerHTML = obj[0].crop_product+' กิโลกรัม';
             div_in_formgrop.appendChild(place_form_fname);
             var hr = document.createElement("hr");
             hr.setAttribute("class","end-form");
@@ -460,7 +459,8 @@ function crate_row_new_crops(latlng){
         para.appendChild(header_place_kaset);
         var place_form_fname = document.createElement("input");
         place_form_fname.setAttribute('name','namerai');
-        place_form_fname.setAttribute('placeholder','ชื่อไร่ ( หากเว้นว่างจะเป็นชื่อเจ้าของไร่ )');
+        place_form_fname.setAttribute('placeholder','ชื่อไร่');
+        place_form_fname.setAttribute('data-validation','required');
         place_form_fname.setAttribute('class','form-control');
         place_form_fname.style.float = 'left';
         place_form_fname.style.marginLeft = '25%';
@@ -470,10 +470,6 @@ function crate_row_new_crops(latlng){
         //make content of place detail
         
 
-        var progress_place_kaset = document.createElement("div");
-        progress_place_kaset.setAttribute("class","place_kaset_progress");
-        progress_place_kaset.setAttribute("id","id_place_kaset_progress");
-        para.appendChild(progress_place_kaset);
 
         var tab_controll_place = document.createElement("div");
         tab_controll_place.setAttribute("class","tab_controll_place");
@@ -487,24 +483,6 @@ function crate_row_new_crops(latlng){
         content_place_kaset.setAttribute("id","id_place_kaset_content");
         para.appendChild(content_place_kaset);
 
-        var area_progress = document.getElementById('id_place_kaset_progress');
-        var div_logo_area = document.createElement('div');
-        div_logo_area.setAttribute('class','progress_logo_area');
-        area_progress.appendChild(div_logo_area);
-        var div_progress_area = document.createElement('div');
-        div_progress_area.setAttribute('class','progress_progress_area');
-        area_progress.appendChild(div_progress_area);
-        //logo
-        var logo_content = document.createElement('div');
-        logo_content.setAttribute('class','logo-kaset');
-        div_logo_area.appendChild(logo_content);
-        var a_img = document.createElement('a');
-        logo_content.appendChild(a_img);
-        var img_logo_conent = document.createElement('img');
-        img_logo_conent.setAttribute('class','img-responsive');
-        img_logo_conent.setAttribute('src',base_url+'assets/img/user/test1.jpg');
-        a_img.appendChild(img_logo_conent);
-        
 
         var area_content = document.getElementById("id_place_kaset_content");
 
@@ -713,18 +691,19 @@ function crate_row_new_crops(latlng){
             form_group.appendChild(label_form_fname);
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','rai');
-            place_form_fname.setAttribute('pattern','[0-9]');
             place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
+            place_form_fname.setAttribute('data-validation','required number');
+            place_form_fname.setAttribute('data-validation-allowing','range[1;10000]');
             place_form_fname.setAttribute('placeholder','พื้นที่ปลูก (ไร่)');
             place_form_fname.setAttribute('class','form-control inp-3');
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '20px';
-            form_group.appendChild(place_form_fname).required = true;
+            form_group.appendChild(place_form_fname);
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','ngarn');
             place_form_fname.setAttribute('placeholder','พื้นที่ปลูก (งาน)');
-            place_form_fname.setAttribute('pattern','[0-9]');
-            place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
+            place_form_fname.setAttribute('data-validation','required number');
+            place_form_fname.setAttribute('data-validation-allowing','range[1;10000]');
             place_form_fname.setAttribute('class','form-control inp-3');
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '10px';
@@ -733,8 +712,8 @@ function crate_row_new_crops(latlng){
             place_form_fname.setAttribute('name','wah');
             place_form_fname.setAttribute('placeholder','พื้นที่ปลูก (ตารางวา)');
             place_form_fname.setAttribute('class','form-control inp-3');
-            place_form_fname.setAttribute('pattern','[0-9]');
-            place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
+            place_form_fname.setAttribute('data-validation','required number');
+            place_form_fname.setAttribute('data-validation-allowing','range[1;10000]');
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '10px';
             form_group.appendChild(place_form_fname);
@@ -747,12 +726,13 @@ function crate_row_new_crops(latlng){
             var label_form_fname = document.createElement("label");
             label_form_fname.htmlFor = 'product';
             label_form_fname.innerHTML = "จำนวนผลผลิตที่คาดว่าจะได้รับ (ต่อไร่)";
-            place_form_fname.setAttribute('pattern','[0-9]');
             place_form_fname.setAttribute('title','เป็นตัวเลขเท่านั้น');
             form_group.appendChild(label_form_fname);
             var place_form_fname = document.createElement("input");
             place_form_fname.setAttribute('name','product');
             place_form_fname.setAttribute('placeholder','จำนวนผลผลิตที่คาดว่าจะได้รับ (ต่อไร่)');
+            place_form_fname.setAttribute('data-validation','required number');
+            place_form_fname.setAttribute('data-validation-allowing','range[1;10000000]');
             place_form_fname.setAttribute('class','form-control inp-2');
             place_form_fname.style.float = 'left';
             place_form_fname.style.marginLeft = '20px';
@@ -769,7 +749,12 @@ function crate_row_new_crops(latlng){
             var div_button_area = document.createElement('div');
             div_button_area.setAttribute('class','div_button_area');
             tab_button_form.appendChild(div_button_area);
-
+            $.validate({
+                        modules: 'security, file',
+                            onModulesLoaded: function () {
+                                $('input[name="pass_confirmation"]').displayPasswordStrength();
+                            }
+                    });
             var btn_summit = document.createElement('button');
             btn_summit.style.marginLeft = '40%';
             btn_summit.style.marginTop = '12px';
@@ -792,6 +777,7 @@ function crate_row_new_crops(latlng){
                     
         });
     });
+                    
 }
 function drop_row_new_crop(){
     var id_crop = document.getElementById('new_crop_place_kaset');

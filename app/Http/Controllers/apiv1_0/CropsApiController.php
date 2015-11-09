@@ -11,38 +11,46 @@ use Redirect;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\GroupCropUser;
+use App\User;
+use App\Crops;
+use App\Topics;
 class CropsApiController extends Controller
 {
     //แสดงข่้อมูบ map ตามที่คลิกจาก marker บน map
     //Function Code 100201
      public function map_detail($map_id){
-        $map_detail = DB::table('maps')->join('crops', 'maps.map_crop_id', '=', 'crops.crop_id')
-        ->join('group_crop_user', 'group_crop_user.crop_id', '=', 'crops.crop_id')
-        ->join('users','group_crop_user.user_id','=','users.id')
-        ->join('breeds', 'breeds.breed_id', '=', 'crops.breed_id')
+        $map_detail = DB::table('crops')
+        ->join('group_crop_users', 'group_crop_users.crop_id', '=', 'crops.crop_id')
+        ->join('users','group_crop_users.user_id','=','users.id')
+        ->join('breeds', 'breeds.breed_id', '=', 'crops.crop_breed_id')
         ->join('seeds', 'seeds.seed_id', '=', 'breeds.seed_id')
-        ->where('map_id', '=', $map_id)->get();
+        ->where('crops.crop_id', '=', $map_id)->get();
         return $map_detail;
     }
     //เพิ่มข่้อมูล  marker บน map
     //Function Code 100202
     public function new_crop(Request $request){
-        $user_id = Auth::user()->id;
-        $crops_id = DB::table('crops')->insertGetId(
-            ['product'=> $request->input('product'),'rai'=> $request->input('rai'),
-            'ngarn'=> $request->input('ngarn'),'wah'=> $request->input('wah'),
-            'seed_id' => $request->input('seeds'),'crop_name' => $request->input('namerai'),'crops_zipcode_address'=>$request->input('crops_zipcode'),
-            'crops_address'=>$request->input('crops_address')]
-        );
-        $user_owner = DB::table('group_crop_user')->insertGetId(
-            ['user_id'=>$user_id,'crop_id'=>$crops_id]
-        );
-        $maps_id = DB::table('maps')->insertGetId(
-            ['latitude'=> $request->input('latitude'),'longitude'=>$request->input('longtitude'),'map_crop_id' => $crops_id,
-            'created_at' => 'CURRENT_TIMESTAMP','updated_at' => 'CURRENT_TIMESTAMP']
-        );
+        $Crops = new Crops;
+        $Crops->crop_name = $request->input('namerai');
+        $Crops->crop_latitude = $request->input('latitude');
+        $Crops->crop_longitude = $request->input('longtitude');
+        $Crops->crop_product = $request->input('product');
+        $Crops->crop_rai = $request->input('rai');
+        $Crops->crop_ngarn = $request->input('ngarn');
+        $Crops->crop_wah = $request->input('wah');
+        $Crops->crop_breed_id = '1';
+        $Crops->crop_start_date = 'CURRENT_DATE';
+        $Crops->crop_begin_date = '0000-00-00';
+        $Crops->crop_crop_date = '0000-00-00';
+        $Crops->crop_end_date = '0000-00-00';
+        $Crops->crop_status = '0';
+        $Crops->save();
 
+        $user_id_group = new GroupCropUser;
+        $user_id_group->user_id = Auth::user()->id;
+        $user_id_group->crop_id = $Crops->id;
+        $user_id_group->save();
         return Redirect::to('/');
     }
 
@@ -57,14 +65,15 @@ class CropsApiController extends Controller
     }
 	//การเพาะปลูกของ user
     public function crops_list($user_id){
-		$dataCrops = DB::table('group_crop_user')->join('crops', 'group_crop_user.crop_id', '=', 'crops.crop_id')
-        ->where('user_id','=',$user_id)->groupBy('group_crop_user.crop_id')->get();
-        try{
+        $dataCrops = DB::table('group_crop_users')->join('crops', 'group_crop_users.crop_id', '=', 'crops.crop_id')
+        ->where('user_id','=',$user_id)->get();
+        //$dataCrops = GroupCropUser::find('user_id','=',$user_id)->CropsList->get();
+         try{
             $statusCode = 200;
             if($dataCrops){
                 $response = [
                   'status'  => '1',
-                  'data' => $dataCrops,
+                  'data' => $dataCrops
                 ];
             }else{
                 $response = [
@@ -80,13 +89,30 @@ class CropsApiController extends Controller
 	}
     //ข้อมูลการเพาะปลูก
     public function crops_detail_list($user_id){
-        $dataCrops = DB::table('group_crop_user')->join('crops', 'group_crop_user.crop_id', '=', 'crops.crop_id')
-        ->leftjoin('breeds','breeds.breed_id','=','crops.breed_id')->join('seeds','seeds.seed_id','=','breeds.breed_id')
+        $dataCrops = DB::table('group_crop_users')->join('crops', 'group_crop_users.crop_id', '=', 'crops.crop_id')
+        ->leftjoin('breeds','breeds.breed_id','=','crops.crop_breed_id')->join('seeds','seeds.seed_id','=','breeds.breed_id')
         ->leftjoin('crop_accounts','crop_accounts.acc_crop_id','=','crops.crop_id')
-        ->select('breeds.breed_name','seeds.seed_name','crops.rai','crops.ngarn','crops.wah')
-        ->where('user_id','=',$user_id)->groupBy('group_crop_user.crop_id')->get();
-        $sumacc = DB::table('crop_accounts')->join('crops','crops.crop_id','=','crop_accounts.acc_crop_id')
-        ->sum('crop_accounts.acc_price');
+        ->join('users', 'group_crop_users.user_id', '=', 'users.id')
+        ->select('crops.crop_id','users.name as user_name','breeds.breed_name','seeds.seed_name','crops.crop_rai','crops.crop_ngarn','crops.crop_wah')
+        ->where('user_id','=',$user_id)->groupBy('group_crop_users.crop_id')->get();
+        $i=0;
+        $sumacc = [];
+        $sumpbm = [];
+        foreach ($dataCrops as $dc) {
+            $acc = DB::table('crop_accounts')->join('crops','crops.crop_id','=','crop_accounts.acc_crop_id')
+            ->where('crop_accounts.acc_crop_id','=',$dc->crop_id)
+            ->sum('crop_accounts.acc_price');
+            $sumacc[$i] = $acc; 
+            $i++;
+        }
+        $i=0;
+        foreach ($dataCrops as $dc) {
+            $pbm = DB::table('topics')
+            ->where('topics.tp_crop_id','=',$dc->crop_id)
+            ->count('topics.tp_id');
+            $sumpbm[$i] = $pbm; 
+            $i++;
+        }
         try{
             $statusCode = 200;
             if($dataCrops){
@@ -94,6 +120,7 @@ class CropsApiController extends Controller
                   'status'  => '1',
                   'data' => $dataCrops,
                   'sum_acc' => $sumacc,
+                  'sum_pbm' => $sumpbm,
                 ];
             }else{
                 $response = [
@@ -203,7 +230,11 @@ class CropsApiController extends Controller
         $pricea = $request->input('acc_price');
         $priceb = explode(',', $pricea);
         $i=0;
-        $newprice='';
+        if($request->input('acc_cost_type')=='1'){
+            $newprice='';
+        }else{
+            $newprice='-';
+        }
         foreach ($priceb as $pb) {
             $newprice = $newprice.$priceb[$i];
             $i++;
@@ -266,7 +297,7 @@ class CropsApiController extends Controller
     //ข้อมูลปัญหาของแปลง
     public function getProblemData($crops_id)
     {
-        $dataAccount = DB::table('topics')->where('tp_crop_id','=',$crops_id)->where('tp_topics_type_id','=','2')->orderBy('tp_createdate', 'asc')->get();
+        $dataAccount = DB::table('topics')->where('tp_crop_id','=',$crops_id)->where('tp_topics_type_id','=','2')->orderBy('created_at', 'asc')->get();
         try{
             $statusCode = 200;
             if($dataAccount){
@@ -289,9 +320,16 @@ class CropsApiController extends Controller
     //เพิ่มปัญหาการเพาะปลูก
     public function AddProblemData(Request $request)
     {
-        $dataProblem = DB::table('crop_problems')->insertGetId(
-            ['pbm_detail'=> $request->input('pbm_detail'),'pbm_crop_id'=> $request->input('pbm_crop_id'),]
-        );
+        $dataProblem = new Topics;
+        $dataProblem->tp_title = $request->input('pbm_detail');
+        $dataProblem->tp_status = '0';
+        $dataProblem->tp_countviews = '0';
+        $dataProblem->tp_countcomments = '0';
+        $dataProblem->tp_countvotes = '0';
+        $dataProblem->tp_topics_type_id = '2';
+        $dataProblem->tp_user_id = Auth::user()->id;
+        $dataProblem->tp_crop_id = $request->input('pbm_crop_id');
+        $dataProblem = $dataProblem->save();
         try{
             $statusCode = 200;
             if($dataProblem){

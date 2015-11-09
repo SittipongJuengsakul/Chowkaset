@@ -85,19 +85,20 @@ function create_farm_management(){
 										tab.appendChild(detail_progress);
 										var progress_show_in_detail_tab = document.createElement('div');
 										progress_show_in_detail_tab.setAttribute('class','progress_show_in_detail_tab');
-										progress_show_in_detail_tab.innerHTML = '<h1>'+data.data[count].seed_name+'</h1><h2>'+data.data[count].breed_name+' ('+data.data[count].rai+' ไร่ '+data.data[count].ngarn+' งาน '+data.data[count].wah+' ตารางวา)</h2><h3>แผน กข.47 (ออแกนิก)</h3><h5>ผู้ติดตาม : </h5>';
+										progress_show_in_detail_tab.innerHTML = '<h1>'+data.data[count].seed_name+'</h1><h2>'+data.data[count].breed_name+' ('+data.data[count].crop_rai+' ไร่ '+data.data[count].crop_ngarn+' งาน '+data.data[count].crop_wah+' ตารางวา)</h2><h3>แผน กข.47</h3><h5>ผู้ติดตาม : </h5>';
 										detail_progress.appendChild(progress_show_in_detail_tab);
 										var sum_show_in_detail_tab = document.createElement('div');
 										sum_show_in_detail_tab.setAttribute('class','sum_show_in_detail_tab');
 										detail_progress.appendChild(sum_show_in_detail_tab);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
-										n = data.sum_acc;
-										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toLocaleString()+'</h4>';
+										n = data.sum_acc[count];
+										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toFixed(2).toLocaleString()+'</h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
-										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4>10 ปัญหา</h4>';
+										p = data.sum_pbm[count];
+										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4> '+p.toLocaleString()+' </h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
@@ -106,23 +107,24 @@ function create_farm_management(){
 									}else{
 										var detail_progress = document.createElement('div');
 										detail_progress.setAttribute('id','detail_progress_'+count);
-										detail_progress.setAttribute('class','tab-pane fade in active');
+										detail_progress.setAttribute('class','tab-pane fade');
 										tab.appendChild(detail_progress);
 										var progress_show_in_detail_tab = document.createElement('div');
 										progress_show_in_detail_tab.setAttribute('class','progress_show_in_detail_tab');
-										progress_show_in_detail_tab.innerHTML = '<h1>'+data.data[count].seed_name+'</h1><h2>'+data.data[count].breed_name+' ('+data.data[count].rai+' ไร่ '+data.data[count].ngarn+' งาน '+data.data[count].wah+' ตารางวา)</h2><h3>แผน กข.47 (ออแกนิก)</h3><h5>ผู้ติดตาม : </h5>';
+										progress_show_in_detail_tab.innerHTML = '<h1>'+data.data[count].seed_name+'</h1><h2>'+data.data[count].breed_name+' ('+data.data[count].crop_rai+' ไร่ '+data.data[count].crop_ngarn+' งาน '+data.data[count].crop_wah+' ตารางวา)</h2><h3>แผน กข.47 (ออแกนิก)</h3><h5>ผู้ติดตาม : </h5>';
 										detail_progress.appendChild(progress_show_in_detail_tab);
 										var sum_show_in_detail_tab = document.createElement('div');
 										sum_show_in_detail_tab.setAttribute('class','sum_show_in_detail_tab');
 										detail_progress.appendChild(sum_show_in_detail_tab);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
-										n = data.sum_acc;
-										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toLocaleString()+'</h4>';
+										n = data.sum_acc[count];
+										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toFixed(2).toLocaleString()+'</h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
-										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4>10 ปัญหา</h4>';
+										p = data.sum_pbm[count];
+										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4> '+p.toLocaleString()+' </h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
@@ -157,16 +159,16 @@ function create_farm_management(){
 		    	card_menu.innerHTML = calendar_management_html;
 		    	div_menu_wrap.appendChild(card_menu);
 
-	    	/*var div_menu_wrap = document.createElement('div');
+	    	var div_menu_wrap = document.createElement('div');
 	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
 	    	farm_menu_farm_detail.appendChild(div_menu_wrap);
 		    	var card_menu = document.createElement('div');
 		    	card_menu.setAttribute('id','market_management');
 		    	card_menu.setAttribute('class','card_menu');
 		    	var market_management_html = '';
-		    		market_management_html += '<div class="header_card" style="background-color: #f0ad4e;">ราคาสินค้าตลาด</div>';
+		    		market_management_html += '<div class="header_card" style="background-color: #f0ad4e;">การเพาะปลูก</div>';
 		    	card_menu.innerHTML = market_management_html;
-		    	div_menu_wrap.appendChild(card_menu);*/
+		    	div_menu_wrap.appendChild(card_menu);
 
 
 	    //บัญชีเพาะปลูก
@@ -386,7 +388,7 @@ function account_table(id_acc){
 			    					if(data.data[count].acc_cost_type=='1'){ 
 			    						money_income = money_income+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
-			    						td.innerHTML = data.data[count].acc_price.toLocaleString(); 
+			    						td.innerHTML = data.data[count].acc_price.toFixed(2).toLocaleString('en-IN'); 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
@@ -394,14 +396,15 @@ function account_table(id_acc){
 			    					var td = document.createElement('td');
 			    					if(data.data[count].acc_cost_type=='2'){ 
 			    						money_outcome = money_outcome+data.data[count].acc_price;
-			    						money_total = money_total-data.data[count].acc_price;
-			    						td.innerHTML = data.data[count].acc_price.toLocaleString(); 
+			    						money_total = money_total+data.data[count].acc_price;
+			    						m = data.data[count].acc_price*-1;
+			    						td.innerHTML = m.toFixed(2).toLocaleString('en-IN'); 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total.toLocaleString();
+			    					td.innerHTML = money_total.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_income('+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
@@ -417,13 +420,14 @@ function account_table(id_acc){
 			    					td.setAttribute('colspan','2');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_income.toLocaleString();
+			    					td.innerHTML = money_income.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_outcome.toLocaleString();
+			    					m = money_outcome*-1;
+			    					td.innerHTML = m.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total.toLocaleString();
+			    					td.innerHTML = money_total.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '';
@@ -587,7 +591,7 @@ function edit_account_table(id_acc,edt_id){
 			    					if(data.data[count].acc_cost_type=='1'){ 
 			    						money_income = money_income+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
-			    						td.innerHTML = data.data[count].acc_price.toLocaleString(); 
+			    						td.innerHTML = data.data[count].acc_price.toFixed(2).toLocaleString('en-IN'); 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
@@ -596,13 +600,13 @@ function edit_account_table(id_acc,edt_id){
 			    					if(data.data[count].acc_cost_type=='2'){ 
 			    						money_outcome = money_outcome+data.data[count].acc_price;
 			    						money_total = money_total-data.data[count].acc_price;
-			    						td.innerHTML = data.data[count].acc_price.toLocaleString(); 
+			    						td.innerHTML = data.data[count].acc_price.toFixed(2).toLocaleString('en-IN'); 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total.toLocaleString();
+			    					td.innerHTML = money_total.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_income('+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
@@ -663,13 +667,13 @@ function edit_account_table(id_acc,edt_id){
 			    					td.setAttribute('colspan','2');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_income.toLocaleString();
+			    					td.innerHTML = money_income.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_outcome.toLocaleString();
+			    					td.innerHTML = money_outcome.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total.toLocaleString();
+			    					td.innerHTML = money_total.toFixed(2).toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '';
@@ -842,7 +846,7 @@ function problem_table(id_prb){
 			    				var tr = document.createElement('tr');
 			    				tbody.appendChild(tr);
 			    					var td = document.createElement('td');
-			    					var accdate = data.data[count].tp_createdate;
+			    					var accdate = data.data[count].created_at;
 			    					var text = accdate.split("-");
 			    					var year = parseInt(text[0]);
 			    					var month = parseInt(text[1]);

@@ -15,11 +15,12 @@
     }
 	</script>
 	<script>
-	 $.validate({
-	 modules: 'security, file',
-		 onModulesLoaded: function () {
-		 	$('input[name="pass_confirmation"]').displayPasswordStrength();
-		 }
-	 });
+	 $( document ).ready(function() {
+	    //create Element Menu
+	    //var map_canvas = document.getElementById('map_canvas');
+	    //var dashboard_menu = document.createElement('div');
+	    //dashboard_menu.setAttribute('id','chowkaset_dashboard_menu');
+	    //map_canvas.appendChild(dashboard_menu);
+	});
 	 </script>
 @stop

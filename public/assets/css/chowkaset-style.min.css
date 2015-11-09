@@ -289,6 +289,11 @@ body {
     border-radius: 50%;
     position: absolute; }
 
+#chowkaset_dashboard_menu {
+  width: 100px;
+  height: 100px;
+  background-color: white; }
+
 #new_crop_place_kaset {
   border-radius: 5px;
   background-color: white;
@@ -719,8 +724,49 @@ body {
   margin: 5px;
   border: 0 none;
   box-shadow: none;
-  background: url("../img/test1.jpg");
+  background-color: white;
   background-position: center center;
   background-size: cover; }
+
+#chatkaset_header {
+  height: 50px;
+  width: 100%;
+  background-color: #F2F2F2;
+  color: #999999;
+  position: fixed;
+  padding-left: 15%;
+  padding-right: 15%; }
+  #chatkaset_header .box-left {
+    float: left; }
+    #chatkaset_header .box-left ul.chatkaset_nav li a {
+      height: 50px !important;
+      width: 140px;
+      border-top: 5px solid #F2F2F2 !important;
+      text-align: center;
+      line-height: 23px;
+      border-radius: 0px;
+      color: #3b3b3b; }
+    #chatkaset_header .box-left ul.chatkaset_nav li.active a {
+      background-color: white;
+      color: #1abc9c;
+      border-top: 5px solid #e64b21 !important; }
+  #chatkaset_header .box-right {
+    float: right;
+    height: 50px !important; }
+
+#chatkaset_content {
+  height: 100%;
+  position: initial;
+  padding-top: 65px;
+  padding-left: 2%;
+  padding-right: 2%;
+  width: 100%; }
+  #chatkaset_content .main-content .topic {
+    height: 120px;
+    background-color: white;
+    margin-top: 5px; }
+  #chatkaset_content .sidebar-content {
+    height: 500px;
+    background-color: white; }
 
 /*# sourceMappingURL=chowkaset-style.min.css.map */
