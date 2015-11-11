@@ -1,8 +1,39 @@
 body {
   background-color: gainsboro; }
 
-#map_canvas {
-  position: absolute !important; }
+.map_search_header {
+  height: 60px;
+  width: 100%;
+  background-color: #5CB85C;
+  color: white; }
+  .map_search_header h1 {
+    margin: 0px;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    line-height: 60px; }
+
+.map_search_tab {
+  width: 100%; }
+  .map_search_tab ul {
+    width: 100%; }
+    .map_search_tab ul li {
+      width: 33.33%;
+      margin: 0px; }
+      .map_search_tab ul li a {
+        border-radius: 0px;
+        text-align: center;
+        color: black;
+        font-weight: 700;
+        border: 0px;
+        background-color: #EEEEEF; }
+    .map_search_tab ul li.active a {
+      color: white;
+      font-weight: 700;
+      background-color: #2c3e50; }
+
+.map_search_content form {
+  padding: 0px 15px; }
 
 .chowkaset-nav {
   width: 100%; }

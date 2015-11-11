@@ -13,6 +13,8 @@
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/chowkaset-style.min.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/datepicker.css') !!}">
 	<link rel="stylesheet" href="{!! URL::asset('assets/css/validator.css') !!}">
+	<link rel="stylesheet" href="{!! URL::asset('assets/css/chosen/prism.css') !!}">
+	<link rel="stylesheet" href="{!! URL::asset('assets/css/chosen/chosen.min.css') !!}">
 	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/bootstrap-datepicker.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
@@ -22,6 +24,7 @@
 	<script src="{{ URL::asset('assets/js/validateform/jquery.form.validator.min.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/validateform/security.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/validateform/file.js') }}"></script>
+	<script src="{{ URL::asset('assets/js/chosen.jquery.min.js') }}"></script>
 </head>
 <body>
     <div class="container-fluid">
