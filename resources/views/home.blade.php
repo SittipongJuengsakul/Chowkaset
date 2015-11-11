@@ -64,13 +64,15 @@
 		  </div>
 		  <div id="menu2" class="tab-pane fade">
 		    <form>
+			<div class="side-by-side clearfix">
 			  <div class="form-group" style="margin-top: 15px;">
 		    	<label>จังหวัด : </label>
-			    <select data-placeholder="เลือกชนิดพืช" class="form-control chosen-select" tabindex="2" style="width:300px;">
+			    <select data-placeholder="เลือกชนิดพืช" class="chosen-select" tabindex="2">
 	            <option value=""></option>
-	            <option value="United States">ข้าว</option>
+	            <option value="444">ข้าว</option>
 	    		</select>
 			  </div>
+			 </div>
 			  <button type="submit" class="btn btn-default" style="margin-left: 40%;">ค้นหา</button>
 			</form>
 		  </div>
