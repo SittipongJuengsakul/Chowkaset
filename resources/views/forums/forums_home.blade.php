@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div id="chatkaset_content">
-		<div class="tab-content">
+		<!--<div class="tab-content">
 		  <div id="recent" class="tab-pane fade in active">
 		    <div class="col-md-9 main-content">
 		    	<ul id="list_topic_recent">
@@ -81,6 +81,6 @@
 		    	</ul>
 		    </div>
 		  </div>
-		</div>
+		</div>-->
 	</div>
 @stop

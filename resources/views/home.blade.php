@@ -8,6 +8,8 @@
 	
 	{!! $map['html'] !!}
 	
+
+	
 	<script src="{{ URL::asset('assets/js/interact-1.2.5.min.js') }}"></script>
 	<script type="text/javascript">
     if (window.location.hash && window.location.hash == '#_=_') {

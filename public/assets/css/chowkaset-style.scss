@@ -4,6 +4,9 @@ body{
 }
 
 //----------- Content -----------//
+#map_canvas{
+	position: absolute!important;
+}
 .chowkaset-nav{
 	width: 100%;
 	//height: 60px;
@@ -979,6 +982,7 @@ body{
 	background-color: #F2F2F2;
 	color: #999999;
 	position: fixed;
+	z-index: 100;
 	padding-left: 15%;
 	padding-right: 15%;
 	.box-left{
@@ -1026,7 +1030,110 @@ body{
 		}
 	}
 	.sidebar-content{
+		margin-top: 5px;
 		height: 500px;
+		background-color: white;
+	}
+}
+
+//-------------------------------------- Officer -----------------------------------------//
+
+#officer_header{
+	height: 50px;
+	width: 100%;
+	background-color: #F2F2F2;
+	color: #999999;
+	position: fixed;
+	z-index: 100;
+	padding-left: 15%;
+	padding-right: 15%;
+	.box-left{
+		float: left;
+		ul.chatkaset_nav{
+			li{
+				a{
+					height: 50px!important;
+					width: 140px;
+					border-top: 5px solid #F2F2F2 !important;
+					text-align: center;
+					line-height: 23px;
+					border-radius: 0px;
+					color: #3b3b3b;
+				}
+				
+			}
+			li.active{
+				a{
+					background-color: white;
+					color: #1abc9c;
+					border-top: 5px solid #e64b21 !important;
+				}
+			}
+		}	
+	}
+	.box-right{
+		float: right;
+		height: 50px!important;
+	}
+	
+}
+#officer_content{
+	position: initial;
+    padding-top: 65px;
+	padding-left: 2%;
+	padding-right: 2%;
+	width: 100%;
+	overflow: hidden;
+	height: 100%;
+	.menu-content{
+		height: 100%;
+		ul{
+			overflow: scroll;
+			height: 570px;
+			.li_details{
+			cursor: pointer;
+			margin-top: 5px;
+			.aumphur{
+				text-align: center;
+				font-size: 20px;
+				background-color: #92DC92;
+				border-bottom: 1px solid #92DC92 !important;
+				border-top-left-radius: 4px;
+				border-top-right-radius: 4px;
+			}
+			.aumphur_detail{
+				text-align: center;
+				font-size: 20px;
+				height: 100px;
+				padding: 5px 10px;
+				text-align: center;
+				background-color: white;
+				border-bottom-left-radius: 4px;
+				border-bottom-right-radius: 4px;
+				h3{
+					margin: 8px;
+					text-align: center;
+				}
+				span.num_farmer{
+
+				}
+			}
+			}
+		}
+		.head_content{
+			height: 120px;
+			background-color: white;
+			margin-top: 5px;
+		}
+		.body_content{
+			height: 120px;
+			background-color: white;
+			margin-top: 5px;
+		}
+	}
+	.sidebar-content{
+		margin-top: 5px;
+		height: 570px;
 		background-color: white;
 	}
 }
