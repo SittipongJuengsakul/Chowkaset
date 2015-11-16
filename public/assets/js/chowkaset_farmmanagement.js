@@ -93,7 +93,7 @@ function create_farm_management(){
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
 										n = data.sum_acc[count];
-										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toFixed(2).toLocaleString()+'</h4>';
+										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toLocaleString()+'</h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
@@ -606,7 +606,7 @@ function edit_account_table(id_acc,edt_id){
 			    					}
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total.toFixed(2).toLocaleString('en-IN');
+			    					td.innerHTML = money_total.toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_income('+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
