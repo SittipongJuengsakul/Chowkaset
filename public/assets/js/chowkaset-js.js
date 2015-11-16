@@ -21,7 +21,7 @@ function place_kaset(map_id) {
           //พื้นที่ปลูก
           $('#kaset_place').html(data[0].crop_rai+' ไร่ '+data[0].crop_ngarn+' งาน '+data[0].crop_wah+' ตารางวา');
           //จำนวนผลผลิต
-          $('#kaset_product').html(data[0].crop_product+' กิโลกรัม');
+          $('#kaset_product').html(data[0].crop_product.toLocaleString()+' กิโลกรัม');
 
           //display place kaset block
           $('#tab_two').removeClass('active');
