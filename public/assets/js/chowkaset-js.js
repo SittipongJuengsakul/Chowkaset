@@ -1,5 +1,5 @@
 //@Author : Sittipong Jungsakul
-//Javascript Library for chowkaset  Web Application 
+//Javascript Library for chowkaset  Web Application
 //for help web application make element by javascript
 function place_kaset(map_id) {
   var id_map_detail = document.getElementById('place_kaset');
