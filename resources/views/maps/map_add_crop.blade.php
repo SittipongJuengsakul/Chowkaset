@@ -83,7 +83,7 @@
 $( "#cancle_add_new_crops" ).click(function() {
   $("#place_kaset_add").hide();
 });
-var site_url = '{{ URL::to("/")}}';
+var site_url = '{{ URL::to("/index.php/")}}';
 $.ajax({
 		url: site_url+"/api/v1.0/Crop/getSeedAll"
 		}).then(function(seeds) {
