@@ -7,7 +7,6 @@ function place_kaset(map_id) {
       $.ajax({
           url: site_url+"/api/v1.0/Crop/mapdetail/"+map_id
         }).then(function(data) {
-          alert(data);
           //ชื่อไร่
           $('#name_rai').html(data[0].crop_name);
           $('#pic_area').attr("src", data[0].picture);
