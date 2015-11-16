@@ -119,7 +119,7 @@ function create_farm_management(){
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
 										n = data.sum_acc[count];
-										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toFixed(2).toLocaleString()+'</h4>';
+										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toLocaleString()+'</h4>';
 										sum_show_in_detail_tab.appendChild(sum_acc);
 										var sum_acc = document.createElement('div');
 										sum_acc.setAttribute('class','sum_list col-md-4');
