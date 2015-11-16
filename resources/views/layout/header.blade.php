@@ -10,7 +10,7 @@
 									<a class="gn-icon gn-icon-search"><span>Search</span></a>
 								</li>
 								<li><a class="gn-icon gn-icon-cog" onclick="loginForm()">เข้าสู่ระบบ</a></li>
-								<li><a class="gn-icon gn-icon-cog" href="{{ URL::to('/chatkaset') }}">ห้องพูดคุยเกษตร</a></li>
+								<li><a class="gn-icon gn-icon-cog" href="{{ URL::to('/index.php/chatkaset') }}">ห้องพูดคุยเกษตร</a></li>
 								<li><a class="gn-icon gn-icon-help">ช่วยเหลือ</a></li>
 							</ul>
 						</div><!-- /gn-scroller -->
@@ -54,9 +54,9 @@
 		          <a href="#" class="dropdown-toggle login-col login-col-size" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-nav" src="{{ Auth::user()->picture }}">{{ " ".Auth::user()->name }}<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <!--<li><a href="#">เปลี่ยนรหัสผ่าน</a></li>-->
-		            <li><a href="{{ URL::to('auth/profile') }}">แก้ใขข้อมูลส่วนตัว</a></li>
+		            <li><a href="{{ URL::to('/index.php/auth/profile') }}">แก้ใขข้อมูลส่วนตัว</a></li>
 		            <!--<li><a href="{{ URL::to('auth/login') }}">รายงานปัญหา</a></li>-->
-		            <li><a href="{{ URL::to('auth/logout') }}">ออกจากระบบ</a></li>
+		            <li><a href="{{ URL::to('/index.php/auth/logout') }}">ออกจากระบบ</a></li>
 		          </ul>
 		        </li>
 				@endif
