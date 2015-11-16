@@ -126,7 +126,7 @@ function loginChowkaset(){
 						us.setAttribute('type','text');
 						us.setAttribute('class','form-control input-cks-form');
 						us.setAttribute('name','username');
-						us.setAttribute('placeholder','กรอก Username');
+						us.setAttribute('placeholder','กรอกชื่อผู้ใช้');
 						wrap.appendChild(us);
 					//password
 					var form_group = document.createElement('div');
@@ -382,7 +382,7 @@ function registerChowkaset(){
 						us.setAttribute('data-validation-url',site_url+'/checkUsername');
 						us.setAttribute('name','username');
 						us.setAttribute('id','regisinp_username');
-						us.setAttribute('placeholder','กรอก Username');
+						us.setAttribute('placeholder','กรอกชื่อผู้ใช้');
 						wrap.appendChild(us);
 					//password
 					var form_group = document.createElement('div');
