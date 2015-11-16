@@ -155,7 +155,7 @@ class AuthController extends Controller
                     'typeuser_id' => $request->input('typeuser_id'),
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
-                    'picture' => 'http://localhost/chowkaset/public/assets/img/profileImage/'.$fileName
+                    'picture' => public_path('assets/img/profileImage/').$fileName
                 ]);
             }else{
                 $password = Hash::make($request->input('pass_confirmation'));
@@ -166,7 +166,7 @@ class AuthController extends Controller
                     'typeuser_id' => $request->input('typeuser_id'),
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
-                    'picture' => 'http://localhost/chowkaset/public/assets/img/user.jpg',
+                    'picture' => public_path('assets/img/user.jpg'),
                 ]);
             }
             //return dd($request->file('Picture'));
