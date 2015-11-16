@@ -13,33 +13,177 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\GroupCropUser;
 use App\User;
+use App\Profiles;
 use App\Crops;
 use App\Topics;
 class CropsApiController extends Controller
 {
     //แสดงข่้อมูบ map ตามที่คลิกจาก marker บน map
     //Function Code 100201
-     public function map_detail($map_id){
+     public function map_detail($crop_id){
         $map_detail = DB::table('crops')
-        ->join('group_crop_users', 'group_crop_users.crop_id', '=', 'crops.crop_id')
-        ->join('users','group_crop_users.user_id','=','users.id')
-        ->join('breeds', 'breeds.breed_id', '=', 'crops.crop_breed_id')
-        ->join('seeds', 'seeds.seed_id', '=', 'breeds.seed_id')
-        ->where('crops.crop_id', '=', $map_id)->get();
+        ->leftjoin('group_crop_users', 'group_crop_users.crop_id', '=', 'crops.crop_id')
+        ->leftjoin('users','group_crop_users.user_id','=','users.id')
+        ->leftjoin('profiles','profiles.user_id','=','users.id')
+        ->leftjoin('prefixs','profiles.prefix','=','prefix_id')
+        ->leftjoin('breeds', 'breeds.breed_id', '=', 'crops.crop_breed_id')
+        ->leftjoin('seeds', 'seeds.seed_id', '=', 'breeds.seed_id')
+        ->where('crops.crop_id', '=', $crop_id)->get();
+        //$map_detail = Crops::find($map_id);
+        //$map_detail->user;
         return $map_detail;
+    }
+    public function kaset_in_province($province){
+        $statusCode = 200;
+        $kaset = DB::table('profiles')->join('prefixs','prefixs.prefix_id','=','profiles.prefix')
+        ->join('farmercommunities','farmercommunities.fmcm_id','=','profiles.fmcm_id')
+        ->where('profiles.user_province_code','=',$province)->get();
+        //$email = DB::table('contacts')->where('tyct_type','=','2')->where('pf_id','=',$profile[0]->pf_id)->get();
+        //$facebook = DB::table('contacts')->where('tyct_type','=','3')->where('pf_id','=',$profile[0]->pf_id)->get();
+        $phone = [];
+        $i=0;
+        foreach ($kaset as $ks) {
+            $ph = DB::table('contacts')->where('tyct_type','=','1')->where('pf_id','=',$ks->pf_id)->get();
+            $phone[$i] = $ph[0]->ct_detail; 
+            $i++;
+        }
+        $email = [];
+        $i=0;
+        foreach ($kaset as $ks) {
+            $ph = DB::table('contacts')->where('tyct_type','=','2')->where('pf_id','=',$ks->pf_id)->get();
+            $email[$i] = $ph[0]->ct_detail; 
+            $i++;
+        }
+        if($kaset){
+                $response = [
+                  'status'  => '1',
+                  'data' => $kaset,
+                  'phone'=> $phone,
+                  'email'=> $email
+                ];
+            }else{
+                $response = [
+                  'status'  => '0',
+                  'message' => 'No Data!'
+                ];
+            }
+        return Response::json($response, $statusCode);
+    }
+    public function kaset_in_district($district){
+        $statusCode = 200;
+        $kaset = DB::table('profiles')->join('prefixs','prefixs.prefix_id','=','profiles.prefix')
+        ->join('farmercommunities','farmercommunities.fmcm_id','=','profiles.fmcm_id')
+        ->where('profiles.user_district_code','=',$district)->get();
+        //$email = DB::table('contacts')->where('tyct_type','=','2')->where('pf_id','=',$profile[0]->pf_id)->get();
+        //$facebook = DB::table('contacts')->where('tyct_type','=','3')->where('pf_id','=',$profile[0]->pf_id)->get();
+        $phone = [];
+        $i=0;
+        foreach ($kaset as $ks) {
+            $ph = DB::table('contacts')->where('tyct_type','=','1')->where('pf_id','=',$ks->pf_id)->get();
+            $phone[$i] = $ph[0]->ct_detail; 
+            $i++;
+        }
+        $email = [];
+        $i=0;
+        foreach ($kaset as $ks) {
+            $ph = DB::table('contacts')->where('tyct_type','=','2')->where('pf_id','=',$ks->pf_id)->get();
+            $email[$i] = $ph[0]->ct_detail; 
+            $i++;
+        }
+        if($kaset){
+                $response = [
+                  'status'  => '1',
+                  'data' => $kaset,
+                  'phone'=> $phone,
+                  'email'=> $email
+                ];
+            }else{
+                $response = [
+                  'status'  => '0',
+                  'message' => 'No Data!'
+                ];
+            }
+        return Response::json($response, $statusCode);
+    }
+    public function kaset_in_aumphur($aumphur){
+        $statusCode = 200;
+        $kaset = DB::table('profiles')->join('prefixs','prefixs.prefix_id','=','profiles.prefix')
+        ->join('farmercommunities','farmercommunities.fmcm_id','=','profiles.fmcm_id')
+        ->where('profiles.user_aumphur_code','=',$aumphur)->get();
+        //$email = DB::table('contacts')->where('tyct_type','=','2')->where('pf_id','=',$profile[0]->pf_id)->get();
+        //$facebook = DB::table('contacts')->where('tyct_type','=','3')->where('pf_id','=',$profile[0]->pf_id)->get();
+        $phone = [];
+        $i=0;
+        foreach ($kaset as $ks) {
+            $ph = DB::table('contacts')->where('tyct_type','=','1')->where('pf_id','=',$ks->pf_id)->get();
+            $phone[$i] = $ph[0]->ct_detail; 
+            $i++;
+        }
+        $email = [];
+        $i=0;
+        foreach ($kaset as $ks) {
+            $ph = DB::table('contacts')->where('tyct_type','=','2')->where('pf_id','=',$ks->pf_id)->get();
+            $email[$i] = $ph[0]->ct_detail; 
+            $i++;
+        }
+        if($kaset){
+                $response = [
+                  'status'  => '1',
+                  'data' => $kaset,
+                  'phone'=> $phone,
+                  'email'=> $email
+                ];
+            }else{
+                $response = [
+                  'status'  => '0',
+                  'message' => 'No Data!'
+                ];
+            }
+        return Response::json($response, $statusCode);
+    }
+    public function aumphur($province){
+        $aumphur = DB::table('amphur')->where('PROVINCE_ID','=',$province)->get();
+        return $aumphur;
+    }
+    public function district($aumphur){
+        $aumphur = DB::table('district')->where('AMPHUR_ID','=',$aumphur)->get();
+        return $aumphur;
+    }
+    public function farmercomunity(){
+        $aumphur = DB::table('farmercommunities')->get();
+        return $aumphur;
+    }
+    public function phone_profile($profile_id){
+        $phone_number = Profiles::find($profile_id)->phone;
+        return $phone_number;
+    }
+    public function email_profile($profile_id){
+        $email = Profiles::find($profile_id)->email;
+        return $email;
+    }
+    public function facebook_profile($profile_id){
+        $facebook = Profiles::find($profile_id)->facebook;
+        return $facebook;
     }
     //เพิ่มข่้อมูล  marker บน map
     //Function Code 100202
     public function new_crop(Request $request){
+        //คำนวนพื้นที่ เพื่อเอาไปหาจำนวนที่ปลูกสูงสุด
+        //โดยแปลงทัั้งหมดเป็นไร่
+        $r = $request->input('rai');
+        $n = $request->input('ngarn');
+        $w = $request->input('wah');
+        $r += ($n/4);
+        $r += ($w/400);
         $Crops = new Crops;
         $Crops->crop_name = $request->input('namerai');
         $Crops->crop_latitude = $request->input('latitude');
-        $Crops->crop_longitude = $request->input('longtitude');
-        $Crops->crop_product = $request->input('product');
+        $Crops->crop_longitude = $request->input('longitude');
+        $Crops->crop_product = ($r*800);
         $Crops->crop_rai = $request->input('rai');
         $Crops->crop_ngarn = $request->input('ngarn');
         $Crops->crop_wah = $request->input('wah');
-        $Crops->crop_breed_id = '1';
+        $Crops->crop_breed_id = $request->input('breed');
         $Crops->crop_start_date = 'CURRENT_DATE';
         $Crops->crop_begin_date = '0000-00-00';
         $Crops->crop_crop_date = '0000-00-00';
@@ -49,9 +193,9 @@ class CropsApiController extends Controller
 
         $user_id_group = new GroupCropUser;
         $user_id_group->user_id = Auth::user()->id;
-        $user_id_group->crop_id = $Crops->id;
+        $user_id_group->crop_id = $Crops->crop_id;
         $user_id_group->save();
-        return Redirect::to('/');
+        return Redirect::to('/home');
     }
 
     public function test(Request $request){

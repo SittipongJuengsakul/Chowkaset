@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use App\User;
 use Validator;
 use Auth;
+use Response;
 use Hash;
 use Image;
 use DB;
@@ -173,19 +174,6 @@ class AuthController extends Controller
         } catch (Exception $e) {
         }
         return Redirect::to('/home');
-    }
-    public function checkUsername(Request $request){
-        try {
-            $username = $request->input('username');
-            //$check = 
-            if(User::where('member_id', '=', $username)->first()){
-               return 'no'; 
-            }else{
-               return 'available'; 
-            }
-        } catch (Exception $e) {
-            
-        }
     }
     public function postLogin(Request $request){
         try {

@@ -25,6 +25,8 @@
 	<script src="{{ URL::asset('assets/js/validateform/security.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/validateform/file.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/chosen.jquery.min.js') }}"></script>
+	<!--<script src="{{ URL::asset('assets/js/interact-1.2.5.min.js') }}"></script>-->
+	<script src="{{ URL::asset('assets/js/sidebar_slide/jquery.sidebar.min.js') }}"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -40,13 +42,13 @@
 	<script src="{{ URL::asset('assets/js/highcharts/highcharts.js') }}"></script>
 	<script src="{{ URL::asset('assets/js/highcharts/exporting.js') }}"></script>
 	<script>
-	drag_move();
 		new gnMenu( document.getElementById( 'gn-menu' ) );
 		var csrf_token_js = '{{ csrf_token() }}';
 		var user_fname = '';
 		var user_lname = '';
 		var user_picture = '';
 		var user_tel = '';
+		var pin_map;
 		var user_facebook = '';
 		var user_address = '';
 		var user_id = '';

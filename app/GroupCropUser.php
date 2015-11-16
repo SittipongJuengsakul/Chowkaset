@@ -11,6 +11,6 @@ class GroupCropUser extends Model
     
     public function CropsList()
 	{
-		return $this->hasOne('App\Crops', 'crop_id', 'crop_id');
+		return $this->has_many('App\Crops','crop_id', 'crop_id');
 	}
 }

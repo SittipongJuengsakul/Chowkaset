@@ -23,15 +23,21 @@
 						<div class="gn-scroller">
 							<ul class="gn-menu">
 							@if(Auth::user()->typeuser_id=='1')
-								<!--<li id="my_farm">
+								<li id="my_farm">
 									<a class="gn-icon gn-icon-download">ข้อมูลฟาร์มตนเอง</a>
-								</li>-->
+								</li>
 								<li id="farm_management"><a class="gn-icon gn-icon-cog">จัดการข้อมูลการเพาะปลูก</a></li>
 								<li><a class="gn-icon gn-icon-cog" href="{{ URL::to('/chatkaset') }}">ห้องพูดคุยเกษตร</a></li>
 							@elseif(Auth::user()->typeuser_id=='2')
 								<li href="">
 									<a class="gn-icon gn-icon-download" href="{{ URL::to('/officer') }}">จัดการข้อมูล</a>
 								</li>
+								<li><a class="gn-icon gn-icon-cog" href="{{ URL::to('/chatkaset') }}">ห้องพูดคุยเกษตร</a></li>
+							@elseif(Auth::user()->typeuser_id=='3'||Auth::user()->typeuser_id=='4')
+								<li id="my_farm">
+									<a class="gn-icon gn-icon-download">ข้อมูลฟาร์มตนเอง</a>
+								</li>
+								<li id="farm_management"><a class="gn-icon gn-icon-cog">จัดการข้อมูลการเพาะปลูก</a></li>
 								<li><a class="gn-icon gn-icon-cog" href="{{ URL::to('/chatkaset') }}">ห้องพูดคุยเกษตร</a></li>
 							@endif
 							</ul>

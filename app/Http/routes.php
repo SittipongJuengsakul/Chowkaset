@@ -23,7 +23,7 @@ Route::get('auth/profile','Auth\ChangeProfile@getCreateProfile');
 Route::post('auth/profile/commit','Auth\ChangeProfile@postCreateProfile');
 Route::get('auth/changeprofile','Auth\ChangeProfile@getChangeprofile');
 Route::post('auth/changeprofile/commit','Auth\ChangeProfile@postChangeprofile');
-Route::post('auth/chowkaset/checkUsername','Auth\AuthController@checkUsername');
+Route::post('checkUsername','apiv1_0\AuthApiController@checkUsername');
 Route::post('auth/chowkaset/postLogin','Auth\AuthController@postLogin');
 Route::post('auth/chowkaset/postRegister','Auth\AuthController@postRegister');
 
@@ -36,11 +36,24 @@ Route::group(array('prefix' => '/api/v1.0'), function()
         Route::resource('Auth', 'apiv1_0\AuthApiController');
         //เรียก Token จากระบบ
         Route::get('getToken','apiv1_0\AuthApiController@getToken');
+        //เบอร์โทรของเจ้าของแปลง
+        Route::get('Profiles/phone_profile/{profile_id}','apiv1_0\CropsApiController@phone_profile');
+        //อีเมล์ของเจ้าของแปลง
+        Route::get('Profiles/email_profile/{profile_id}','apiv1_0\CropsApiController@email_profile');
+        //เฟสบุ้กของเจ้าของแปลง
+        Route::get('Profiles/facebook_profile/{profile_id}','apiv1_0\CropsApiController@facebook_profile');
+
+        Route::get('kaset_in_province/{province}','apiv1_0\CropsApiController@kaset_in_province');
+        Route::get('kaset_in_district/{aumphur}','apiv1_0\CropsApiController@kaset_in_district');
+        Route::get('kaset_in_aumphur/{aumphur}','apiv1_0\CropsApiController@kaset_in_aumphur');
+        Route::get('aumphur/{province_id}','apiv1_0\CropsApiController@aumphur');
+        Route::get('district/{aumphur}','apiv1_0\CropsApiController@district');
+        Route::get('farmercomunity','apiv1_0\CropsApiController@farmercomunity');
         //Crop
-        
         //ดูข้อมูลการเพาะปลูก
         Route::get('Crop/mapdetail/{id}','apiv1_0\CropsApiController@map_detail');
-        //
+        
+        //เพิ่มพื้นที่ปลูก
         Route::post('Crop/new_crop','apiv1_0\CropsApiController@new_crop');
         //พื้นที่ปลูกของ User
         Route::get('Crop/getCropsOfUser/{user_id}','apiv1_0\CropsApiController@crops_list');

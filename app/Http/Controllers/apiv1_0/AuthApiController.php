@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Response;
 use Hash;
 use DB;
+use Users;
 use Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -125,6 +126,24 @@ class AuthApiController extends Controller
             $statusCode = 400;
         }finally{
             return Response::json($response, $statusCode);
+        }
+        return Response::json($response, $statusCode);
+    }
+
+    public function checkUsername(Request $request){            
+        $userCheck = DB::table('users')->where('member_id','=',$request->input('username'))->get();
+        $statusCode = 200;
+        $response = [];
+        if($userCheck){
+                $response = [
+                  'valid' => false,
+                  'message' => 'Username ซ้ำ'
+                ];
+        }else{
+                $response = [
+                  'valid' => true,
+                  'message' => 'สามารถใช้งานได้'
+                ];
         }
         return Response::json($response, $statusCode);
     }
