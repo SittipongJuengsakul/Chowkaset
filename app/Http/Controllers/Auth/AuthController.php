@@ -200,6 +200,9 @@ class AuthController extends Controller
                     ];
             }
             return Response::json($response, $statusCode);
+        } catch (Exception $e) {
+            return 'fail';
+        }
     }
     /**
      * LoginCallback Security to Chowkaset By ChowkasetLogin
