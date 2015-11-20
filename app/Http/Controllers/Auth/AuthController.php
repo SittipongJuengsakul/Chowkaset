@@ -177,22 +177,29 @@ class AuthController extends Controller
     }
     public function postLogin(Request $request){
         try {
+            $statusCode = 200;
             $password = $request->input('password');
-            $login_pass = DB::table('users')->where('member_id', '=', $request->input('username'))->select('id','password')->get();
+            $login_pass = DB::table('users')->where('member_id', '=', $request->input('username'))->select('id','password','member_id')->get();
             if($login_pass){
                 if(Hash::check($password, $login_pass[0]->password)){
                     $this->postLoginCallback($login_pass[0]->id);
-                    return 'pass';
+                    $response = [
+                      'status'  => '1',
+                      'data' => $login_pass[0]->member_id
+                    ];
                 }else{
-                    return 'fail';
+                    $response = [
+                      'status'  => '0',
+                      'message' => 'Login Fail!'
+                    ];
                 }
             }else{
-                return 'fail';
+                $response = [
+                      'status'  => '0',
+                      'message' => 'Login Fail!'
+                    ];
             }
-            
-        } catch (Exception $e) {
-            return 'fail';
-        }
+            return Response::json($response, $statusCode);
     }
     /**
      * LoginCallback Security to Chowkaset By ChowkasetLogin
