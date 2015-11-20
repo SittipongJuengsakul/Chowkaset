@@ -185,7 +185,7 @@ class AuthController extends Controller
                     $this->postLoginCallback($login_pass[0]->id);
                     $response = [
                       'status'  => '1',
-                      'data' => $login_pass[0]->member_id
+                      'data' => $login_pass[0]->id
                     ];
                 }else{
                     $response = [
