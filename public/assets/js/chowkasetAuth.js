@@ -201,7 +201,7 @@ function loginUser(){
 	        password: password_user,
 	    },
 	    success: function (data) {
-	        if(data=='pass'){
+	        if(data.status=='1'){
 	        	window.location.href = site_url+'/home';
 	        }else{
 	        	document.getElementById('login_fail_area').innerHTML = 'ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด!';
