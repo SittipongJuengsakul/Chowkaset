@@ -1,5 +1,4 @@
 <div id="plans" class="tab-pane fade">
-		    <div class="col-md-12 main-content">
 		     <div class="col-md-12 menu-content">
 		       <div class="col-md-1">
 			    	<i class="fa fa-search search_icon"></i>
@@ -16,7 +15,6 @@
 		        </div>
 		     </div>
 		    <div class="col-md-12 officer-main-content">
-		    	<div class="col-md-12 officer-main-content">
 		    	<table class="table table-bordered">
 				  <thead>
 				  	<tr>
@@ -33,8 +31,6 @@
 					</tr>
 				  </tbody>
 				</table>
-		  	</div>
-		  	</div>
 		  	</div>
 </div>
 <script>
