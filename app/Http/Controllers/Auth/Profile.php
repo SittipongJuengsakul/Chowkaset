@@ -75,6 +75,7 @@ class Profile extends Controller
         );
         return Redirect::to('/officer');
      }
+     
     public function getChangeprofile(){
     	try {
     		$IdUser = Auth::user()->id;

@@ -43,59 +43,41 @@
 		  	</div>
 		  	<div class="col-md-12 officer-main-content" style="display:none;" id="com_add_area">
 		  	<button id="officer_add_cancle_top_com" type="button" class="btn btn-danger btn-add">ยกเลิกการเพิ่มรายชื่อ</button>
-		  	<form class="form-horizontal" role="form" method="post" action="{{ url('/auth/officer/addProfile/commit')}}">
-				<div class="panel-heading"><h2 class="head-col">เพิ่มข้อมูลเกษตรกร</h2><hr></div>
+		  	<form class="form-horizontal" role="form" method="post" action="{{ url('/officer/addCommunity/commit')}}">
+				<div class="panel-heading"><h2 class="head-col">เพิ่มข้อมูลหน่วยงาน</h2><hr></div>
 				<div class="panel-body">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="form-group">
-					      <div class="col-md-2">
-					        <select data-placeholder="คำนำหน้าชื่อ" class="form-control" name="prefix_id">
-				            <option value="1">นาย</option>
-				            <option value="2">นาง</option>
-				            <option value="3">นางสาว</option>
-				    		</select>
-					      </div>
-					      <div class="col-md-3">
-					        <input type="text" class="form-control" id="text" placeholder="ชื่อ" data-validation="required" value="" name="fname">
-					      </div>
-					      <div class="col-md-3">
-					        <input type="text" class="form-control" id="text" placeholder="นามสกุล" data-validation="required" value="" name="lname">
+					      <div class="col-md-8">
+					        <input type="text" class="form-control" id="text" placeholder="ชื่อหน่วยงาน" data-validation="required" value="" name="com_name">
 					      </div>
 					      <div class="col-md-4">
-					        <input type="text" class="form-control" id="text" placeholder="รหัสบัตรประชาชน" data-validation="number length" data-validation-length="13" data-validation-help="เช่น 1234567890123" value="" name="card_id">
+					        <select data-placeholder="เลือกสังกัด" class="form-control" id="com_dpm" name="com_dpm">
+				            <option value="1">กรมการข้าว</option>
+				    		</select>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					      <div class="col-md-6">
-					        <input type="text" class="form-control" id="text" placeholder="ที่อยู่" value="" name="address">
+					        <input type="text" class="form-control" id="text" placeholder="ที่อยู่" value="" name="com_address">
 					      </div>
 					      <div class="col-md-2">
-					        <select data-placeholder="เลือกจังหวัด" class="form-control" id="add_province_area" name="province">
+					        <select data-placeholder="เลือกจังหวัด" class="form-control" id="com_province_add" name="com_province">
 				            <option value="49">กำแพงเพชร</option>
 				            <option value="1">กรุงเทพ</option>
 				    		</select>
 					      </div>
 					      <div class="col-md-2">
-					        <select data-placeholder="เลือกอำเภอ" class="form-control" id="add_aumphur_area" name="aumphur">
+					        <select data-placeholder="เลือกอำเภอ" class="form-control" id="com_aumphur_add" name="com_aumphur">
 					        <option value="0">เลือกอำเภอ</option>
 				    		</select>
 					      </div>
 					      <div class="col-md-2">
-					        <select data-placeholder="เลือกตำบล" class="form-control" tabindex="3" id="add_district_area" name="district">
+					        <select data-placeholder="เลือกตำบล" class="form-control" tabindex="3" id="com_district_add" name="com_district">
 				            <option value="0">เลือกตำบล</option>
 				    		</select>
 					      </div>
 					    </div>
-				</div>
-				<div class="panel-heading"><h2 class="head-col">ข้อมูลสังกัด</h2><hr></div>
-				<div class="panel-body">
-					<div class="form-group">
-					    <div class="col-md-4 col-sm-4 col-xs-4">
-							<select data-placeholder="เลือกศูนย์ข้าว" class="form-control" id="add_farmer_farmercomunity_area" name="farmercomunity">
-					        <option value="1">เลือกศูนย์ข้าว</option>
-				    		</select>
-					    </div>
-					</div>
 				</div>
 				<div class="panel-heading"><h2 class="head-col">ข้อมูลติดต่อ</h2><hr></div>
 				<div class="panel-body">
@@ -319,22 +301,22 @@ $(document).ready(function(){
 $(document).ready(function(){
 	//ค่าเริ่มต้น
 	$.ajax({
-		  url: site_url+"/api/v1.0/aumphur/"+$("#add_province_area").val()
+		  url: site_url+"/api/v1.0/aumphur/"+$("#com_province_add").val()
 		}).then(function(aumphurs) {
 		   	  var opt = '';
 		   	  $.each(aumphurs, function(index, value) {
 		   	  	opt += '<option value="'+value.AMPHUR_ID+'">'+value.AMPHUR_NAME+'</option>';
 		   	  });
-		   	  $("#add_aumphur_area").html(opt);
-		   	  $("#add_district_area").empty();
+		   	  $("#com_aumphur_add").html(opt);
+		   	  $("#com_district_add").empty();
 				$.ajax({
-				  url: site_url+"/api/v1.0/district/"+$("#add_aumphur_area").val()
+				  url: site_url+"/api/v1.0/district/"+$("#com_aumphur_add").val()
 				}).then(function(districts) {
 				   	  var opt = '';
 				   	  $.each(districts, function(index, value) {
 				   	  	opt += '<option value="'+value.DISTRICT_ID+'">'+value.DISTRICT_NAME+'</option>';
 				   	  });
-				   	  $("#add_district_area").html(opt);
+				   	  $("#com_district_add").html(opt);
 				});	
 		});	
 		$.ajax({
@@ -348,39 +330,39 @@ $(document).ready(function(){
 		});	
 
 	// ส่วนของจังหวัดเมื่อมีการเปลี่ยนแปลง
-	$("#add_province_area").change(function(){
-		$("#add_aumphur_area").empty();
+	$("#com_province_add").change(function(){
+		$("#com_aumphur_add").empty();
 		$.ajax({
-		  url: site_url+"/api/v1.0/aumphur/"+$("#add_province_area").val()
+		  url: site_url+"/api/v1.0/aumphur/"+$("#com_province_add").val()
 		}).then(function(aumphurs) {
 		   	  var opt = '';
 		   	  $.each(aumphurs, function(index, value) {
 		   	  	opt += '<option value="'+value.AMPHUR_ID+'">'+value.AMPHUR_NAME+'</option>';
 		   	  });
-		   	  $("#add_aumphur_area").html(opt);
-		   	  $("#add_district_area").empty();
+		   	  $("#com_aumphur_add").html(opt);
+		   	  $("#com_district_add").empty();
 				$.ajax({
-				  url: site_url+"/api/v1.0/district/"+$("#add_aumphur_area").val()
+				  url: site_url+"/api/v1.0/district/"+$("#com_aumphur_add").val()
 				}).then(function(districts) {
 				   	  var opt = '';
 				   	  $.each(districts, function(index, value) {
 				   	  	opt += '<option value="'+value.DISTRICT_ID+'">'+value.DISTRICT_NAME+'</option>';
 				   	  });
-				   	  $("#add_district_area").html(opt);
+				   	  $("#com_district_add").html(opt);
 				});	
 		});	
 	});
 	// ส่วนของอำเภอเมื่อมีการเปลี่ยนแปลง
-	$("#add_aumphur_area").change(function(){
-		$("#add_district_area").empty();
+	$("#com_aumphur_add").change(function(){
+		$("#com_district_add").empty();
 		$.ajax({
-		  url: site_url+"/api/v1.0/district/"+$("#add_aumphur_area").val()
+		  url: site_url+"/api/v1.0/district/"+$("#com_aumphur_add").val()
 		}).then(function(districts) {
 		   	  var opt = '';
 		   	  $.each(districts, function(index, value) {
 		   	  	opt += '<option value="'+value.DISTRICT_ID+'">'+value.DISTRICT_NAME+'</option>';
 		   	  });
-		   	  $("#add_district_area").html(opt);
+		   	  $("#com_district_add").html(opt);
 
 		});	
 	});

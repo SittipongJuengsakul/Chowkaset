@@ -15,6 +15,7 @@ Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index');
 Route::get('/chatkaset','forumsController@index');
 Route::get('/officer','OfficerController@index');
+Route::post('/officer/addCommunity/commit','OfficerController@officerPostAddCommunity');
 
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
