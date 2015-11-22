@@ -12,7 +12,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Profiles;
 
-class ChangeProfile extends Controller
+class Profile extends Controller
 {
 
      public function getCreateProfile(){
@@ -49,6 +49,31 @@ class ChangeProfile extends Controller
         );
 
         return Redirect::to('/home');
+     }
+     public function officerPostCreateProfile(Request $request){
+        $newprofile = new Profiles;
+        $newprofile->user_id = '0';
+        $newprofile->prefix = $request->input('prefix_id');
+        $newprofile->fname = $request->input('fname');
+        $newprofile->lname = $request->input('lname');
+        $newprofile->card_id = $request->input('card_id');
+        $newprofile->fmcm_id = $request->input('farmercomunity');
+        $newprofile->user_province_code = $request->input('province');
+        $newprofile->user_aumphur_code = $request->input('aumphur');
+        $newprofile->user_district_code = $request->input('district');
+        $newprofile->address = $request->input('address');
+        $newprofile->birthday = '0000-00-00';
+        $newprofile->save();
+        DB::table('contacts')->insert(
+            ['ct_detail' =>  $request->input('phone'), 'tyct_type' => '1','pf_id'=>$newprofile->pf_id]
+        );
+        DB::table('contacts')->insert(
+            ['ct_detail' =>  $request->input('email'), 'tyct_type' => '2','pf_id'=>$newprofile->pf_id]
+        );
+        DB::table('contacts')->insert(
+            ['ct_detail' =>  $request->input('facebook'), 'tyct_type' => '3','pf_id'=>$newprofile->pf_id]
+        );
+        return Redirect::to('/officer');
      }
     public function getChangeprofile(){
     	try {

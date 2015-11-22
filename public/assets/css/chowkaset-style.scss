@@ -1010,6 +1010,10 @@ body{
 		margin-top: 5px;
 		padding: 20px;
 		background-color: white;
+		.btn-add{
+			float: right;
+			margin-bottom: 5px;
+		}
 		table{
 			thead{
 				tr{
@@ -1026,5 +1030,18 @@ body{
 				}
 			}
 		}
+	}
+}
+a{
+	i.edit_acc{
+	color: #FF9500;
+	text-align: center;
+	cursor: pointer;
+	}
+	i.delete_acc{
+	margin-left: 3px;
+	color: red;
+	text-align: center;
+	cursor: pointer;
 	}
 }

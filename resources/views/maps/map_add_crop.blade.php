@@ -62,10 +62,10 @@
 					</div>
 				</div>
 				<div class="form-group col-md-12">
-				<div class="col-md-4 col-md-offset-4">
-					<button type="submit" class="btn btn-success">ตกลง</button>
-					<button id="cancle_add_new_crops" type="button" class="btn btn-danger">ยกเลิก</button>
-				</div>
+					<div class="col-md-4 col-md-offset-4">
+						<button type="submit" class="btn btn-success">ตกลง</button>
+						<button id="cancle_add_new_crops" type="button" class="btn btn-danger">ยกเลิก</button>
+					</div>
 				</div>
 			</div>
 		</form>

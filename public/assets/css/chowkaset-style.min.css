@@ -760,9 +760,22 @@ body {
     margin-top: 5px;
     padding: 20px;
     background-color: white; }
+    #officer_content .officer-main-content .btn-add {
+      float: right;
+      margin-bottom: 5px; }
     #officer_content .officer-main-content table thead tr th {
       text-align: center; }
     #officer_content .officer-main-content table tbody tr td {
       text-align: center; }
+
+a i.edit_acc {
+  color: #FF9500;
+  text-align: center;
+  cursor: pointer; }
+a i.delete_acc {
+  margin-left: 3px;
+  color: red;
+  text-align: center;
+  cursor: pointer; }
 
 /*# sourceMappingURL=chowkaset-style.min.css.map */
