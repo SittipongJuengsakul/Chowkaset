@@ -198,10 +198,9 @@ function account_table(id_acc){
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					if(data.data[count].acc_cost_type=='1'){ 
-			    						//ทศนิยม
 			    						money_income = money_income+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
-			    						td.innerHTML = data.data[count].acc_price; 
+			    						td.innerHTML = data.data[count].acc_price.toLocaleString(); 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
@@ -211,13 +210,13 @@ function account_table(id_acc){
 			    						money_outcome = money_outcome+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
 			    						m = data.data[count].acc_price*-1;
-			    						td.innerHTML = m; 
+			    						td.innerHTML = m.toLocaleString(); 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_total;
+			    					td.innerHTML = money_total.toLocaleString();
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					td.innerHTML = '<a onclick="edit_account_table('+id_acc+','+data.data[count].acc_id+')" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="dialog_delete_income('+data.data[count].acc_id+')" title="ลบ"><i class="fa fa-trash delete_acc"></i></a>';
@@ -233,7 +232,7 @@ function account_table(id_acc){
 			    					td.setAttribute('colspan','2');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = money_income;
+			    					td.innerHTML = money_income.toLocaleString();
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					m = money_outcome*-1;
@@ -448,7 +447,7 @@ function edit_account_table(id_acc,edt_id){
 			    					if(data.data[count].acc_cost_type=='1'){ 
 			    						money_income = money_income+data.data[count].acc_price;
 			    						money_total = money_total+data.data[count].acc_price;
-			    						td.innerHTML = '<input type="input" class="form-control" name="edt_acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" onchange="dokeyup(this)" onkeyup="dokeyup(this)" onkeypress="checknumber()"  value="'+data.data[count].acc_price+'"><input type="hidden" name="edt_cost_type" value="'+data.data[count].acc_cost_type+'">'; 
+			    						td.innerHTML = '<input type="input" class="form-control" name="edt_acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" onchange="dokeyup(this)" onkeyup="dokeyup(this)" onkeypress="checknumber()"  value="'+data.data[count].acc_price.toLocaleString()+'"><input type="hidden" name="edt_cost_type" value="'+data.data[count].acc_cost_type+'">'; 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
@@ -457,7 +456,7 @@ function edit_account_table(id_acc,edt_id){
 			    					if(data.data[count].acc_cost_type=='2'){ 
 			    						money_outcome = money_outcome+data.data[count].acc_price;
 			    						money_total = money_total-data.data[count].acc_price;
-			    						td.innerHTML = '<input type="input" class="form-control" name="edt_acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" onchange="dokeyup(this)" onkeyup="dokeyup(this)" onkeypress="checknumber()" value="'+data.data[count].acc_price+'"><input type="hidden" name="edt_cost_type" value="'+data.data[count].acc_cost_type+'">'; 
+			    						td.innerHTML = '<input type="input" class="form-control" name="edt_acc_price" placeholder="จำนวนเงิน (บาท)" style="width: 100%;" onchange="dokeyup(this)" onkeyup="dokeyup(this)" onkeypress="checknumber()" value="'+data.data[count].acc_price.toLocaleString()+'"><input type="hidden" name="edt_cost_type" value="'+data.data[count].acc_cost_type+'">'; 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
