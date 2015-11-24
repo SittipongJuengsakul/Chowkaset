@@ -195,7 +195,6 @@
 							var crop_date_duration = details.data[0].cp_duration;
 						   	var res = first_date.split("-");
 							var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
-							alert(first_date);
 							var dateCrops=newDayAdd(new_first_date,120);
 							opt += '<h4>'+dateCrops+'</h4>';
 							opt += '</div>';
@@ -224,6 +223,7 @@
 						   	  		var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
 						   	  		var thisdate = newDayAddNumber(new_first_date,value.cpc_start);
 								   	var nextday=newDayAdd(new_first_date,value.cpc_start);
+								   	alert(nextday);
 								   	if(thisdate==today_show){
 								   		opt += '<td>วันนี้</td>';
 								   	}else{
