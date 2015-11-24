@@ -9,6 +9,10 @@ $(window).load(function() {
 						}).then(function(data) {
 							var i = 0;
 							var count = 0;
+							if(data.status='0'){
+								window.location.assign(site_url+'/home');
+								alert('คุณยังไม่มีข้อมูลการเพาะปลูก');
+							}else{
 							var id_default = data.data[0].crop_id;
 							for(i=0;i<data.data.length;i++){
 								var option_choose = document.createElement('option');
@@ -18,12 +22,15 @@ $(window).load(function() {
 			    				count++;
 							}
 							account_table(id_default);
+							}
 						});
     					$.ajax({
 							url: site_url+"/api/v1.0/Crop/getCropsOfUser/"+user_id
 						}).then(function(data) {
 							var i = 0;
 							var count = 0;
+							if(data.status='0'){
+							}else{
 							var id_default = data.data[0].crop_id;
 							for(i=0;i<data.data.length;i++){
 								var option_choose = document.createElement('option');
@@ -32,7 +39,8 @@ $(window).load(function() {
 			    				document.getElementById('farm_problem_select').appendChild(option_choose);
 			    				count++;
 							}
-						problem_table(id_default);
+								problem_table(id_default);
+							}
 						});
     });
 });

@@ -153,14 +153,16 @@
 				}).then(function(data) {
 					var i = 0;
 					var count = 0;
+					if(data.status='0'){
+					}else{
 					var id_default = data.data[0].crop_id;
-					for(i=0;i<data.data.length;i++){
+						for(i=0;i<data.data.length;i++){
 						var option_choose = document.createElement('option');
 			    		option_choose.setAttribute('value',data.data[count].crop_id);
 			    		option_choose.innerHTML = data.data[count].crop_name;
 			    		document.getElementById('farm_detail_crops_list').appendChild(option_choose);
 			    		count++;
-					}
+						}
 					$.ajax({
 						url: site_url+"/api/v1.0/Crop/getCropsOfUserDetailList/"+data.data[0].crop_id
 					}).then(function(details) {
@@ -228,7 +230,7 @@
 						$('#show_calendar_management').html(opt);
 						});
 					});
-					
+					}
 			});
 		$("#farm_detail_crops_list").change(function(){
 		$("#progress_management_detail_tab").empty();
