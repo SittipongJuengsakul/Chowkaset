@@ -191,7 +191,12 @@
 							opt += '</div>';
 							opt += '<div class="sum_list col-md-4">';
 							opt += '<h2>พร้อมเก็บ</h2>';
-							opt += '<h4>52 วัน</h4>';
+							var first_date = details.data[0].crop_start_date;
+							var crop_date_duration = details.data[0].cp_duration;
+						   	var res = first_date.split("-");
+							var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
+							var dateCrops=newDayAdd(new_first_date,120);
+							opt += '<h4>'+dateCrops+'</h4>';
 							opt += '</div>';
 							opt += '</div>';
 							opt += '</div>';
@@ -265,7 +270,12 @@
 							opt += '</div>';
 							opt += '<div class="sum_list col-md-4">';
 							opt += '<h2>พร้อมเก็บ</h2>';
-							opt += '<h4>52 วัน</h4>';
+							var first_date = details.data[0].crop_start_date;
+							var crop_date_duration = details.data[0].cp_duration;
+						   	var res = first_date.split("-");
+							var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
+							var dateCrops=newDayAdd(new_first_date,120);
+							opt += '<h4>'+dateCrops+'</h4>';
 							opt += '</div>';
 							opt += '</div>';
 							opt += '</div>';

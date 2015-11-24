@@ -123,7 +123,7 @@ class CropsApiController extends Controller
         ->leftjoin('crop_accounts','crop_accounts.acc_crop_id','=','crops.crop_id')
         ->join('users', 'group_crop_users.user_id', '=', 'users.id')
         ->join('crop_plans', 'crop_plans.cp_id', '=', 'crops.crop_cp_id')
-        ->select('crops.crop_id','users.name as user_name','breeds.breed_name','seeds.seed_name','crops.crop_rai','crops.crop_ngarn','crops.crop_wah','crop_plans.cp_name','crop_plans.cp_owner')
+        ->select('crops.crop_id','users.name as user_name','breeds.breed_name','seeds.seed_name','crops.crop_rai','crops.crop_ngarn','crops.crop_wah','crop_plans.cp_name','crops.crop_start_date','crop_plans.cp_owner','crop_plans.cp_duration')
         ->where('crops.crop_id','=',$crop_id)->get();
         $i=0;
         $sumacc = DB::table('crop_accounts')->join('crops','crops.crop_id','=','crop_accounts.acc_crop_id')
