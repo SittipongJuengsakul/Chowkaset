@@ -153,7 +153,7 @@
 				}).then(function(data) {
 					var i = 0;
 					var count = 0;
-					if(data.status='0'){
+					if(data.status=='0'){
 					}else{
 					var id_default = data.data[0].crop_id;
 						for(i=0;i<data.data.length;i++){
@@ -221,6 +221,7 @@
 								   	if(thisdate==today_show){
 								   		opt += '<td>วันนี้</td>';
 								   	}else{
+
 								   		opt += '<td>'+nextday+'</td>';
 								   	}
 								   	opt += '<td>'+value.cpc_detail+'</td>';

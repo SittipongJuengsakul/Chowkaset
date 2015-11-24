@@ -3,13 +3,15 @@ $(window).load(function() {
         place_kaset(2);
     });
     $('#farm_management').click(function(){
+    		$('#farm_problem_select').empty();
+    		$('#account_crops_list').empty();
     		create_farm_management();
     					$.ajax({
 							url: site_url+"/api/v1.0/Crop/getCropsOfUser/"+user_id
 						}).then(function(data) {
 							var i = 0;
 							var count = 0;
-							if(data.status='0'){
+							if(data.status=='0'){
 								window.location.assign(site_url+'/home');
 								alert('คุณยังไม่มีข้อมูลการเพาะปลูก');
 							}else{
@@ -29,7 +31,7 @@ $(window).load(function() {
 						}).then(function(data) {
 							var i = 0;
 							var count = 0;
-							if(data.status='0'){
+							if(data.status=='0'){
 							}else{
 							var id_default = data.data[0].crop_id;
 							for(i=0;i<data.data.length;i++){

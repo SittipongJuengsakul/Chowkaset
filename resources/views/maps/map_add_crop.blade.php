@@ -42,8 +42,16 @@
 						<label for="seeds">แผนการเพาะปลูก</label>
 					</div>
 					<div class="col-md-12">
-					        <select data-placeholder="พืชที่ปลูก" class="form-control" id="plan_area" name="plan" style="margin-bottom: 10px;"> 
+					        <select data-placeholder="พืชที่ปลูก" class="form-control" id="plan_area" name="plan_crops_cp" style="margin-bottom: 10px;"> 
 				    		</select>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="col-md-12">
+						<label for="seeds">วันเริ่มต้นปลูก</label>
+					</div>
+					<div class="col-md-12">
+					    <input type="input" id="dpd_add_crop" class="form-control" data-date-format="dd-mm-yyyy" name="start_date_plan" style="width: 100%;">
 					</div>
 				</div>
 				<div class="form-group col-md-12">
@@ -72,7 +80,7 @@
 	</div>
 </div>
 <script>
-
+$('#dpd_add_crop').datepicker('setValue', new Date());
 	$.validate({
 			modules: 'security,file',
 			onModulesLoaded: function () {

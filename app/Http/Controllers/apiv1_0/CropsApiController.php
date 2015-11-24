@@ -51,6 +51,9 @@ class CropsApiController extends Controller
     public function new_crop(Request $request){
         //คำนวนพื้นที่ เพื่อเอาไปหาจำนวนที่ปลูกสูงสุด
         //โดยแปลงทัั้งหมดเป็นไร่
+        $date = $request->input('start_date_plan');
+        $dateformat = explode('-', $date);
+        $date_start_crop = $dateformat[2].'-'.$dateformat[1].'-'.$dateformat[0];
         $r = $request->input('rai');
         $n = $request->input('ngarn');
         $w = $request->input('wah');
@@ -65,11 +68,12 @@ class CropsApiController extends Controller
         $Crops->crop_ngarn = $request->input('ngarn');
         $Crops->crop_wah = $request->input('wah');
         $Crops->crop_breed_id = $request->input('breed');
-        $Crops->crop_start_date = 'CURRENT_DATE';
+        $Crops->crop_cp_id = $request->input('plan_crops_cp');
+        $Crops->crop_start_date = $date_start_crop;
         $Crops->crop_begin_date = '0000-00-00';
         $Crops->crop_crop_date = '0000-00-00';
         $Crops->crop_end_date = '0000-00-00';
-        $Crops->crop_status = '0';
+        $Crops->crop_status = '1';
         $Crops->save();
 
         $user_id_group = new GroupCropUser;
