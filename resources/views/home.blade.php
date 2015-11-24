@@ -14,6 +14,8 @@
     @include('maps.map_detail_kaset')
 <!-- Add Crop in Map  Area -->
     @include('maps.map_add_crop')
+<!-- Detail map Detail Crop in Map  Area -->
+    @include('maps.detail_map_detail_kaset')
     
 <!-- Sidebar Area -->
 <div class="sidebar-area" style="width: 30%;height: 100%;">

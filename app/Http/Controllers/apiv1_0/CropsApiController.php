@@ -22,6 +22,7 @@ class CropsApiController extends Controller
     //Function Code 100201
      public function map_detail($crop_id){
         $map_detail = DB::table('crops')
+        ->leftjoin('crop_plans', 'crop_plans.cp_id', '=', 'crops.crop_cp_id')
         ->leftjoin('group_crop_users', 'group_crop_users.crop_id', '=', 'crops.crop_id')
         ->leftjoin('users','group_crop_users.user_id','=','users.id')
         ->leftjoin('profiles','profiles.user_id','=','users.id')
@@ -112,31 +113,21 @@ class CropsApiController extends Controller
         }
 	}
     //ข้อมูลการเพาะปลูก
-    public function crops_detail_list($user_id){
+    public function crops_detail_list($crop_id){
         $dataCrops = DB::table('group_crop_users')->join('crops', 'group_crop_users.crop_id', '=', 'crops.crop_id')
         ->leftjoin('breeds','breeds.breed_id','=','crops.crop_breed_id')->join('seeds','seeds.seed_id','=','breeds.breed_id')
         ->leftjoin('crop_accounts','crop_accounts.acc_crop_id','=','crops.crop_id')
         ->join('users', 'group_crop_users.user_id', '=', 'users.id')
-        ->select('crops.crop_id','users.name as user_name','breeds.breed_name','seeds.seed_name','crops.crop_rai','crops.crop_ngarn','crops.crop_wah')
-        ->where('user_id','=',$user_id)->groupBy('group_crop_users.crop_id')->get();
+        ->join('crop_plans', 'crop_plans.cp_id', '=', 'crops.crop_cp_id')
+        ->select('crops.crop_id','users.name as user_name','breeds.breed_name','seeds.seed_name','crops.crop_rai','crops.crop_ngarn','crops.crop_wah','crop_plans.cp_name','crop_plans.cp_owner')
+        ->where('crops.crop_id','=',$crop_id)->get();
         $i=0;
-        $sumacc = [];
-        $sumpbm = [];
-        foreach ($dataCrops as $dc) {
-            $acc = DB::table('crop_accounts')->join('crops','crops.crop_id','=','crop_accounts.acc_crop_id')
-            ->where('crop_accounts.acc_crop_id','=',$dc->crop_id)
+        $sumacc = DB::table('crop_accounts')->join('crops','crops.crop_id','=','crop_accounts.acc_crop_id')
+            ->where('crop_accounts.acc_crop_id','=',$crop_id)
             ->sum('crop_accounts.acc_price');
-            $sumacc[$i] = $acc; 
-            $i++;
-        }
-        $i=0;
-        foreach ($dataCrops as $dc) {
-            $pbm = DB::table('topics')
-            ->where('topics.tp_crop_id','=',$dc->crop_id)
+        $sumpbm = DB::table('topics')
+            ->where('topics.tp_crop_id','=',$crop_id)
             ->count('topics.tp_id');
-            $sumpbm[$i] = $pbm; 
-            $i++;
-        }
         try{
             $statusCode = 200;
             if($dataCrops){

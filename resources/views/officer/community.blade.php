@@ -147,6 +147,7 @@ $(document).ready(function(){
 				   	opt+= '<td>'+phone+'</td>';
 				   	opt+= '<td>'+value.email+'</td>';
 				   	opt+= '<td>'+value.address+'</td>';
+				   	//opt+= '<td><a onclick="" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="" title="ลบ"><i class="fa fa-trash delete_acc"></i></a></td>';
 				   	opt+= '<td><a onclick="" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="" title="ลบ"><i class="fa fa-trash delete_acc"></i></a></td>';
 			   	  	opt += '</tr>';
 			   	  	count ++;

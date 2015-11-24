@@ -124,8 +124,6 @@
 		  	</div>
 </div>
 <script>
-	
-// JavaScript Document
 $(document).ready(function(){
 	//ค่าเริ่มต้น
 	$.ajax({
@@ -137,17 +135,6 @@ $(document).ready(function(){
 		   	  	opt += '<option value="'+value.AMPHUR_ID+'">'+value.AMPHUR_NAME+'</option>';
 		   	  });
 		   	  $("#aumphur_area").html(opt);
-		   	  $("#district_area").empty();
-				$.ajax({
-				  url: site_url+"/api/v1.0/district/"+$("#aumphur_area").val()
-				}).then(function(districts) {
-				   	  var opt = '';
-				   	  opt += '<option value="0">เลือกตำบล</option>';
-				   	  $.each(districts, function(index, value) {
-				   	  	opt += '<option value="'+value.DISTRICT_ID+'">'+value.DISTRICT_NAME+'</option>';
-				   	  });
-				   	  $("#district_area").html(opt);
-				});	
 		});	
 		$.ajax({
 		  url: site_url+"/api/v1.0/kaset_in_province/"+$("#province_area").val()
@@ -164,7 +151,7 @@ $(document).ready(function(){
 				   	opt+= '<td>'+phone+'</td>';
 				   	opt+= '<td>'+farmers.email[i]+'</td>';
 				   	opt+= '<td>'+value.fmcm_name+'</td>';
-				   	opt+= '<td><a onclick="" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="" title="ลบ"><i class="fa fa-trash delete_acc"></i></a></td>';
+				   	opt+= '<td><a onclick="" title="เพิ่มเติม"><i class="fa fa-search-plus zoom_acc"></i></a></td>';
 			   	  	opt += '</tr>';
 			   	  	count ++;
 			   	  	i++;
@@ -188,17 +175,6 @@ $(document).ready(function(){
 		   	  	opt += '<option value="'+value.AMPHUR_ID+'">'+value.AMPHUR_NAME+'</option>';
 		   	  });
 		   	  $("#aumphur_area").html(opt);
-		   	  $("#district_area").empty();
-				$.ajax({
-				  url: site_url+"/api/v1.0/district/"+$("#aumphur_area").val()
-				}).then(function(districts) {
-				   	  var opt = '';
-				   	  opt += '<option value="0">เลือกตำบล</option>';
-				   	  $.each(districts, function(index, value) {
-				   	  	opt += '<option value="'+value.DISTRICT_ID+'">'+value.DISTRICT_NAME+'</option>';
-				   	  });
-				   	  $("#district_area").html(opt);
-				});	
 		});	
 		$.ajax({
 		  url: site_url+"/api/v1.0/kaset_in_province/"+$("#province_area").val()
@@ -215,7 +191,7 @@ $(document).ready(function(){
 				   	opt+= '<td>'+phone+'</td>';
 				   	opt+= '<td>'+farmers.email[i]+'</td>';
 				   	opt+= '<td>'+value.fmcm_name+'</td>';
-				   	opt+= '<td><a onclick="" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="" title="ลบ"><i class="fa fa-trash delete_acc"></i></a></td>';
+				   	opt+= '<td><a onclick="" title="เพิ่มเติม"><i class="fa fa-search-plus zoom_acc"></i></a></td>';
 			   	  	opt += '</tr>';
 			   	  	count ++;
 			   	  	i++;
@@ -257,7 +233,7 @@ $(document).ready(function(){
 				   	opt+= '<td>'+phone+'</td>';
 				   	opt+= '<td>'+farmers.email[i]+'</td>';
 				   	opt+= '<td>'+value.fmcm_name+'</td>';
-				   	opt+= '<td><a onclick="" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="" title="ลบ"><i class="fa fa-trash delete_acc"></i></a></td>';
+				   	opt+= '<td><a onclick="" title="เพิ่มเติม"><i class="fa fa-search-plus zoom_acc"></i></a></td>';
 			   	  	opt += '</tr>';
 			   	  	count ++;
 			   	  	i++;
@@ -288,7 +264,7 @@ $(document).ready(function(){
 				   	opt+= '<td>'+phone+'</td>';
 				   	opt+= '<td>'+farmers.email[i]+'</td>';
 				   	opt+= '<td>'+value.fmcm_name+'</td>';
-				   	opt+= '<td><a onclick="" title="แก้ไข"><i class="fa fa-pencil-square edit_acc"></i></a><a onclick="" title="ลบ"><i class="fa fa-trash delete_acc"></i></a></td>';
+				   	opt+= '<td><a onclick="" title="เพิ่มเติม"><i class="fa fa-search-plus zoom_acc"></i></a></td>';
 			   	  	opt += '</tr>';
 			   	  	count ++;
 			   	  	i++;

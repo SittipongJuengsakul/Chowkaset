@@ -16,6 +16,7 @@ Route::get('/home','HomeController@index');
 Route::get('/chatkaset','forumsController@index');
 Route::get('/officer','OfficerController@index');
 Route::post('/officer/addCommunity/commit','OfficerController@officerPostAddCommunity');
+Route::post('/officer/addPlan/commit','apiv1_0\PlaceApiController@new_plan_crop');
 
 Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
@@ -58,7 +59,10 @@ Route::group(array('prefix' => '/api/v1.0'), function()
         Route::get('com_in_province/{province}','apiv1_0\PlaceApiController@com_in_province');
         Route::get('com_in_district/{aumphur}','apiv1_0\PlaceApiController@com_in_district');
         Route::get('com_in_aumphur/{aumphur}','apiv1_0\PlaceApiController@com_in_aumphur');
-        
+        //แผน
+        Route::get('plan_in_seed/{seed}','apiv1_0\PlaceApiController@plan_in_seed');
+        Route::get('plan_in_breed/{breed}','apiv1_0\PlaceApiController@plan_in_breed');
+        Route::get('plan/{plan_id}','apiv1_0\PlaceApiController@get_plan_crop');
     //Crop
         //ดูข้อมูลการเพาะปลูก
         Route::get('Crop/mapdetail/{id}','apiv1_0\CropsApiController@map_detail');
@@ -66,6 +70,7 @@ Route::group(array('prefix' => '/api/v1.0'), function()
         Route::post('Crop/new_crop','apiv1_0\CropsApiController@new_crop');
         //พื้นที่ปลูกของ User
         Route::get('Crop/getCropsOfUser/{user_id}','apiv1_0\CropsApiController@crops_list');
+        Route::get('Crop/getPlansOfUserDetailList/{crop_id}','apiv1_0\PlaceApiController@get_plan_crop_user');
         //สถืตืการเพาะปลุกทั้งหมด
         Route::get('Crop/getCropsOfUserDetailList/{user_id}','apiv1_0\CropsApiController@crops_detail_list');
         //ชนิดพืช วางไว้คือ ทั้งหมด หากไส่ จะเป็น id

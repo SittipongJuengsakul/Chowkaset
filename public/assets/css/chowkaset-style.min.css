@@ -420,7 +420,7 @@ body {
         margin-bottom: 15px; }
         #farm_management_console .farm_management_board .tab-content .wrap_card .card_menu {
           background-color: white;
-          height: 400px;
+          height: 340px;
           border-radius: 3px; }
           #farm_management_console .farm_management_board .tab-content .wrap_card .card_menu .header_card {
             height: 45px;
@@ -763,6 +763,14 @@ body {
     margin-top: 5px;
     padding: 20px;
     background-color: white; }
+    #officer_content .officer-main-content hr {
+      margin: 0px; }
+    #officer_content .officer-main-content label {
+      font-size: 20px;
+      color: #FF9600; }
+    #officer_content .officer-main-content p {
+      font-size: 16px;
+      padding-right: 20px; }
     #officer_content .officer-main-content .btn-add {
       float: right;
       margin-bottom: 5px; }
@@ -771,14 +779,35 @@ body {
     #officer_content .officer-main-content table tbody tr td {
       text-align: center; }
 
+a i.zoom_acc {
+  color: #5cb85c;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 3px;
+  font-size: 16px; }
 a i.edit_acc {
   color: #FF9500;
   text-align: center;
-  cursor: pointer; }
+  cursor: pointer;
+  font-size: 16px; }
 a i.delete_acc {
-  margin-left: 3px;
   color: red;
   text-align: center;
-  cursor: pointer; }
+  cursor: pointer;
+  margin-left: 3px;
+  font-size: 16px; }
+
+.farm_detail_choose {
+  width: 300px;
+  margin: 0 auto;
+  padding: 15px; }
+  .farm_detail_choose .choose_farm {
+    width: 300px;
+    margin: 5px auto;
+    padding: 20px; }
+
+.card_menu_choose {
+  padding: 20px;
+  background-color: white; }
 
 /*# sourceMappingURL=chowkaset-style.min.css.map */

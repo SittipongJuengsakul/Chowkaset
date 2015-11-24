@@ -3,192 +3,8 @@ $(window).load(function() {
         place_kaset(2);
     });
     $('#farm_management').click(function(){
-    	var farm_management_console = document.getElementById('farm_management_console');
-    	if(farm_management_console){
-    		$('#farm_management_console').remove();
-    	}else{
     		create_farm_management();
-    	}
-    });
-});
-
-function create_farm_management(){
-	//create DOM of farm management
-	$('#map_canvas').append('<div id="farm_management_console""></div>');
-	//create Farm Management Menu
-    $('#farm_management_console').append('<div id="id_farm_management_menu" class="farm_management_menu col-md-1"></div>');
-    var id_farm_management_menu = $('#id_farm_management_menu').append('<ul class="nav nav-pills"><li class="active"><a data-toggle="pill" href="#farm_detail"><i class="fa fa-desktop"></i><p>ข้อมูลการเกษตร</p></a></li><li><a data-toggle="pill" href="#farm_account"><i class="fa fa-pencil-square-o "></i><p>บัญชีการเพาะปลูก</p></a></li><li href="#menu2"><a data-toggle="pill" href="#farm_problem"><i class="fa fa-exclamation"></i><p>ปัญหาการเพาะปลูก</p></a></li><li><a data-toggle="pill" onclick="close_farm_management_console();"><i class="fa fa-times"></i><p>ปิด</p></a></li></ul>');
-    //create Farm Management Content
-    $('#farm_management_console').append('<div id="id_farm_management_board" class="farm_management_board col-md-11 tab-content"></div>');
-    //close button
-    $('#id_farm_management_board').append('<div id="id_close_farm_management_console"><a onclick="close_farm_management_console();" title="ปิด"><i class="fa fa-times "></i></a></div>');
-    //content
-    var farm_management_console = document.getElementById('id_farm_management_board');
-    //farm_detail wrapper
-    var farm_content_wrap = document.createElement('div');
-    farm_content_wrap.setAttribute('class','tab-content');
-    farm_management_console.appendChild(farm_content_wrap);
-    	//ข้อมูลเกษตร
-    	var farm_menu_farm_detail = document.createElement('div');
-    	farm_menu_farm_detail.setAttribute('id','farm_detail');
-	    farm_menu_farm_detail.setAttribute('class','tab-pane fade in active');
-	    farm_content_wrap.appendChild(farm_menu_farm_detail);
-	    var div_menu_wrap = document.createElement('div');
-	    	div_menu_wrap.setAttribute('class','col-md-8 wrap_card');
-	    	farm_menu_farm_detail.appendChild(div_menu_wrap);
-		    	var card_menu = document.createElement('div');
-		    	card_menu.setAttribute('class','card_menu');
-		    	card_menu.setAttribute('id','progress_management');
-		    		var progress_management_html = '';
-		    		progress_management_html += '<div class="header_card" style="background-color: #5cb85c;">ติดตามการเพาะปลูก</div>';
-		    		progress_management_html += '<div class="body_card">';
-		    		progress_management_html += '<div id="progress_management_detail" class="col-md-12">';
-		    		progress_management_html += '<ul class="nav nav-tabs" id="choose_progress_management">';
-		    		$.ajax({
-							url: site_url+"/api/v1.0/Crop/getCropsOfUser/"+user_id
-						}).then(function(data) {
-							var i = 0;
-							var count = 0;
-							var id_default = data.data[0].crop_id;
-							if(data.data.length==0){
-								document.getElementById('choose_progress_management').innerHTML = '<h1>ท่านยังไม่มีแปลงปลูกขณะนี้ !!!</h1>';
-							}else{
-								for(i=0;i<data.data.length;i++){
-									if(count==0){
-										document.getElementById('choose_progress_management').innerHTML = '<li class="active"><a data-toggle="tab" href="#detail_progress_'+count+'">'+data.data[count].crop_name+'</a></li>';
-									}else{
-										document.getElementById('choose_progress_management').innerHTML += '<li><a data-toggle="tab" href="#detail_progress_'+count+'">'+data.data[count].crop_name+'</a></li>';
-									}
-									count++;
-								}
-							}
-					});
-		    		progress_management_html += '</ul>';
-		    		progress_management_html += '</div>';
-		    		progress_management_html += '<div id="progress_management_sum" class="col-md-12 col-xs-12">';
-		    		progress_management_html += '<div class="tab-content" id="progress_management_detail_tab">';
-		    		$.ajax({
-							url: site_url+"/api/v1.0/Crop/getCropsOfUserDetailList/"+user_id
-						}).then(function(data) {
-							var i = 0;
-							var count = 0;
-							var id_default = data.data[0].crop_id;
-							var tab = document.getElementById('progress_management_detail_tab');
-							if(data.data.length==0){
-								tab.innerHTML = '<h1>ไม่มีข้อมูล !!!</h1>';
-							}else{
-								for(i=0;i<data.data.length;i++){
-									if(count==0){
-										var detail_progress = document.createElement('div');
-										detail_progress.setAttribute('id','detail_progress_'+count);
-										detail_progress.setAttribute('class','tab-pane fade in active');
-										tab.appendChild(detail_progress);
-										var progress_show_in_detail_tab = document.createElement('div');
-										progress_show_in_detail_tab.setAttribute('class','progress_show_in_detail_tab');
-										progress_show_in_detail_tab.innerHTML = '<h1>'+data.data[count].seed_name+'</h1><h2>'+data.data[count].breed_name+' ('+data.data[count].crop_rai+' ไร่ '+data.data[count].crop_ngarn+' งาน '+data.data[count].crop_wah+' ตารางวา)</h2><h3>แผน กข.47</h3><h5>ผู้ติดตาม : </h5>';
-										detail_progress.appendChild(progress_show_in_detail_tab);
-										var sum_show_in_detail_tab = document.createElement('div');
-										sum_show_in_detail_tab.setAttribute('class','sum_show_in_detail_tab');
-										detail_progress.appendChild(sum_show_in_detail_tab);
-										var sum_acc = document.createElement('div');
-										sum_acc.setAttribute('class','sum_list col-md-4');
-										n = data.sum_acc[count];
-										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toLocaleString()+'</h4>';
-										sum_show_in_detail_tab.appendChild(sum_acc);
-										var sum_acc = document.createElement('div');
-										sum_acc.setAttribute('class','sum_list col-md-4');
-										var p = data.sum_pbm[count];
-										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4> '+p.toLocaleString()+' </h4>';
-										sum_show_in_detail_tab.appendChild(sum_acc);
-										var sum_acc = document.createElement('div');
-										sum_acc.setAttribute('class','sum_list col-md-4');
-										sum_acc.innerHTML = '<h2>พร้อมเก็บ</h2><h4>54 วัน</h4>';
-										sum_show_in_detail_tab.appendChild(sum_acc);
-									}else{
-										var detail_progress = document.createElement('div');
-										detail_progress.setAttribute('id','detail_progress_'+count);
-										detail_progress.setAttribute('class','tab-pane fade');
-										tab.appendChild(detail_progress);
-										var progress_show_in_detail_tab = document.createElement('div');
-										progress_show_in_detail_tab.setAttribute('class','progress_show_in_detail_tab');
-										progress_show_in_detail_tab.innerHTML = '<h1>'+data.data[count].seed_name+'</h1><h2>'+data.data[count].breed_name+' ('+data.data[count].crop_rai+' ไร่ '+data.data[count].crop_ngarn+' งาน '+data.data[count].crop_wah+' ตารางวา)</h2><h3>แผน กข.47 (ออแกนิก)</h3><h5>ผู้ติดตาม : </h5>';
-										detail_progress.appendChild(progress_show_in_detail_tab);
-										var sum_show_in_detail_tab = document.createElement('div');
-										sum_show_in_detail_tab.setAttribute('class','sum_show_in_detail_tab');
-										detail_progress.appendChild(sum_show_in_detail_tab);
-										var sum_acc = document.createElement('div');
-										sum_acc.setAttribute('class','sum_list col-md-4');
-										n = data.sum_acc[count];
-										sum_acc.innerHTML = '<h2>เงินรวม</h2><h4>'+n.toLocaleString()+'</h4>';
-										sum_show_in_detail_tab.appendChild(sum_acc);
-										var sum_acc = document.createElement('div');
-										sum_acc.setAttribute('class','sum_list col-md-4');
-										var p = data.sum_pbm[count];
-										sum_acc.innerHTML = '<h2>ปัญหา</h2><h4> '+p.toLocaleString()+' </h4>';
-										sum_show_in_detail_tab.appendChild(sum_acc);
-										var sum_acc = document.createElement('div');
-										sum_acc.setAttribute('class','sum_list col-md-4');
-										sum_acc.innerHTML = '<h2>พร้อมเก็บ</h2><h4>54 วัน</h4>';
-										sum_show_in_detail_tab.appendChild(sum_acc);
-									}
-									count++;
-								}
-							}
-					});
-		    		progress_management_html += '</div></div>';//div class = progress_management_detail
-		    		progress_management_html += '</div>';//body_card
-		    		
-		    	card_menu.innerHTML = progress_management_html;
-		    	div_menu_wrap.appendChild(card_menu);
-	    	var div_menu_wrap = document.createElement('div');
-	    	div_menu_wrap.setAttribute('class','col-md-4 wrap_card');
-	    	farm_menu_farm_detail.appendChild(div_menu_wrap);
-		    	var card_menu = document.createElement('div');
-		    	card_menu.setAttribute('class','card_menu');
-		    	card_menu.setAttribute('id','calendar_management');
-		    	var calendar_management_html = '';
-		    		calendar_management_html += '<div class="header_card" style="background-color: #5BC0DE;">ปฎิทินการเพาะปลูก</div>';
-		    		calendar_management_html += '<div class="body_card">';
-		    		calendar_management_html += '<table class="table table-bordered">';
-		    		calendar_management_html += '<thead><tr><th>วันที่</th><th>กิจกรรม</th></tr>';
-		    		calendar_management_html += '<tbody><tr><td>วันนี้</td><td>ไถนา</td></tr>';
-		    		calendar_management_html += '<tbody><tr><td>28 ตุลาคม 2558</td><td>เตรียมดิน</td></tr>';
-		    		calendar_management_html += '<tbody><tr><td>30 ตุลาคม 2558</td><td>ปล่อยน้ำลงนา</td></tr>';
-		    		calendar_management_html += '</table>';
-		    		calendar_management_html += '</div>';
-		    	card_menu.innerHTML = calendar_management_html;
-		    	div_menu_wrap.appendChild(card_menu);
-
-	    	var div_menu_wrap = document.createElement('div');
-	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
-	    	farm_menu_farm_detail.appendChild(div_menu_wrap);
-		    	var card_menu = document.createElement('div');
-		    	card_menu.setAttribute('id','market_management');
-		    	card_menu.setAttribute('class','card_menu');
-		    	var market_management_html = '';
-		    		market_management_html += '<div class="header_card" style="background-color: #f0ad4e;">การเพาะปลูก</div>';
-		    	card_menu.innerHTML = market_management_html;
-		    	div_menu_wrap.appendChild(card_menu);
-
-
-	    //บัญชีเพาะปลูก
-	    var farm_menu_farm_account = document.createElement('div');
-    	farm_menu_farm_account.setAttribute('id','farm_account');
-	    farm_menu_farm_account.setAttribute('class','tab-pane fade');
-	    farm_content_wrap.appendChild(farm_menu_farm_account);
-	    	//เลือกแปลงปลูก
-	    	var div_menu_wrap = document.createElement('div');
-	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
-	    	farm_menu_farm_account.appendChild(div_menu_wrap);
-		    	var card_menu = document.createElement('div');
-		    	card_menu.setAttribute('class','card_menu_choose');
-		    	div_menu_wrap.appendChild(card_menu);
-		    		var select_choose = document.createElement('select');
-	    			select_choose.setAttribute('class','farm_account_choose form-control');
-	    			select_choose.setAttribute('id','account_crops_list');
-	    			select_choose.setAttribute('onchange','account_table(this.value);');
-	    			card_menu.appendChild(select_choose);
-		    			$.ajax({
+    					$.ajax({
 							url: site_url+"/api/v1.0/Crop/getCropsOfUser/"+user_id
 						}).then(function(data) {
 							var i = 0;
@@ -203,25 +19,7 @@ function create_farm_management(){
 							}
 							account_table(id_default);
 						});
-	    			
-
-	    //ปัญหาการเพาะปลูก
-	    var farm_menu_farm_problem = document.createElement('div');
-    	farm_menu_farm_problem.setAttribute('id','farm_problem');
-	    farm_menu_farm_problem.setAttribute('class','tab-pane fade');
-	    farm_content_wrap.appendChild(farm_menu_farm_problem);
-	    	var div_menu_wrap = document.createElement('div');
-	    	div_menu_wrap.setAttribute('class','col-md-12 wrap_card');
-	    	farm_menu_farm_problem.appendChild(div_menu_wrap);
-		    	var card_menu = document.createElement('div');
-		    	card_menu.setAttribute('class','card_menu_choose');
-		    	div_menu_wrap.appendChild(card_menu);
-		    		var select_choose = document.createElement('select');
-	    			select_choose.setAttribute('class','farm_problem_choose form-control');
-	    			select_choose.setAttribute('id','farm_problem_select');
-	    			select_choose.setAttribute('onchange','problem_table(this.value);');
-	    			card_menu.appendChild(select_choose);
-	    			$.ajax({
+    					$.ajax({
 							url: site_url+"/api/v1.0/Crop/getCropsOfUser/"+user_id
 						}).then(function(data) {
 							var i = 0;
@@ -236,10 +34,14 @@ function create_farm_management(){
 							}
 						problem_table(id_default);
 						});
-	    			
+    });
+});
+
+function create_farm_management(){
+	$("#place_detail_kaset_add").show();
 }
 function close_farm_management_console(){
-	$('#farm_management_console').remove();
+	$("#place_detail_kaset_add").hide();
 }
 
 function account_table(id_acc){

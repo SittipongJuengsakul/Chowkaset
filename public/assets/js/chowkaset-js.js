@@ -17,7 +17,7 @@ function place_kaset(map_id) {
             $('#kaset_name').html(data[0].prefix_name+' '+data[0].fname+' '+data[0].lname);
           }
           //ชื่อพืช และ พันธุ์พืช
-          $('#kaset_seed').html(data[0].seed_name+' ('+data[0].breed_name+')');
+          $('#kaset_seed').html(data[0].seed_name+' '+data[0].breed_name+' ('+data[0].cp_name+')');
           //พื้นที่ปลูก
           $('#kaset_place').html(data[0].crop_rai+' ไร่ '+data[0].crop_ngarn+' งาน '+data[0].crop_wah+' ตารางวา');
           //จำนวนผลผลิต

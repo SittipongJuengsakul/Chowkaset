@@ -42,8 +42,7 @@
 						<label for="seeds">แผนการเพาะปลูก</label>
 					</div>
 					<div class="col-md-12">
-					        <select data-placeholder="พืชที่ปลูก" class="form-control" name="prefix_id" style="margin-bottom: 10px;"> 
-				            <option value="1">ออแกนิก</option>
+					        <select data-placeholder="พืชที่ปลูก" class="form-control" id="plan_area" name="plan" style="margin-bottom: 10px;"> 
 				    		</select>
 					</div>
 				</div>
@@ -101,6 +100,19 @@ $.ajax({
 				   	  	opt += '<option value="'+value.breed_id+'">'+value.breed_name+'</option>';
 				   	  });
 				   	  $("#breeds_area").html(opt);
+				   	  $.ajax({
+						  url: site_url+"/api/v1.0/plan_in_seed/"+$("#breeds_area").val()
+						}).then(function(plans) {
+							var opt = '';
+							if(plans.status==0){
+							opt += '<option value="0">ไม่มีข้อมูลแผน</option>';
+							}else{
+								$.each(plans.data, function(index, value) {
+							   	  	opt += '<option value="'+value.cp_id+'">'+value.cp_name+'</option>';
+							   	});
+							}
+							$("#plan_area").html(opt);
+						});	
 				});	
 });
 	$("#seeds_area").change(function(){
@@ -117,6 +129,34 @@ $.ajax({
 				   	  });
 				}
 				$("#breeds_area").html(opt);
+				$.ajax({
+				  url: site_url+"/api/v1.0/plan_in_seed/"+$("#breeds_area").val()
+				}).then(function(plans) {
+					var opt = '';
+					if(plans.status==0){
+					opt += '<option value="0">ไม่มีข้อมูลแผน</option>';
+					}else{
+						$.each(plans.data, function(index, value) {
+					   	  	opt += '<option value="'+value.cp_id+'">'+value.cp_name+'</option>';
+					   	});
+					}
+					$("#plan_area").html(opt);
+				});	
 		});	
+	});
+	$("#breeds_area").change(function(){
+				   	  $.ajax({
+						  url: site_url+"/api/v1.0/plan_in_seed/"+$("#breeds_area").val()
+						}).then(function(plans) {
+							var opt = '';
+							if(plans.status==0){
+							opt += '<option value="0">ไม่มีข้อมูลแผน</option>';
+							}else{
+								$.each(plans.data, function(index, value) {
+							   	  	opt += '<option value="'+value.cp_id+'">'+value.cp_name+'</option>';
+							   	});
+							}
+							$("#plan_area").html(opt);
+						});	
 	});
 </script>
