@@ -221,9 +221,9 @@
 						   	  		var first_date = details.start_crop;
 						   	  		var res = first_date.split("-");
 						   	  		var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
+						   	  		alert(new_first_date);
 						   	  		var thisdate = newDayAddNumber(new_first_date,value.cpc_start);
 								   	var nextday=newDayAdd(new_first_date,value.cpc_start);
-								   	alert(nextday);
 								   	if(thisdate==today_show){
 								   		opt += '<td>วันนี้</td>';
 								   	}else{
