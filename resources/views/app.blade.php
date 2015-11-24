@@ -54,6 +54,10 @@
 		var user_id = '';
 		var site_url = '{{ URL::to("/")}}';
 		var base_url = '{{ URL::asset("/")}}';
+		<?php 
+			$to_day = Carbon\Carbon::today()->format('m/d/Y')
+		?>
+		var today_show = '{{ $to_day }}';
 	</script>
 	@if (Auth::guest())
 		<script>

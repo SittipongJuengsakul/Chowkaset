@@ -312,14 +312,17 @@ class PlaceApiController extends Controller
     }
     public function get_plan_crop_user($crop_id){
         $statusCode = 200;
-        $thiscrop = Crops::find($crop_id);
+        $thiscrop = DB::table('crops')
+        ->where('crops.crop_id','=',$crop_id)->get();
         $plan = DB::table('crop_plan_processes')
         ->join('crop_plan_types','crop_plan_types.cpty_id','=','crop_plan_processes.cpc_type')
-        ->where('crop_plan_processes.cpc_cp_id','=',$thiscrop->crop_cp_id)->orderBy('crop_plan_processes.cpc_start', 'asc')->get();
+        ->where('crop_plan_processes.cpc_cp_id','=',$thiscrop[0]->crop_cp_id)
+        ->orderBy('crop_plan_processes.cpc_start', 'asc')->get();
         if($plan){
                 $response = [
                   'status'  => '1',
-                  'data' => $plan
+                  'data' => $plan,
+                  'start_crop' => $thiscrop[0]->crop_start_date,
                 ];
             }else{
                 $response = [

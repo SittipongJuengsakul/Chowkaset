@@ -198,10 +198,29 @@
 						$.ajax({
 							url: site_url+"/api/v1.0/Crop/getPlansOfUserDetailList/"+data.data[0].crop_id
 						}).then(function(details) {
-							var opt = '';
+							var first_date = details.start_crop;
+							var res = first_date.split("-");
+						   	var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
+							var firstday=newDayAdd(new_first_date,0);
+							if(new_first_date==today_show){
+								var opt = '<tr><td>วันนี้</td>';
+								opt += '<td>วันเริ่มต้นเพาะปลูก</td><td></td></tr>';
+							}else{
+								var opt = '<tr><td>'+firstday+'</td>';
+								opt += '<td>วันเริ่มต้นเพาะปลูก</td><td></td></tr>';
+							}
 						   	  	$.each(details.data, function(index, value) {
 						   	  		opt += '<tr>';
-								   	opt += '<td>'+value.cpc_start+'</td>';
+						   	  		var first_date = details.start_crop;
+						   	  		var res = first_date.split("-");
+						   	  		var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
+						   	  		var thisdate = newDayAddNumber(new_first_date,value.cpc_start);
+								   	var nextday=newDayAdd(new_first_date,value.cpc_start);
+								   	if(thisdate==today_show){
+								   		opt += '<td>วันนี้</td>';
+								   	}else{
+								   		opt += '<td>'+nextday+'</td>';
+								   	}
 								   	opt += '<td>'+value.cpc_detail+'</td>';
 								   	opt += '<td>'+value.cpty_name+'</td>';
 								   	opt += '</tr>';
@@ -252,10 +271,29 @@
 						$.ajax({
 							url: site_url+"/api/v1.0/Crop/getPlansOfUserDetailList/"+$("#farm_detail_crops_list").val()
 						}).then(function(details) {
-							var opt = '';
+							var first_date = details.start_crop;
+							var res = first_date.split("-");
+						   	var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
+							var firstday=newDayAdd(new_first_date,0);
+							if(new_first_date==today_show){
+								var opt = '<tr><td>วันนี้</td>';
+								opt += '<td>วันเริ่มต้นเพาะปลูก</td><td></td></tr>';
+							}else{
+								var opt = '<tr><td>'+firstday+'</td>';
+								opt += '<td>วันเริ่มต้นเพาะปลูก</td><td></td></tr>';
+							}
 						   	  	$.each(details.data, function(index, value) {
 						   	  		opt += '<tr>';
-								   	opt += '<td>'+value.cpc_start+'</td>';
+						   	  		var first_date = details.start_crop;
+						   	  		var res = first_date.split("-");
+						   	  		var new_first_date = res[1]+'/'+res[2]+'/'+res[0];
+						   	  		var thisdate = newDayAddNumber(new_first_date,value.cpc_start);
+								   	var nextday=newDayAdd(new_first_date,value.cpc_start);
+								   	if(thisdate==today_show){
+								   		opt += '<td>วันนี้</td>';
+								   	}else{
+								   		opt += '<td>'+nextday+'</td>';
+								   	}
 								   	opt += '<td>'+value.cpc_detail+'</td>';
 								   	opt += '<td>'+value.cpty_name+'</td>';
 								   	opt += '</tr>';
@@ -266,4 +304,40 @@
 
 		});
 	});
+function newDayAdd(inputDate,addDay){  
+    var d = new Date(inputDate);  
+    d.setDate(d.getDate()+addDay);  
+    mkMonth=d.getMonth()+1;  
+    mkMonth=new String(mkMonth);  
+    if(mkMonth.length==1){  
+        mkMonth="0"+mkMonth;  
+    }  
+    mkDay=d.getDate();  
+    mkDay=new String(mkDay);  
+    if(mkDay.length==1){  
+        mkDay="0"+mkDay;  
+    }     
+    mkYear=d.getFullYear(); 
+    var thmonth = new Array ("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน", "กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"); 
+    var callMonth = thmonth[mkMonth-1];
+//  return mkYear+"-"+newMonth+"-"+newDay; // แสดงผลลัพธ์ในรูปแบบ ปี-เดือน-วัน  
+    return mkDay+" "+callMonth+" "+(mkYear+543); // แสดงผลลัพธ์ในรูปแบบ เดือน/วัน/ปี      
+}  
+function newDayAddNumber(inputDate,addDay){  
+    var d = new Date(inputDate);  
+    d.setDate(d.getDate()+addDay);  
+    mkMonth=d.getMonth()+1;  
+    mkMonth=new String(mkMonth);  
+    if(mkMonth.length==1){  
+        mkMonth="0"+mkMonth;  
+    }  
+    mkDay=d.getDate();  
+    mkDay=new String(mkDay);  
+    if(mkDay.length==1){  
+        mkDay="0"+mkDay;  
+    }     
+    mkYear=d.getFullYear();
+//  return mkYear+"-"+newMonth+"-"+newDay; // แสดงผลลัพธ์ในรูปแบบ ปี-เดือน-วัน  
+    return mkMonth+"/"+mkDay+"/"+(mkYear); // แสดงผลลัพธ์ในรูปแบบ เดือน/วัน/ปี      
+}  
 </script>

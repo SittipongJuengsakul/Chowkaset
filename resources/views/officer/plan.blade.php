@@ -204,14 +204,14 @@
 				  </tbody>
 				</table>
 		  	</div>
-		  	<div class="panel-heading"><h2 class="head-col">ระยะเจริญเติบโตพืชของแผน</h2><hr></div>
+		  	<!--<div class="panel-heading"><h2 class="head-col">ระยะเจริญเติบโตพืชของแผน</h2><hr></div>
 				<div class="panel-body">
 				</div>
 		  	<div class="form-grop">
 						<div class="col-md-4 col-md-offset-5">
 							<button type="button" class="btn btn-success" id="officer_show_cancle_plans">เสร็จสิ้นการดู</button>
 						</div>
-			</div>
+			</div>-->
 		  </div>	
 		 </div>
 <!-- //////////////////////////////////////////////////////////////////////// -->
