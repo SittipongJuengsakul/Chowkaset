@@ -198,18 +198,19 @@ function account_table(id_acc){
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					if(data.data[count].acc_cost_type=='1'){ 
-			    						money_income = parseFloat(money_income)+parseFloat(data.data[count].acc_price);
-			    						money_total = parseFloat(money_total)+parseFloat(data.data[count].acc_price);
-			    						td.innerHTML = parseFloat(data.data[count].acc_price); 
+			    						//ทศนิยม
+			    						money_income = money_income+data.data[count].acc_price;
+			    						money_total = money_total+data.data[count].acc_price;
+			    						td.innerHTML = data.data[count].acc_price; 
 			    					}else{
 			    						td.innerHTML = '-';
 			    					}
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
 			    					if(data.data[count].acc_cost_type=='2'){ 
-			    						money_outcome = parseFloat(money_outcome+data.data[count].acc_price);
-			    						money_total = parseFloat(money_total)+parseFloat(data.data[count].acc_price);
-			    						m = parseFloat(data.data[count].acc_price)*-1;
+			    						money_outcome = money_outcome+data.data[count].acc_price;
+			    						money_total = money_total+data.data[count].acc_price;
+			    						m = data.data[count].acc_price*-1;
 			    						td.innerHTML = m; 
 			    					}else{
 			    						td.innerHTML = '-';
@@ -232,10 +233,10 @@ function account_table(id_acc){
 			    					td.setAttribute('colspan','2');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					td.innerHTML = parseFloat(money_income);
+			    					td.innerHTML = money_income;
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
-			    					m = parseFloat(money_outcome)*-1;
+			    					m = money_outcome*-1;
 			    					td.innerHTML = m.toLocaleString('en-IN');
 			    					tr.appendChild(td);
 			    					var td = document.createElement('td');
